@@ -17,6 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    //create subfile in res/layout
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/guide',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
 }
 
 dependencies {
