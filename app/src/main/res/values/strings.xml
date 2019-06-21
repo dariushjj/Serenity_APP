@@ -17,9 +17,11 @@
     <string name="get_started_button">Get Started</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
-    <string name="logintext">sign in</string>
-    <string name="musictext">Musical</string>
-    <string name="accounttext">Account:</string>
-    <string name="passwordtext">Password:</string>
+    <string name="signintext">Sign in</string>
+    <string name="musictext">Serenity</string>
+    <string name="accounttext">Account</string>
+    <string name="passwordtext">Password</string>
     <string name="needregisterbutton">Do not have an account?</string>
+    <string name="signuptext">Sign up</string>
+    <string name="account_registration_text">Account Registration</string>
 </resources>

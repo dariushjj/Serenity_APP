@@ -8,11 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.serenityapp.R;
 
-public class SignInActivity extends AppCompatActivity {
-    @Override
+public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin);
+        setContentView(R.layout.signup);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
