@@ -1,16 +1,21 @@
 package com.android.view.guide;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.android.serenityapp.R;
+import com.android.view.sign.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +26,10 @@ public class GuideActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private List<View> viewList;
-    private GuidePagerAdapter guidePagerAdapter;
+    private PagerAdapter pagerAdapter;
     private CircleIndicator circleIndicator;
+    private Button skipBtn, startBtn;
+    private View.OnClickListener clickListener;
 
     @SuppressLint("ResourceType")
     @Override
@@ -36,9 +43,43 @@ public class GuideActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.guide_viewpager);
         circleIndicator = findViewById(R.id.indicator);
         this.initViewList();
-        guidePagerAdapter = new GuidePagerAdapter(this.viewList);
-        viewPager.setAdapter(guidePagerAdapter);
+        pagerAdapter = new PagerAdapter() {
+            @Override
+            public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                container.removeView(viewList.get(position));
+            }
+
+            @Override
+            public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+                return view == object;
+            }
+
+            @Override
+            public int getCount() {
+                return viewList.size();
+            }
+
+            @NonNull
+            @Override
+            public Object instantiateItem(@NonNull ViewGroup container, int position) {
+                container.addView(viewList.get(position));
+                skipBtn = findViewById(R.id.guide_header_button);
+                skipBtn.setOnClickListener(clickListener);
+                if (position == this.getCount() - 1) {
+                    startBtn = findViewById(R.id.get_started_button);
+                    startBtn.setOnClickListener(clickListener);
+                }
+                return viewList.get(position);
+            }
+        };
+        viewPager.setAdapter(pagerAdapter);
         circleIndicator.setViewPager(viewPager);
+        clickListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GuideActivity.this, SignInActivity.class));
+            }
+        };
      }
 
     private void initViewList() {
@@ -49,4 +90,5 @@ public class GuideActivity extends AppCompatActivity {
         this.viewList.add(inflater.inflate(R.layout.guide_timer, null));
         this.viewList.add(inflater.inflate(R.layout.guide_others, null));
     }
+
 }
