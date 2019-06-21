@@ -132,7 +132,7 @@
         android:layout_marginBottom="180dp"
         android:text="@string/needregisterbutton"
         android:textAllCaps="false"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorThemeOrange"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
