@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.view.guide.GuideActivity;
+import com.example.util.PreferenceUtil;
 
 public class MainActivity extends AppCompatActivity {
+
+    private boolean isGuided = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +27,11 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
         Log.d("MainActivity", "onCreate execute");
-        Button button = findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GuideActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
+        if(!isGuided){
+            startActivity(new Intent(MainActivity.this, GuideActivity.class));
+            PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
+        }
     }
 }

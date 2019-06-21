@@ -23,7 +23,6 @@ public class GuideActivity extends AppCompatActivity {
     private List<View> viewList;
     private GuidePagerAdapter guidePagerAdapter;
     private CircleIndicator circleIndicator;
-    private View introductionView, musicView, timerView, othersView;
 
     @SuppressLint("ResourceType")
     @Override
@@ -45,13 +44,9 @@ public class GuideActivity extends AppCompatActivity {
     private void initViewList() {
         this.viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
-        this.introductionView = inflater.inflate(R.layout.guide_introduction, null);
-        this.musicView = inflater.inflate(R.layout.guide_music, null);
-        this.timerView = inflater.inflate(R.layout.guide_timer, null);
-        this.othersView = inflater.inflate(R.layout.guide_others, null);
-        this.viewList.add(this.introductionView);
-        this.viewList.add(this.musicView);
-        this.viewList.add(this.timerView);
-        this.viewList.add(this.othersView);
+        this.viewList.add(inflater.inflate(R.layout.guide_introduction, null));
+        this.viewList.add(inflater.inflate(R.layout.guide_music, null));
+        this.viewList.add(inflater.inflate(R.layout.guide_timer, null));
+        this.viewList.add(inflater.inflate(R.layout.guide_others, null));
     }
 }
