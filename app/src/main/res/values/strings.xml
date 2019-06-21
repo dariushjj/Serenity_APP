@@ -2,5 +2,16 @@
     <string name="app_name">SerenityAPP</string>
     <string name="app_name_new">serenity</string>
     <string name="button1_name">saozhu</string>
-
+    <string name="guide_header_text">Walkthrough</string>
+    <string name="guide_header_button">Skip</string>
+    <string name="guide_welcome_text">Welcome</string>
+    <string name="guide_introduction_text">With serenity, it\'s easy to find the right\nmusic for every moment</string>
+    <string name="guide_music_title_text">High Quality Music</string>
+    <string name="guide_music_text">More than 30 million songs</string>
+    <string name="guide_timer_title_text">Intelligent Timer</string>
+    <string name="guide_timer_text">some description here\nfor timer</string>
+    <string name="guide_others_share_title_text">Share Serenity</string>
+    <string name="guide_others_share_text">some description here\nfor share</string>
+    <string name="guide_others_invite_title_text">Invite Friends???</string>
+    <string name="guide_others_invite_text">some description here\nfor invitation</string>
 </resources>
