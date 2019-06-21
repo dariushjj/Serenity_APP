@@ -14,4 +14,5 @@
     <string name="guide_others_share_text">some description here\nfor share</string>
     <string name="guide_others_invite_title_text">Invite Friends???</string>
     <string name="guide_others_invite_text">some description here\nfor invitation</string>
+    <string name="get_started_button">Get Started</string>
 </resources>
