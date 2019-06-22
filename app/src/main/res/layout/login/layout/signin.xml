@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroudGuide"
+    android:background="@mipmap/jaychou"
     tools:context=".MainActivity">
 
     <TextView
@@ -140,5 +140,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 
-
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="71dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginRight="32dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/logo"
+        app:layout_constraintDimensionRatio="H,4:3"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
