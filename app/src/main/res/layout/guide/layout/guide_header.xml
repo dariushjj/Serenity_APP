@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/guide_header_layout"
-    android:background="@mipmap/background">
+    android:background="@color/colorTransparent">
 
     <TextView
         android:id="@+id/guide_header_text"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/background_dark"
+        android:background="@color/colorTransparent"
         android:text="@string/guide_header_button"
         android:textColor="@drawable/theme_orange_button_text_selector"
         android:textSize="20sp"
