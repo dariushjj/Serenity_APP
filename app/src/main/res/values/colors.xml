@@ -6,6 +6,7 @@
     <color name="colorBackgroudGuide">#151618</color>
     <color name="colorThemeOrange">#FF9500</color>
     <color name="colorThemeBlue">#0076ff</color>
+    <color name="colorTransparent">#00000000</color>
 
     <drawable name="colorThemeOrangeUnpressed">@color/colorThemeOrange</drawable>
     <drawable name="colorThemeOrangePressed">#99F09550</drawable>
