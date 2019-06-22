@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * isMale：用户的性别（True是男）
  * songSheets：用户保存的歌单
  */
-public class User {
+public class User extends LitePalSupport {
     private int uid;
     private String name;
     private String password;
