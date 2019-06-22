@@ -1,4 +1,4 @@
-package com.android.view.sign;
+package com.serenity.view.sign;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.android.view.guide;
+package com.serenity.view.guide;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,10 +12,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.android.serenityapp.R;
-import com.android.view.sign.SignInActivity;
+import com.serenity.view.sign.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.android.serenityapp;
+package com.serenity.serenityapp;
 
 import org.junit.Test;
 

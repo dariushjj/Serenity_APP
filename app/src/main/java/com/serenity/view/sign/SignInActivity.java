@@ -1,4 +1,4 @@
-package com.android.view.sign;
+package com.serenity.view.sign;
 
 import android.content.Intent;
 import android.os.Bundle;
