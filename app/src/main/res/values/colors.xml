@@ -8,5 +8,7 @@
     <color name="colorThemeBlue">#0076ff</color>
 
     <drawable name="colorThemeOrangeUnpressed">@color/colorThemeOrange</drawable>
-    <drawable name="colorThemeOrangePressed">#50F09550</drawable>
+    <drawable name="colorThemeOrangePressed">#99F09550</drawable>
+    <drawable name="clr_normalblue">#0076ff</drawable>
+    <drawable name="clr_pressedlightblue">#990076ff</drawable>
 </resources>
