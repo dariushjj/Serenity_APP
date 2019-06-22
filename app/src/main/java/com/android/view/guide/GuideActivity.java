@@ -42,6 +42,13 @@ public class GuideActivity extends AppCompatActivity {
         }
         viewPager = findViewById(R.id.guide_viewpager);
         circleIndicator = findViewById(R.id.indicator);
+        clickListener = new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GuideActivity.this, SignInActivity.class));
+                finish();
+            }
+        };
         this.initViewList();
         pagerAdapter = new PagerAdapter() {
             @Override
@@ -74,12 +81,6 @@ public class GuideActivity extends AppCompatActivity {
         };
         viewPager.setAdapter(pagerAdapter);
         circleIndicator.setViewPager(viewPager);
-        clickListener = new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(GuideActivity.this, SignInActivity.class));
-            }
-        };
      }
 
     private void initViewList() {
