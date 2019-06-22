@@ -72,6 +72,7 @@
         android:textSize="18sp"
         android:background="@color/colorThemeBlue"
         android:textAllCaps="false"
+        android:onClick="goSignIn"
         app:layout_constraintDimensionRatio="W,4:1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

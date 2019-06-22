@@ -28,8 +28,6 @@ public class GuideActivity extends AppCompatActivity {
     private List<View> viewList;
     private PagerAdapter pagerAdapter;
     private CircleIndicator circleIndicator;
-    private Button skipBtn, startBtn;
-    private View.OnClickListener clickListener;
 
     @SuppressLint("ResourceType")
     @Override
@@ -42,13 +40,6 @@ public class GuideActivity extends AppCompatActivity {
         }
         viewPager = findViewById(R.id.guide_viewpager);
         circleIndicator = findViewById(R.id.indicator);
-        clickListener = new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(GuideActivity.this, SignInActivity.class));
-                finish();
-            }
-        };
         this.initViewList();
         pagerAdapter = new PagerAdapter() {
             @Override
@@ -70,12 +61,6 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public Object instantiateItem(@NonNull ViewGroup container, int position) {
                 container.addView(viewList.get(position));
-                skipBtn = findViewById(R.id.guide_header_button);
-                skipBtn.setOnClickListener(clickListener);
-                if (position == this.getCount() - 1) {
-                    startBtn = findViewById(R.id.get_started_button);
-                    startBtn.setOnClickListener(clickListener);
-                }
                 return viewList.get(position);
             }
         };
@@ -92,4 +77,8 @@ public class GuideActivity extends AppCompatActivity {
         this.viewList.add(inflater.inflate(R.layout.guide_others, null));
     }
 
+    public void goSignIn(View view){
+        startActivity(new Intent(GuideActivity.this, SignInActivity.class));
+        finish();
+    }
 }
