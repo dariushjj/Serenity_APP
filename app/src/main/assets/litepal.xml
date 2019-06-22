@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="litepal" />
+    <version value="1" />
+
+    <list>
+        <!--待添加的类列表-->
+    </list>
+
+
+</litepal>
