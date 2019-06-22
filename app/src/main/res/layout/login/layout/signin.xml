@@ -41,68 +41,45 @@
         app:layout_constraintTop_toBottomOf="@+id/header_text" />
 
     <EditText
-        android:id="@+id/account"
-        android:layout_width="300dp"
+        android:id="@+id/accounttextview"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginBottom="400dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="350dp"
+        android:hint="@string/accounttext"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textColorHint="#BFD6D7D7"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/musical" />
 
     <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
+        android:id="@+id/passwordtextview"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginBottom="70dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/accountlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="300dp"
-        android:layout_marginRight="300dp"
-        android:layout_marginBottom="400dp"
-        android:text="@string/accounttext"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="344dp"
+        android:hint="@string/passwordtext"
         android:textAllCaps="false"
         android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textColorHint="#BED6D7D7"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/musical" />
-
-    <TextView
-        android:id="@+id/passwordlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="300dp"
-        android:layout_marginRight="300dp"
-        android:layout_marginBottom="70dp"
-        android:text="@string/passwordtext"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/accounttextview" />
 
     <Button
         android:id="@+id/sign_in_button"
@@ -114,6 +91,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="250dp"
+        android:background="@drawable/signin_button_selector"
         android:text="@string/signintext"
         android:textAllCaps="false"
         android:textColor="#ffffff"
@@ -122,9 +100,7 @@
         app:layout_constraintDimensionRatio="W,4:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        android:background="@drawable/signin_button_selector"
-        />
+        app:layout_constraintTop_toBottomOf="@id/passwordtextview" />
 
     <TextView
         android:id="@+id/needregister"
@@ -154,4 +130,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
