@@ -5,6 +5,7 @@
 
     <list>
         <!--待添加的类列表-->
+        <mapping class="com.serenity.model.User"/>
     </list>
 
 

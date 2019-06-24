@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.ArrayList;
 
 /**
@@ -10,14 +12,34 @@ import java.util.ArrayList;
  * age：用户年龄
  * isMale：用户的性别（True是男）
  * songSheets：用户保存的歌单
+ * alarms：用户的所有闹钟
+ * sleeps：用户的睡眠情况集合
  */
-public class User {
+public class User extends LitePalSupport {
     private int uid;
     private String name;
     private String password;
     private int age;
     private boolean isMale;
     private ArrayList<SongSheet> songSheets;
+    private ArrayList<Alarm> alarms;
+    private ArrayList<Sleep> sleeps;
+
+    public ArrayList<Alarm> getAlarms() {
+        return alarms;
+    }
+
+    public void setAlarms(ArrayList<Alarm> alarms) {
+        this.alarms = alarms;
+    }
+
+    public ArrayList<Sleep> getSleeps() {
+        return sleeps;
+    }
+
+    public void setSleeps(ArrayList<Sleep> sleeps) {
+        this.sleeps = sleeps;
+    }
 
     public ArrayList<SongSheet> getSongSheets() {
         return songSheets;
