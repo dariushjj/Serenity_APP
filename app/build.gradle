@@ -24,6 +24,7 @@ android {
                     'src/main/res/layout/guide',
                     'src/main/res/layout/login',
                     'src/main/res/layout/widget',
+                    'src/main/res/layout/play',
                     'src/main/res/layout',
                     'src/main/res'
             ]
