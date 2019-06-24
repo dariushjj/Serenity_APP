@@ -1,5 +1,8 @@
 package com.serenity.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 歌曲的实体类
  * id：每首歌曲的唯一标识
@@ -16,6 +19,7 @@ public class Song {
     private String singer;
     private int length;
     private String lyric;
+    private List<SongSheet> songSheets = new ArrayList<>();
 
     public int getId() {
         return id;

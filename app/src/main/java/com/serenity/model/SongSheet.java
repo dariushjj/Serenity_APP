@@ -1,6 +1,9 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 表示用户的收藏歌单
@@ -9,11 +12,21 @@ import java.util.ArrayList;
  * description：歌单描述
  * songs：歌单中的所有歌
  */
-public class SongSheet {
+public class SongSheet extends LitePalSupport {
     private int id;
     private String name;
     private String description;
-    private ArrayList<Song> songs;
+    private List<Song> songs = new ArrayList<>();
+    private User user;
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getSongNumber(){
         return this.songs.size();
@@ -43,11 +56,4 @@ public class SongSheet {
         this.description = description;
     }
 
-    public ArrayList<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
 }
