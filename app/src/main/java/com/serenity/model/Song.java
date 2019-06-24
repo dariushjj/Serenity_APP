@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * length：歌曲长度
  * lyric：歌词
  */
-public class Song {
+public class Song extends LitePalSupport {
     private int id;
     private String name;
     private String album;

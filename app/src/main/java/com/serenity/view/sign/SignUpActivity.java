@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 Toast.LENGTH_SHORT).show();
                     }else{
                         userDao.register(account, password);
-//                    注册成功后直接登录
+                        //      TODO: 2019/6/24 注册后直接登录
                     }
                 }
 

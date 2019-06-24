@@ -1,5 +1,6 @@
 package com.serenity.model;
 
+import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
 import java.util.ArrayList;
@@ -22,31 +23,40 @@ public class User extends LitePalSupport {
     private String password;
     private int age;
     private boolean isMale;
+    private boolean isSignIn = false;
     private List<SongSheet> songSheets = new ArrayList<>();
-    private List<SongSheet> alarms = new ArrayList<>();
-    private List<SongSheet> sleeps = new ArrayList<>();
+    private List<Alarm> alarms = new ArrayList<>();
+    private List<Sleep> sleeps = new ArrayList<>();
+
+    public boolean isSignIn() {
+        return isSignIn;
+    }
+
+    public void setSignIn(boolean signIn) {
+        isSignIn = signIn;
+    }
 
     public List<SongSheet> getSongSheets() {
-        return songSheets;
+        return LitePal.where("user_id = ?", String.valueOf(id)).find(SongSheet.class);
     }
 
     public void setSongSheets(List<SongSheet> songSheets) {
         this.songSheets = songSheets;
     }
 
-    public List<SongSheet> getAlarms() {
-        return alarms;
+    public List<Alarm> getAlarms() {
+        return LitePal.where("user_id = ?", String.valueOf(id)).find(Alarm.class);
     }
 
-    public void setAlarms(List<SongSheet> alarms) {
+    public void setAlarms(List<Alarm> alarms) {
         this.alarms = alarms;
     }
 
-    public List<SongSheet> getSleeps() {
-        return sleeps;
+    public List<Sleep> getSleeps() {
+        return LitePal.where("user_id = ?", String.valueOf(id)).find(Sleep.class);
     }
 
-    public void setSleeps(List<SongSheet> sleeps) {
+    public void setSleeps(List<Sleep> sleeps) {
         this.sleeps = sleeps;
     }
 

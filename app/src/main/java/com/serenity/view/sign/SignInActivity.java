@@ -1,5 +1,6 @@
 package com.serenity.view.sign;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.SigningInfo;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.serenityapp.R;
@@ -47,14 +49,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (!((account.equals("") && password.equals(""))
                         || (account == null && password == null))){
                     if (userDao.signIn(account,password)) {
-//                    登录成功，跳转下个界面
+                        // TODO: 2019/6/24  登录成功，跳转下个界面
 
                     }else {
-                        Toast.makeText(SignInActivity.this, "Wrong account/password! or " +
-                                "Unregister!", Toast.LENGTH_SHORT).show();
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage("Wrong account/password or Unregister!");
+                        builder.setCancelable(true);
+                        builder.show();
                     }
                 }
-
                 break;
             default:
                 break;

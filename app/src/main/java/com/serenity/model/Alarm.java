@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 /**
  * 闹铃的实体类
  * id：闹钟的唯一标识
@@ -8,7 +10,7 @@ package com.serenity.model;
  * isRepeat：闹钟是否重复
  * repeatTime：闹钟每次重复的间隔
  */
-public class Alarm {
+public class Alarm extends LitePalSupport {
     private int id;
     private String date;
     private Song song;

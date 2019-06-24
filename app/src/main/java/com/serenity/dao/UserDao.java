@@ -7,6 +7,9 @@ import org.litepal.LitePal;
 import java.util.List;
 
 public class UserDao {
+    public User getCurrentUser(){
+        return LitePal.where("isSignIn = ?", "true").findFirst(User.class);
+    }
 
     public boolean signIn(String name, String password){
         boolean flag = false;
@@ -14,6 +17,7 @@ public class UserDao {
         List<User> users = LitePal.findAll(User.class);
         for (User u : users){
             if (u.getName().equals(name) && u.getPassword().equals(password)){
+                u.setSignIn(true);
                 flag = true;
                 break;
             }
