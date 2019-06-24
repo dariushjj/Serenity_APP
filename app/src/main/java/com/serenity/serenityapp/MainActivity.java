@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.play_home);
-        /*
+        setContentView(R.layout.activity_main);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -33,6 +33,6 @@ public class MainActivity extends AppCompatActivity {
         if(!isGuided){
             startActivity(new Intent(MainActivity.this, GuideActivity.class));
             PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
-        }*/
+        }
     }
 }
