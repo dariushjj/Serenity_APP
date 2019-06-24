@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import org.litepal.crud.LitePalSupport;
+
 /**
  * 表示睡眠情况的实体类
  * id：睡眠情况的唯一标识
@@ -8,12 +10,21 @@ package com.serenity.model;
  * isDayDream：是否说梦话
  * listenTime：听歌时长
  */
-public class Sleep {
+public class Sleep extends LitePalSupport {
     private int id;
     private String date;
     private int usePhoneNumb;
     private boolean isDayDream;
     private int listenTime;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;
