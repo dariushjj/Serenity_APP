@@ -46,6 +46,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     userDao.register(account, password);
 //                    注册成功后直接登录
                 }
+                break;
+            default:
+                break;
 
         }
     }

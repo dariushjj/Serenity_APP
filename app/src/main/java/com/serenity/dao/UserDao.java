@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserDao {
 
-    public boolean isSignIn(String name, String password){
+    public boolean signIn(String name, String password){
         boolean flag = false;
 
         List<User> users = LitePal.findAll(User.class);
