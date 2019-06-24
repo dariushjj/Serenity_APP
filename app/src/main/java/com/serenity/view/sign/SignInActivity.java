@@ -37,7 +37,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.needregister:
                 startActivity(new Intent(SignInActivity.this,SignUpActivity.class));
                 break;
-            case R.id.sign_up_button:
+            case R.id.sign_in_button:
                 UserDao userDao = new UserDao();
                 EditText accountEditText = (EditText)findViewById(R.id.accounttextview);
                 EditText passwordEditText = (EditText)findViewById(R.id.passwordtextview);
