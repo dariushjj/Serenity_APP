@@ -26,7 +26,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             actionBar.hide();
         }
         TextView needRegister = findViewById(R.id.needregister);
-        Button accountButton = (Button)findViewById(R.id.sign_up_button);
+        Button accountButton = (Button)findViewById(R.id.sign_in_button);
         needRegister.setOnClickListener(this);
         accountButton.setOnClickListener(this);
     }
@@ -41,14 +41,20 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 UserDao userDao = new UserDao();
                 EditText accountEditText = (EditText)findViewById(R.id.accounttextview);
                 EditText passwordEditText = (EditText)findViewById(R.id.passwordtextview);
-                if (userDao.signIn(accountEditText.getText().toString(),
-                        passwordEditText.getText().toString())) {
+                String account = accountEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+
+                if (!((account.equals("") && password.equals(""))
+                        || (account == null && password == null))){
+                    if (userDao.signIn(account,password)) {
 //                    登录成功，跳转下个界面
 
-                }else {
-                    Toast.makeText(SignInActivity.this, "Wrong account/password! or " +
-                            "Unregister!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(SignInActivity.this, "Wrong account/password! or " +
+                                "Unregister!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
                 break;
             default:
                 break;

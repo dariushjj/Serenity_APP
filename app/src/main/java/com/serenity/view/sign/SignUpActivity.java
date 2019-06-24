@@ -38,14 +38,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 EditText editTextPassword = (EditText)findViewById(R.id.passwordtextview);
                 String account = editTextAccount.getText().toString();
                 String password = editTextPassword.getText().toString();
-                if (userDao.isRegister(account)){
+                if (!((account.equals("") && password.equals(""))
+                        || (account == null && password == null))){
+                    if (userDao.isRegister(account)){
 //                    或者可以选择其他的提示界面
-                    Toast.makeText(SignUpActivity.this, "This account has been registered! ",
-                            Toast.LENGTH_SHORT).show();
-                }else{
-                    userDao.register(account, password);
+                        Toast.makeText(SignUpActivity.this, "This account has been registered! ",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        userDao.register(account, password);
 //                    注册成功后直接登录
+                    }
                 }
+
                 break;
             default:
                 break;
