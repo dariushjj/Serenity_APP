@@ -23,6 +23,7 @@ android {
             res.srcDirs = [
                     'src/main/res/layout/guide',
                     'src/main/res/layout/login',
+                    'src/main/res/layout/alarmclock',
                     'src/main/res/layout/widget',
                     'src/main/res/layout',
                     'src/main/res'

@@ -10,15 +10,18 @@ import android.util.Log;
 import com.android.serenityapp.R;
 import com.serenity.view.guide.GuideActivity;
 import com.example.util.PreferenceUtil;
+import com.serenity.view.widget.CircleProgressBar;
 
 public class MainActivity extends AppCompatActivity {
 
     private boolean isGuided = false;
+    private CircleProgressBar circleProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
