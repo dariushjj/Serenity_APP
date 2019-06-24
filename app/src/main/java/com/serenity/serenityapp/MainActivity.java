@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "onCreate execute");
 
         isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
-        isGuided = true;
+        isGuided = false;
         if(!isGuided){
             startActivity(new Intent(MainActivity.this, GuideActivity.class));
             PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
