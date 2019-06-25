@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat">
-        <activity android:name="com.serenity.alarmclock.alarmclock">
+        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity">
         </activity>
-        <activity android:name="com.serenity.alarmclock.main" >
+        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
