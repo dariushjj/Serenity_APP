@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.serenity.alarmclock.ClockView
+    <com.serenity.view.alarmclock.ClockView
         android:id="@+id/clockView"
         android:layout_width="172dp"
         android:layout_height="170dp"

@@ -1,4 +1,4 @@
-package com.serenity.alarmclock;
+package com.serenity.view.alarmclock;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.serenityapp.R;
+import com.serenity.view.alarmclock.SetAlarmClockActivity;
 
-public class alarmclock extends AppCompatActivity {
+public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square0 = false;
     private Boolean b_sub_square1 = false;
     private Boolean b_sub_square2 = false;
@@ -21,7 +22,7 @@ public class alarmclock extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setclock);
+        setContentView(R.layout.activity_setclock);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -30,7 +31,7 @@ public class alarmclock extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(alarmclock.this,main.class);
+                Intent intent=new Intent(AlarmClockActivity.this, SetAlarmClockActivity.class);
                 startActivity(intent);
             }
         });
@@ -38,7 +39,7 @@ public class alarmclock extends AppCompatActivity {
         decisionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(alarmclock.this,main.class);
+                Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
                 startActivity(intent);
             }
         });

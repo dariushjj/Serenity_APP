@@ -16,7 +16,7 @@ public class SetAlarmClockActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setclock);
+        setContentView(R.layout.activity_alarmclock);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -25,7 +25,7 @@ public class SetAlarmClockActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(main.this,alarmclock.class);
+                Intent intent=new Intent(SetAlarmClockActivity.this,AlarmClockActivity.class);
                 startActivity(intent);
             }
         });
