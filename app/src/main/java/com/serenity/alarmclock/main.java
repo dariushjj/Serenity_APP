@@ -3,7 +3,11 @@ package com.serenity.alarmclock;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.serenityapp.R;
 
@@ -17,5 +21,14 @@ public class main extends AppCompatActivity {
         if(actionBar != null){
             actionBar.hide();
         }
+        Button addButton = (Button)findViewById(R.id.addbutton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(main.this,alarmclock.class);
+                startActivity(intent);
+            }
+        });
     }
+
 }

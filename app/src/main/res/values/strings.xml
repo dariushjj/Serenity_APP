@@ -25,4 +25,8 @@
     <string name="signuptext">Sign Up</string>
     <string name="account_registration_text">Account Registration</string>
     <string name="home">Home</string>
+    <string name="chinatext">China</string>
+    <string name="repeattext">REPEAT</string>
+    <string name="newalarm">New Alarm</string>
+    <string name="soundtext">SOUND</string>
 </resources>
