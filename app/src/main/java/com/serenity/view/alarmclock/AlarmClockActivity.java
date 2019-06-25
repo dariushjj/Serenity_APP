@@ -1,4 +1,4 @@
-package com.serenity.alarmclock;
+package com.serenity.view.alarmclock;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,12 +7,12 @@ import android.os.Bundle;
 
 import com.android.serenityapp.R;
 
-public class alarmclock extends AppCompatActivity {
+public class AlarmClockActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setclock);
+        setContentView(R.layout.activity_alarmclock);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
