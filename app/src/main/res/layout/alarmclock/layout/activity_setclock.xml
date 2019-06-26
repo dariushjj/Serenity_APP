@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/clockbg"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/clockbg">
 
     <Button
         android:id="@+id/decisionbutton"
@@ -276,6 +276,47 @@
         app:layout_constraintStart_toEndOf="@+id/dayfriday"
         app:layout_constraintTop_toBottomOf="@+id/repeattext"
         app:layout_constraintVertical_bias="0.25" />
+
+    <com.wx.wheelview.widget.WheelView
+        android:id="@+id/hour_wheelview"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newalarm" />
+
+    <com.wx.wheelview.widget.WheelView
+        android:id="@+id/minute_wheelview"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintStart_toEndOf="@+id/hour_wheelview"
+        app:layout_constraintTop_toBottomOf="@+id/newalarm"
+        app:layout_constraintVertical_bias="0.504" />
+
+    <com.wx.wheelview.widget.WheelView
+        android:id="@+id/second_wheelview"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/minute_wheelview"
+        app:layout_constraintTop_toBottomOf="@+id/newalarm" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
