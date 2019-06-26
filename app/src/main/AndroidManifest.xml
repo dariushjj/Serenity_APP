@@ -5,21 +5,16 @@
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/serenity_launcher"
         android:label="@string/app_name_new"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat">
-        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity">
-        </activity>
-        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" >
-
-        </activity>
-
-
-        <activity android:name="com.serenity.view.guide.GuideActivity" ></activity>
-        <activity android:name="com.serenity.view.sign.SignInActivity" ></activity>
-        <activity android:name="com.serenity.view.sign.SignUpActivity" ></activity>
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity"></activity>
+        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity"></activity>
+        <activity android:name="com.serenity.view.guide.GuideActivity" />
+        <activity android:name="com.serenity.view.sign.SignInActivity" />
+        <activity android:name="com.serenity.view.sign.SignUpActivity" />
         <activity android:name="com.serenity.serenityapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

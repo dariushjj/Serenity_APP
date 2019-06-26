@@ -5,33 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/play_disk_music_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="30sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-    <TextView
-        android:id="@+id/play_disk_music_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="@id/play_circle_progress_bar"
-        app:layout_constraintRight_toRightOf="@id/play_circle_progress_bar"
-        app:layout_constraintTop_toTopOf="@id/play_circle_progress_bar"/>
+
     <com.serenity.view.widget.CircleProgressBar
         android:id="@+id/play_circle_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/play_disk_music_title"
+        app:layout_constraintTop_toTopOf="parent"
         app:outside_circle_radius="150dp"
         app:outside_circle_color="@color/colorThemeGrey"
         app:outside_circle_style="FILL_AND_STROKE"

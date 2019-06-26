@@ -126,7 +126,7 @@ public class CircleProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int centre = getWidth() / 2;
-        float ratio = (float) progress / progressMax;
+        float ratio = progress / progressMax;
         canvas.drawCircle(centre, centre, outsideCircleRadius, outsideCirclePaint);
         canvas.drawCircle(centre, centre, insideCircleRadius, insideCirclePaint);
 

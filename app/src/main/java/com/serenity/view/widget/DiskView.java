@@ -23,6 +23,4 @@ public class DiskView extends LinearLayout {
         currentProgressText = findViewById(R.id.play_current_progress_text);
         leftProgressText = findViewById(R.id.play_left_progress_text);
     }
-
-
 }
