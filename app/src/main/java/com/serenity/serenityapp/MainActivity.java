@@ -15,12 +15,11 @@ import com.serenity.view.widget.CircleProgressBar;
 public class MainActivity extends AppCompatActivity {
 
     private boolean isGuided = false;
-    private CircleProgressBar circleProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.play_home);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){

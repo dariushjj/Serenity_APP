@@ -3,10 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorBackgroudGuide">#151618</color>
     <color name="colorThemeOrange">#FF9500</color>
     <color name="colorThemeBlue">#0076ff</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorThemeGrey">#151618</color>
+    <color name="colorThemeGrey_darker">#3f3e44</color>
 
     <drawable name="colorThemeOrangeUnpressed">@color/colorThemeOrange</drawable>
     <drawable name="colorThemeOrangePressed">#99F09550</drawable>
