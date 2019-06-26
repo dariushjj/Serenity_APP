@@ -162,7 +162,20 @@ public class CircleProgressBar extends View {
         int centre = getWidth() / 2;
         double radius = Math.pow(centre - X, 2) + Math.pow(centre - Y, 2);
         if(radius < detectInsideRadius && radius > detectOutsideRadius){
-            return false;
+            return true;
+        }
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                System.out.println("down");
+                //return super.onTouchEvent(event);
+                break;
+            case MotionEvent.ACTION_UP:
+                System.out.println("up");
+                break;
+                //break;
+            case MotionEvent.ACTION_MOVE:
+                System.out.println("move");
+                break;
         }
         radius = Math.sqrt(radius);
         double ratio = Math.asin(Math.abs(X - centre) / radius) / (2 * Math.PI);

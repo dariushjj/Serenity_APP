@@ -1,71 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@mipmap/orange"
     android:id="@+id/play_home_layout">
 
-    <include layout="@layout/title_back"/>
+    <com.serenity.view.widget.BackTitleView
+        android:id="@+id/play_home_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    <com.serenity.view.widget.CircleProgressBar
-        android:id="@+id/play_circle_progress_bar"
+    <com.serenity.view.widget.DiskView
+        android:id="@+id/disk_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"
-        app:outside_circle_radius="150dp"
-        app:outside_circle_color="@color/colorThemeGrey"
-        app:outside_circle_style="FILL_AND_STROKE"
-        app:inside_circle_radius="135dp"
-        app:inside_circle_color="@color/colorThemeGrey_darker"
-        app:inside_circle_width="3dp"
-        app:inside_circle_style="STROKE"
-        app:dot_color="@color/colorThemeOrange"
-        app:dot_radius="10dp"
-        app:use_center="false"
-        app:progress_max="100"
-        app:progress="20"
-        app:progress_color="@color/colorThemeOrange"/>
+        android:layout_height="wrap_content"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/play_cover"
-        android:layout_width="230dp"
-        android:layout_height="230dp"
-        android:src="@mipmap/cover1"
-        app:layout_constraintBottom_toBottomOf="@+id/play_circle_progress_bar"
-        app:layout_constraintLeft_toLeftOf="@+id/play_circle_progress_bar"
-        app:layout_constraintRight_toRightOf="@+id/play_circle_progress_bar"
-        app:layout_constraintTop_toTopOf="@+id/play_circle_progress_bar"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/play_guide_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
-
-    <TextView
-        android:id="@+id/play_current_time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/play_circle_progress_bar"
-        app:layout_constraintRight_toLeftOf="@+id/play_cover"
-        app:layout_constraintTop_toBottomOf="@+id/play_guide_line"
-        android:layout_marginBottom="80dp"/>
-
-    <TextView
-        android:id="@+id/play_left_time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@+id/play_cover"
-        app:layout_constraintRight_toRightOf="@+id/play_circle_progress_bar"
-        app:layout_constraintBaseline_toBaselineOf="@+id/play_current_time_text"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

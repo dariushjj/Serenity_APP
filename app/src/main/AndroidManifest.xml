@@ -13,11 +13,7 @@
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity">
         </activity>
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
@@ -25,7 +21,11 @@
         <activity android:name="com.serenity.view.sign.SignInActivity" ></activity>
         <activity android:name="com.serenity.view.sign.SignUpActivity" ></activity>
         <activity android:name="com.serenity.serenityapp.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
