@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/play_disk_music_info"
         app:layout_constraintBottom_toTopOf="@+id/play_guide_line"/>
 
-    <com.serenity.view.widget.PlayControlView
+    <com.serenity.view.play.PlayControlView
         android:id="@+id/play_control_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.serenityapp.R;
 import com.serenity.view.widget.BackTitleView;
-import com.serenity.view.widget.PlayControlView;
 
 import java.util.ArrayList;
 import java.util.List;

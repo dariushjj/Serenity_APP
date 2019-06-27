@@ -1,4 +1,4 @@
-package com.serenity.view.widget;
+package com.serenity.view.play;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -91,8 +91,8 @@ public class CircleProgressBar extends View {
         typedArray.recycle();
         initPaint();
 
-        detectInsideRadius = Math.pow(insideCircleRadius - 0.5 * dotRadius, 2);
-        detectOutsideRadius = Math.pow(outsideCircleRadius + 0.5 * dotRadius, 2);
+        detectInsideRadius = Math.pow(insideCircleRadius - dotRadius, 2);
+        detectOutsideRadius = Math.pow(outsideCircleRadius + dotRadius, 2);
     }
 
     private void initPaint(){

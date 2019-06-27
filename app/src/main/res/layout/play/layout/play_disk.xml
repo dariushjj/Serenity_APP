@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <com.serenity.view.widget.CircleProgressBar
+    <com.serenity.view.play.CircleProgressBar
         android:id="@+id/play_circle_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.serenity.view.widget;
+package com.serenity.view.play;
 
 import android.content.Context;
 import android.util.AttributeSet;
