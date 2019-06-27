@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/orange"
-    android:id="@+id/play_home_layout">
+    android:id="@+id/play_layout">
 
     <com.serenity.view.widget.BackTitleView
-        android:id="@+id/play_home_title_view"
+        android:id="@+id/play_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -33,9 +33,14 @@
         app:layout_constraintRight_toRightOf="@id/play_circle_progress_bar"
         app:layout_constraintTop_toTopOf="@id/play_circle_progress_bar"/>
 
-    <com.serenity.view.widget.DiskView
-        android:id="@+id/disk_view"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/play_view_pager"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.serenity.view.widget.PlayControlView
+        android:id="@+id/play_control_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
