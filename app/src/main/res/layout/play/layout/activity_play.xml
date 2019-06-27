@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@mipmap/orange"
     android:id="@+id/play_layout">
 
     <com.serenity.view.widget.BackTitleView
         android:id="@+id/play_title_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/play_disk_music_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/home"
         android:textSize="30sp"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_title_view"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
     <TextView
         android:id="@+id/play_disk_music_info"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/home"
         android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="@id/play_circle_progress_bar"
-        app:layout_constraintRight_toRightOf="@id/play_circle_progress_bar"
-        app:layout_constraintTop_toTopOf="@id/play_circle_progress_bar"/>
+        app:layout_constraintTop_toBottomOf="@+id/play_disk_music_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/play_guide_line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85"/>
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/play_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_disk_music_info"
+        android:layout_marginTop="10dp"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/play_view_pager"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/play_disk_music_info"
+        app:layout_constraintBottom_toTopOf="@+id/play_guide_line"/>
 
     <com.serenity.view.widget.PlayControlView
         android:id="@+id/play_control_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_guide_line"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
