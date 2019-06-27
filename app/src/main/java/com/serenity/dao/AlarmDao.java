@@ -1,9 +1,15 @@
 package com.serenity.dao;
 
+import android.content.ContentValues;
+import android.widget.Toast;
+
 import com.serenity.model.Alarm;
 import com.serenity.model.Song;
 
 
+import org.litepal.LitePal;
+
+import java.util.Date;
 import java.util.List;
 
 public class AlarmDao {
@@ -11,6 +17,34 @@ public class AlarmDao {
         return new UserDao().getCurrentUser().getAlarms();
     }
 
+    public void updateSong(Alarm alarm,String newsong)
+    {
+        ContentValues values = new ContentValues();
+        values.put("song",newsong);
+        LitePal.update(Alarm.class,values,alarm.getId());
+    }
+    public void updateDate(Alarm alarm, String newDate)
+    {
+        ContentValues values  = new ContentValues();
+        values.put("date",newDate);
+        LitePal.update(Alarm.class,values,alarm.getId());
+    }
+    public void updateIsRepeat(Alarm alarm,boolean newIsRepeat)
+    {
+        ContentValues values = new ContentValues();
+        values.put("isRepeat",newIsRepeat);
+        LitePal.update(Alarm.class,values,alarm.getId());
+    }
+    public void updateRepeatTime(Alarm alarm, String newRepeatTime)
+    {
+        ContentValues values = new ContentValues();
+        values.put("repeatTime",newRepeatTime);
+        LitePal.update(Alarm.class,values,alarm.getId());
+    }
+    public void deleteAlarm(Alarm alarm)
+    {
+        LitePal.delete(Alarm.class,alarm.getId());
+    }
     public void addAlarm(String date, Song song, boolean isRepeat, String repeatTime){
         Alarm alarm = new Alarm();
         alarm.setDate(date);

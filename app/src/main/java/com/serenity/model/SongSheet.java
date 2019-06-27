@@ -56,4 +56,6 @@ public class SongSheet extends LitePalSupport {
         this.description = description;
     }
 
+    public List<Song> getSongs () {return this.songs;}
+
 }

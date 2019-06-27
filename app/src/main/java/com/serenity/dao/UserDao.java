@@ -2,6 +2,8 @@ package com.serenity.dao;
 
 import android.content.ContentValues;
 
+import com.serenity.model.Song;
+import com.serenity.model.SongSheet;
 import com.serenity.model.User;
 
 import org.litepal.LitePal;
@@ -54,5 +56,9 @@ public class UserDao {
         user.setName(name);
         user.setPassword(password);
         user.save();
+    }
+    public void addSong(User user, Song newSong,SongSheet songsheet)
+    {
+        // TODO: 19-6-27  
     }
 }
