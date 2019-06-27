@@ -18,8 +18,8 @@ import java.net.URL;
 网络数据处理类：
 调用网易云api，获取网络歌曲的内容
  */
-public class ServerConnect {
-    private static final String TAG = "ServerConnect";
+public class MusicServerConnect {
+    private static final String TAG = "MusicServerConnect";
     private String path = "https://v1.itooi.cn/netease/";
     public static final int SEARCH = 1;
     public static final int SONG = 2;
@@ -99,7 +99,7 @@ public class ServerConnect {
      *             ALBUM：返回200*200歌曲图片，要求输入id
      *             URL：返回播放音乐链接，要求输入id
      */
-    private void init(final String keyword, final String id, final int type) {
+    public void init(final String keyword, final String id, final int type) {
         new Thread(new Runnable() {
             @Override
             public void run() {

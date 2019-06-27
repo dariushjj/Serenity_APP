@@ -47,19 +47,19 @@
         android:id="@+id/play_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/play_disk_music_info"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/play_disk_music_info" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/play_view_pager"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/play_guide_line"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/play_disk_music_info"
-        app:layout_constraintBottom_toTopOf="@+id/play_guide_line"/>
+        app:layout_constraintTop_toBottomOf="@id/play_disk_music_info" />
 
     <com.serenity.view.play.PlayControlView
         android:id="@+id/play_control_view"
