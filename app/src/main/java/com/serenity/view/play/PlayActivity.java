@@ -52,6 +52,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private View diskView;
     private View lyricView;
     private WheelView wheelView;
+    private Button play;
 
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
@@ -59,6 +60,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private String url = "";
     private CircleImageView diskImage;
+    private boolean isButtonStop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +109,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
                     style.selectedTextColor = Color.parseColor("#fffafa");
                     style.textColor = Color.parseColor("#BFD6D7D7");
-                    style.selectedTextSize = 30;
-                    style.textSize = 20;
+                    style.selectedTextSize = 15;
                     style.backgroundColor = Color.parseColor("#00000000");
                     wheelView.setStyle(style);
                 }
@@ -119,7 +120,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setAdapter(pagerAdapter);
         circleIndicator.setViewPager(viewPager);
 
-        Button play = (Button)findViewById(R.id.play_stop_start_button);
+        play = (Button)findViewById(R.id.play_stop_start_button);
         diskImage = (CircleImageView) findViewById(R.id.play_cover);
         wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
         play.setOnClickListener(this);
@@ -176,13 +177,22 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (isButtonStop){
+                            play.setBackgroundResource(R.drawable.start);
+                            isButtonStop = !isButtonStop;
+                        }else {
+                            play.setBackgroundResource(R.drawable.stop);
+                            isButtonStop = !isButtonStop;
+                        }
+
                         if (url.equals("")){
                             MusicServerConnect play = new MusicServerConnect();
-                            play.init(null,"444267215", MusicServerConnect.URL);
+                            play.init(null,"573747359", MusicServerConnect.URL);
                             while (play.usefulInfo == null || play.equals("")){ }
                             url = play.usefulInfo;
                             initMediaPlayer(url);
                         }
+
                         if (!mediaPlayer.isPlaying()){
                             mediaPlayer.start();
                         }else {
@@ -194,22 +204,13 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         MusicServerConnect imageConnect = new MusicServerConnect();
-                        imageConnect.init(null,"444267215", MusicServerConnect.PIC);
+                        imageConnect.init(null,"573747359", MusicServerConnect.PIC);
                         while (imageConnect.picture == null || imageConnect.equals(null)){}
                         Log.d(TAG, "run: " + imageConnect.picture);
                         // TODO: 2019/6/27 图片无法显示
                     }
                 }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MusicServerConnect lrcConnect = new MusicServerConnect();
-                        lrcConnect.init(null,"444267215", MusicServerConnect.LRC);
-                        while (lrcConnect.usefulInfo == null || lrcConnect.equals("")){ }
-//                        Log.d(TAG, "run: " + lrcConnect.usefulInfo);
-                        // TODO: 2019/6/27 歌词信息放置
-                    }
-                }).start();
+
                 break;
             default:
                 break;

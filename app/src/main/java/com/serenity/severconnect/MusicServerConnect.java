@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 网络数据处理类：
@@ -28,6 +30,8 @@ public class MusicServerConnect {
     public static final int URL = 5;
     public String usefulInfo;
     public Bitmap picture;
+    public List<String> lrcTime = new ArrayList<>();
+    public List<String> lrcSentence = new ArrayList<>();
 
     /**
      * 获得url
@@ -120,7 +124,7 @@ public class MusicServerConnect {
                             reader = new BufferedReader(new InputStreamReader(in));
                             sb = new StringBuilder();
                             while ((line = reader.readLine()) != null) {
-                                sb.append(line);
+                                sb.append(line).append("\n\r");
                             }
                             parseJsonSong(sb.toString());
                             break;
@@ -128,8 +132,9 @@ public class MusicServerConnect {
                             reader = new BufferedReader(new InputStreamReader(in));
                             sb = new StringBuilder();
                             while ((line = reader.readLine()) != null) {
-                                sb.append(line);
+                                sb.append(line).append("\n\r");
                             }
+                            setLrc(sb.toString());
                             usefulInfo = sb.toString();
                             break;
                         case PIC:
@@ -163,5 +168,19 @@ public class MusicServerConnect {
                 }
             }
         }).start();
+    }
+
+    /**
+     * 将歌词文件分为时间和内容
+     * @param lrc
+     */
+    private void setLrc(String lrc){
+        String[] allLrc = lrc.split("\n\r");
+        for (String s: allLrc){
+            String time = s.substring(0,s.indexOf("]") + 1);
+            String sentence = s.substring(s.indexOf("]") + 1, s.length());
+            lrcTime.add(time);
+            lrcSentence.add(sentence);
+        }
     }
 }
