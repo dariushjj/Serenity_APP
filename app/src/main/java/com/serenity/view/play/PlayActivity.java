@@ -34,15 +34,13 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
-
-public class PlayActivity extends AppCompatActivity implements View.OnClickListener{
-    private static final String TAG = "PlayActivity";
 import static com.example.util.ConstantUtil.LYRIC_LIST;
 import static com.example.util.ConstantUtil.TIME_LIST;
 
 
-public class PlayActivity extends AppCompatActivity {
 
+public class PlayActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final String TAG = "PlayActivity";
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
     private BackTitleView backTitleView;
@@ -61,7 +59,6 @@ public class PlayActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private String url = "";
     private CircleImageView diskImage;
-    private WheelView wheelView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
