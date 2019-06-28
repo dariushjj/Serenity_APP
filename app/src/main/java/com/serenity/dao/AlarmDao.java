@@ -1,18 +1,16 @@
 package com.serenity.dao;
 
 import android.content.ContentValues;
-import android.widget.Toast;
 
+import com.serenity.dao.impl.AlarmDaoImpl;
 import com.serenity.model.Alarm;
 import com.serenity.model.Song;
 
-
 import org.litepal.LitePal;
 
-import java.util.Date;
 import java.util.List;
 
-public class AlarmDao {
+public class AlarmDao implements AlarmDaoImpl {
     public List<Alarm> getAllAlarms(){
         return new UserDao().getCurrentUser().getAlarms();
     }
