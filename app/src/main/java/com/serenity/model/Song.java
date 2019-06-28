@@ -23,6 +23,14 @@ public class Song extends LitePalSupport {
     private String lyric;
     private List<SongSheet> songSheets = new ArrayList<>();
 
+    public List<SongSheet> getSongSheets() {
+        return songSheets;
+    }
+
+    public void setSongSheets(List<SongSheet> songSheets) {
+        this.songSheets = songSheets;
+    }
+
     public int getId() {
         return id;
     }
