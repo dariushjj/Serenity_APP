@@ -35,6 +35,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
 import static com.example.util.ConstantUtil.LYRIC_LIST;
+import static com.example.util.ConstantUtil.PLAY_TITLE_TEXT;
 import static com.example.util.ConstantUtil.TIME_LIST;
 
 
@@ -46,6 +47,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private BackTitleView backTitleView;
     private TextView musicTitleView;
     private TextView musicInfoView;
+    private TextView backTitleTextView;
     private CircleIndicator circleIndicator;
     private PlayControlView playControlView;
     private List<View> viewList;
@@ -128,6 +130,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void initVariables(){
         viewPager = findViewById(R.id.play_view_pager);
         backTitleView = findViewById(R.id.play_title_view);
+        backTitleTextView = findViewById(R.id.title_back_text);
+        backTitleTextView.setText(PLAY_TITLE_TEXT);
         musicTitleView = findViewById(R.id.play_disk_music_title);
         musicInfoView = findViewById(R.id.play_disk_music_info);
         circleIndicator = findViewById(R.id.play_indicator);
