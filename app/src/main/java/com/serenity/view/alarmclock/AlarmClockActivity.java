@@ -1,9 +1,22 @@
 package com.serenity.view.alarmclock;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +29,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
@@ -31,11 +45,12 @@ import com.wx.wheelview.widget.WheelView;
 import com.wx.wheelview.widget.WheelViewDialog;
 
 
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Arrays;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import java.util.List;
@@ -50,13 +65,14 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square4 = false;
     private Boolean b_sub_square5 = false;
     private Boolean b_sub_square6 = false;
+    private String  time;
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setclock);
-
+        getpermission();
         initWheel2();
 
         ActionBar actionBar = getSupportActionBar();
@@ -72,7 +88,6 @@ public class AlarmClockActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         Button decisionButton = (Button)findViewById(R.id.decisionbutton);
         decisionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +102,8 @@ public class AlarmClockActivity extends AppCompatActivity {
                 Object minute=wheelViewminute.getSelectionItem().toString();
 
                 Object second=wheelViewsecond.getSelectionItem().toString();
+                time = hour.toString() + ":"+minute.toString();
+                sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
                 startActivity(intent);
             }
@@ -185,6 +202,80 @@ public class AlarmClockActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("update_time_action");
+        registerReceiver(new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                if (intent.getAction().equals("update_time_action"))
+                {
+//                  接收到广播之后先设置tv，然后重新设置AlarmManager
+                    Log.d("time",time);
+                    Log.d("getText()",getText());
+                    if (time.equals(getText()))
+                    {
+                        PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
+                        @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");
+                        //wl.acquire();
+                        Toast.makeText(AlarmClockActivity.this,"time is up",Toast.LENGTH_SHORT).show();
+                        Intent intent_c = new Intent(getApplicationContext(),clock.class);
+                        startActivity(intent_c);
+                        //wl.release();
+                        //tv.setText(getText());
+
+                    }
+                    else
+                    {
+                        //tv.setText("not now");
+                    }
+                    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+                    long nextTime = getNextTime();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    {
+                        am.setExact(AlarmManager.RTC_WAKEUP, nextTime, pi);
+                    } else
+                    {
+                        am.set(AlarmManager.RTC_WAKEUP, nextTime, pi);
+                    }
+                }
+            }
+        }, intentFilter);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void getpermission()
+    {
+        int check = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(check != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(AlarmClockActivity.this,new String [] {Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
+        check = checkSelfPermission(Manifest.permission.VIBRATE);
+        if(check != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(AlarmClockActivity.this,new String [] {Manifest.permission.VIBRATE},1);
+        }
+    }
+
+    //    获取当前时间的样式
+    private String getText()
+    {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(date);
+    }
+
+    //    获取下次更新TextView的时间
+    private long getNextTime()
+    {
+        long now = System.currentTimeMillis();
+        return now + 60 * 1000 - now % (60 * 1000);
     }
 
 
