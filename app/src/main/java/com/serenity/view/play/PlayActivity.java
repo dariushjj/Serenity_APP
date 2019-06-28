@@ -111,7 +111,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                     WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
                     style.selectedTextColor = Color.parseColor("#fffafa");
                     style.textColor = Color.parseColor("#BFD6D7D7");
-                    style.selectedTextSize = 15;
+                    style.selectedTextSize = 20;
                     style.backgroundColor = Color.parseColor("#00000000");
                     wheelView.setStyle(style);
                 }
