@@ -9,6 +9,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +24,12 @@ import com.android.serenityapp.R;
 import com.serenity.severconnect.MusicServerConnect;
 import com.serenity.view.widget.BackTitleView;
 import com.wx.wheelview.widget.WheelView;
+import com.wx.wheelview.adapter.SimpleWheelAdapter;
+import com.wx.wheelview.common.WheelData;
+import com.wx.wheelview.widget.WheelView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,6 +37,11 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "PlayActivity";
+import static com.example.util.ConstantUtil.LYRIC_LIST;
+import static com.example.util.ConstantUtil.TIME_LIST;
+
+
+public class PlayActivity extends AppCompatActivity {
 
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
@@ -40,6 +51,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private CircleIndicator circleIndicator;
     private PlayControlView playControlView;
     private List<View> viewList;
+    private View diskView;
+    private View lyricView;
+    private WheelView wheelView;
+
+    private ArrayList<String> lyricList = null;
+    private ArrayList<String> timeList = null;
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private String url = "";
@@ -55,6 +72,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         if(actionBar != null){
             actionBar.hide();
         }
+
+        Intent intent = getIntent();
+        lyricList = intent.getStringArrayListExtra(LYRIC_LIST);
+        timeList = intent.getStringArrayListExtra(TIME_LIST);
 
         this.initVariables();
         this.initViewList();
@@ -79,6 +100,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public Object instantiateItem(@NonNull ViewGroup container, int position) {
                 container.addView(viewList.get(position));
+                if(position == getCount() - 1){
+                    wheelView = findViewById(R.id.play_lyric_wheel_view);
+                    wheelView.setWheelAdapter(new SimpleWheelAdapter(lyricView.getContext()));
+                    wheelView.setWheelSize(7);
+                    wheelView.setLoop(false);
+                    wheelView.setSkin(WheelView.Skin.None);
+                    wheelView.setWheelData(initLyricData());
+                    WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
+                    style.selectedTextColor = Color.parseColor("#fffafa");
+                    style.textColor = Color.parseColor("#BFD6D7D7");
+                    style.selectedTextSize = 30;
+                    style.textSize = 20;
+                    style.backgroundColor = Color.parseColor("#00000000");
+                    wheelView.setStyle(style);
+                }
                 return viewList.get(position);
             }
         };
@@ -88,7 +124,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
         Button play = (Button)findViewById(R.id.play_stop_start_button);
         diskImage = (CircleImageView) findViewById(R.id.play_cover);
-        wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view); 
+        wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
         play.setOnClickListener(this);
     }
 
@@ -104,8 +140,27 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void initViewList(){
         viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
-        viewList.add(inflater.inflate(R.layout.play_disk, null));
-        viewList.add(inflater.inflate(R.layout.play_lyric, null));
+        diskView = inflater.inflate(R.layout.play_disk, null);
+        lyricView = inflater.inflate(R.layout.play_lyric, null);
+        viewList.add(diskView);
+        viewList.add(lyricView);
+    }
+
+    private ArrayList<WheelData> initLyricData(){
+        ArrayList<WheelData> list = new ArrayList<>();
+        WheelData item;
+        if(lyricList == null || timeList == null || lyricList.size() != timeList.size()){
+            item = new WheelData();
+            item.setName("No lyrics");
+            list.add(item);
+            return list;
+        }
+        for(String lyric : lyricList){
+            item = new WheelData();
+            item.setName(lyric);
+            list.add(item);
+        }
+        return list;
     }
 
     @Override
@@ -172,12 +227,12 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    
+
     private void setLrc(final String lrc){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
