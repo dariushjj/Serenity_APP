@@ -28,7 +28,8 @@ android {
                     'src/main/res/layout/alarmclock',
                     'src/main/res/layout/widget',
                     'src/main/res/layout/play',
-                    'src/main/res/layout/playlist'
+                    'src/main/res/layout/playlist',
+                    'src/main/res/layout/home'
             ]
         }
     }
