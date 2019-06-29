@@ -8,6 +8,7 @@
     <color name="colorTransparent">#00000000</color>
     <color name="colorThemeGrey">#151618</color>
     <color name="colorThemeGrey_darker">#3f3e44</color>
+    <color name="colorThemeGrey_dark">#56575A</color>
 
     <drawable name="colorThemeOrangeUnpressed">@color/colorThemeOrange</drawable>
     <drawable name="colorThemeOrangePressed">#99F09550</drawable>

@@ -34,7 +34,7 @@ public class PlayListActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        songAdapter = new SongAdapter(this, songList);
+        songAdapter = new SongAdapter(songList);
         recyclerView.setAdapter(songAdapter);
         songAdapter.notifyDataSetChanged();
 
@@ -83,6 +83,6 @@ public class PlayListActivity extends AppCompatActivity {
      * read list of songs from database
      */
     public void readSongList(){
-
+        songList = null;
     }
 }
