@@ -20,8 +20,17 @@ public class Song extends LitePalSupport {
     private String album;
     private String singer;
     private int length;
+    private String uri;
     private String lyric;
     private List<SongSheet> songSheets = new ArrayList<>();
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
     public List<SongSheet> getSongSheets() {
         return songSheets;
