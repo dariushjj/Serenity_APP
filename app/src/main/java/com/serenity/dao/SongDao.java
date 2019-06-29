@@ -1,5 +1,7 @@
 package com.serenity.dao;
 
+import android.graphics.Bitmap;
+
 import com.serenity.dao.impl.SongDaoImpl;
 import com.serenity.model.Song;
 import com.serenity.model.SongSheet;
@@ -29,7 +31,7 @@ public class SongDao implements SongDaoImpl {
     }
 
     @Override
-    public String getAlbumImage(Song song) {
+    public Bitmap getAlbumImage(Song song) {
         return null;
     }
 

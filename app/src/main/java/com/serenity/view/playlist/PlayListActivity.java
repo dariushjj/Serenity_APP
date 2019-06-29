@@ -34,8 +34,17 @@ public class PlayListActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        songAdapter = new SongAdapter(songList);
+        songAdapter = new SongAdapter(this, songList);
         recyclerView.setAdapter(songAdapter);
+        songAdapter.notifyDataSetChanged();
+
+        songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                songAdapter.setPosition(position);
+                songAdapter.notifyDataSetChanged();
+            }
+        });
 
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
