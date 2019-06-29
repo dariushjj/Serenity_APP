@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.serenity.view.playlist.PlayListActivity"></activity>
+        <activity android:name="com.serenity.view.home.HomeActivity"></activity>
+        <activity android:name="com.serenity.view.playlist.PlayListActivity" />
         <activity android:name="com.serenity.view.play.PlayActivity" />
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" />
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" />
