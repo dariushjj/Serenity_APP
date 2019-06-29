@@ -13,6 +13,8 @@ public interface SongDaoImpl {
     String getTitle(Song song);
     String getAlbum(Song song);
     Bitmap getAlbumImage(Song song);
+    void addSong(String name, String singer, String uri);
+    ArrayList<Song> getSongs();
     ArrayList<String> getLyric(Song song);
     ArrayList<String> getTime(Song song);
 

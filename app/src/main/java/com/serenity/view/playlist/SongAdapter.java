@@ -21,6 +21,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private List<Song> songList;
     private TextView stateTitleText;
     private TextView stateInfoText;
+    public String uri;
+    public String name;
+    public String singer;
     private ImageView stateImageView;
     private int position;
 
@@ -66,8 +69,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             if(position == this.position){
                 holder.titleText.setTextColor(R.color.colorThemeOrange);
                 holder.infoText.setTextColor(R.color.colorThemeOrange);
-                stateTitleText.setText(song.getName());
-                stateInfoText.setText(song.getSinger());
+                name = song.getName();
+                singer = song.getSinger();
+                uri = song.getUri();
+                stateTitleText.setText(name);
+                stateInfoText.setText(singer);
                 stateImageView.setImageBitmap(song.getAlbumImage());
             }
             else{
