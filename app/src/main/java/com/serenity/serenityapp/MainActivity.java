@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LitePal.deleteAll(Song.class);
+//        LitePal.deleteAll(Song.class);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
         }
 
-        getPermission();
-        scanSongs("/storage/emulated/0/");
+//        getPermission();
+//        scanSongs("/storage/emulated/0/");
 
         isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
         isGuided = false;

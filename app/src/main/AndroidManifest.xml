@@ -15,20 +15,28 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.serenity.view.playlist.PlayListActivity"></activity>
-        <activity android:name="com.serenity.view.play.PlayActivity" />
-        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" />
-        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" />
-        <activity android:name="com.serenity.view.guide.GuideActivity" />
-        <activity android:name="com.serenity.view.sign.SignInActivity" />
-        <activity android:name="com.serenity.view.sign.SignUpActivity" />
-        <activity android:name="com.serenity.serenityapp.MainActivity">
+        <service
+            android:name="com.serenity.severconnect.MusicPlayerServer"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name="com.serenity.view.playlist.PlayListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.serenity.view.play.PlayActivity"
+            android:launchMode="singleTask">
+
+        </activity>
+        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" />
+        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" />
+        <activity android:name="com.serenity.view.guide.GuideActivity" />
+        <activity android:name="com.serenity.view.sign.SignInActivity" />
+        <activity android:name="com.serenity.view.sign.SignUpActivity" />
+        <activity android:name="com.serenity.serenityapp.MainActivity"></activity>
     </application>
 
 </manifest>

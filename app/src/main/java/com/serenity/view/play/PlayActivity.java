@@ -3,15 +3,22 @@ package com.serenity.view.play;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +26,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.serenityapp.R;
+import com.serenity.severconnect.MusicPlayerServer;
 import com.serenity.severconnect.MusicServerConnect;
 import com.serenity.view.widget.BackTitleView;
 import com.wx.wheelview.widget.WheelView;
@@ -44,12 +53,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "PlayActivity";
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
-    private BackTitleView backTitleView;
-    private TextView musicTitleView;
-    private TextView musicInfoView;
     private TextView backTitleTextView;
     private CircleIndicator circleIndicator;
-    private PlayControlView playControlView;
     private List<View> viewList;
     private View diskView;
     private View lyricView;
@@ -59,10 +64,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
 
-    private MediaPlayer mediaPlayer = new MediaPlayer();
-    private String url = "";
-    private CircleImageView diskImage;
     private boolean isButtonStop = false;
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +83,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         lyricList = intent.getStringArrayListExtra(LYRIC_LIST);
         timeList = intent.getStringArrayListExtra(TIME_LIST);
 
-        this.initVariables();
-        this.initViewList();
-
+        initVariables();
+        initViewList();
+        initMediaPlayer(intent.getStringExtra("uri"), true);
         pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {
@@ -121,22 +126,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
         viewPager.setAdapter(pagerAdapter);
         circleIndicator.setViewPager(viewPager);
-
-        play = (Button)findViewById(R.id.play_stop_start_button);
-        diskImage = (CircleImageView) findViewById(R.id.play_cover);
-        wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
         play.setOnClickListener(this);
+
     }
 
+    /**
+     * 初始化变量
+     */
     private void initVariables(){
         viewPager = findViewById(R.id.play_view_pager);
-        backTitleView = findViewById(R.id.play_title_view);
         backTitleTextView = findViewById(R.id.title_back_text);
         backTitleTextView.setText(PLAY_TITLE_TEXT);
-        musicTitleView = findViewById(R.id.play_disk_music_title);
-        musicInfoView = findViewById(R.id.play_disk_music_info);
         circleIndicator = findViewById(R.id.play_indicator);
-        playControlView = findViewById(R.id.play_control_view);
+        play = (Button)findViewById(R.id.play_stop_start_button);
+//        diskImage = (CircleImageView) findViewById(R.id.play_cover);
+        wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
     }
 
     private void initViewList(){
@@ -165,14 +169,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         return list;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mediaPlayer != null){
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-    }
 
     @Override
     public void onClick(View view) {
@@ -189,14 +185,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                             isButtonStop = !isButtonStop;
                         }
 
-                        if (url.equals("")){
-                            MusicServerConnect play = new MusicServerConnect();
-                            play.init(null,"573747359", MusicServerConnect.URL);
-                            while (play.usefulInfo == null || play.equals("")){ }
-                            url = play.usefulInfo;
-                            initMediaPlayer(url);
-                        }
-
                         if (!mediaPlayer.isPlaying()){
                             mediaPlayer.start();
                         }else {
@@ -204,48 +192,31 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MusicServerConnect imageConnect = new MusicServerConnect();
-                        imageConnect.init(null,"573747359", MusicServerConnect.PIC);
-                        while (imageConnect.picture == null || imageConnect.equals(null)){}
-                        Log.d(TAG, "run: " + imageConnect.picture);
-                        // TODO: 2019/6/27 图片无法显示
-                    }
-                }).start();
-
                 break;
             default:
                 break;
         }
     }
 
-    private void setImage(final String uri) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                diskImage.setImageURI(Uri.parse(uri));
-            }
-        });
-    }
-
-    private void setLrc(final String lrc){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
-    }
-
-    private void initMediaPlayer(String url) {
+    private void initMediaPlayer(String url, boolean isLocal) {
         try {
-            mediaPlayer.setDataSource(PlayActivity.this, Uri.parse(url));
+            if (!isLocal){
+                mediaPlayer.setDataSource(PlayActivity.this, Uri.parse(url));
+            }else {
+                mediaPlayer.setDataSource(url);
+            }
             mediaPlayer.prepare();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+    }
 }

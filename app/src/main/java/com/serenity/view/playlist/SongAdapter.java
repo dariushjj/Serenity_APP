@@ -18,6 +18,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private List<Song> songList;
     private TextView stateTitleText;
     private TextView stateInfoText;
+    public String uri;
+    public String name;
+    public String singer;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View songView;
@@ -47,8 +50,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Song song = songList.get(position);
-                stateTitleText.setText(song.getName());
-                stateInfoText.setText(song.getSinger());
+                uri = song.getUri();
+                name = song.getName();
+                singer = song.getSinger();
+                stateTitleText.setText(name);
+                stateInfoText.setText(singer);
                 //play music
             }
         });
