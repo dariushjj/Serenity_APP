@@ -7,31 +7,31 @@
 
     <Button
         android:id="@+id/play_previous_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@mipmap/previous"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/play_stop_start_button"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"/>
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"/>
     <Button
         android:id="@+id/play_stop_start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/stop"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/start"
         app:layout_constraintLeft_toRightOf="@+id/play_previous_button"
         app:layout_constraintRight_toLeftOf="@+id/play_next_button"
         app:layout_constraintTop_toTopOf="parent"/>
     <Button
         android:id="@+id/play_next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@mipmap/next"
         app:layout_constraintLeft_toRightOf="@+id/play_stop_start_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp"/>
+        android:layout_marginRight="50dp"
+        android:layout_marginEnd="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

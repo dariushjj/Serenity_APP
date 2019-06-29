@@ -1,6 +1,7 @@
-package com.serenity.view.widget;
+package com.serenity.view.play;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,10 +39,12 @@ public class PlayControlView extends ConstraintLayout implements View.OnClickLis
                 break;
             case R.id.play_stop_start_button:
                 if(isStop){
+                    stopStartBtn.setBackgroundResource(R.drawable.start);
                     isStop = false;
                 }
                 else {
                     isStop = true;
+                    stopStartBtn.setBackgroundResource(R.drawable.stop);
                 }
                 break;
             case R.id.play_next_button:

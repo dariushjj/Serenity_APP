@@ -1,5 +1,7 @@
 package com.serenity.severconnect;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -11,13 +13,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 网络数据处理类：
 调用网易云api，获取网络歌曲的内容
  */
-public class ServerConnect {
-    private static final String TAG = "ServerConnect";
+public class MusicServerConnect {
+    private static final String TAG = "MusicServerConnect";
     private String path = "https://v1.itooi.cn/netease/";
     public static final int SEARCH = 1;
     public static final int SONG = 2;
@@ -25,9 +29,12 @@ public class ServerConnect {
     public static final int PIC = 4;
     public static final int URL = 5;
     public String usefulInfo;
+    public Bitmap picture;
+    public List<String> lrcTime = new ArrayList<>();
+    public List<String> lrcSentence = new ArrayList<>();
 
     /**
-     * 获得查找链接
+     * 获得url
      * @param keyword 查询关键字
      * @param id 歌曲id
      * @param type 返回的url类型
@@ -45,41 +52,10 @@ public class ServerConnect {
             case SONG: url += "song?id=" + id + "&format=1";break;
             case LRC: url += "lrc?id=" + id;break;
             case PIC: url += "pic?id=" + id;break;
-            case URL: url += "url?id=" + id + "&quality=192";break;
+            case URL: url += "url?id=" + id;break;
             default: break;
         }
         return url;
-    }
-
-    /**
-     * 根据关键字查询歌曲信息（目前默认30个）
-     * @param keyword 参数关键字，可根据关键字查找获得歌曲的信息
-     * @param id 参数id，每个id对应一首歌曲
-     * @param type 返回的url类型
-     *             SEARCH：返回查找查找结果，要求输入keyword
-     *             SONG：返回歌曲信息，要求输入id
-     *             LRC：返回歌曲歌词，要求输入id
-     *             ALBUM：返回200*200歌曲图片，要求输入id
-     *             URL：返回播放音乐链接，要求输入id
-     */
-    public void search(final String keyword,final String id, final int type){
-        switch (type){
-            case SEARCH:
-                getInfoFromWeb(keyword,id,type);
-                break;
-            case SONG:
-                getInfoFromWeb(keyword,id,type);
-                break;
-            case LRC:
-                break;
-            case PIC:
-                break;
-            case URL:
-                usefulInfo = backUrl("",id,type);
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -117,46 +93,94 @@ public class ServerConnect {
     }
 
     /**
-     * 查找歌曲信息的解析
-     * @param keyword 由上层传入
-     * @param id 由上层传入
-     * @param type 由上层传入
+     * 生成信息
+     * @param keyword 参数关键字，可根据关键字查找获得歌曲的信息
+     * @param id 参数id，每个id对应一首歌曲
+     * @param type 返回的url类型
+     *             SEARCH：返回查找查找结果，要求输入keyword
+     *             SONG：返回歌曲信息，要求输入id
+     *             LRC：返回歌曲歌词，要求输入id
+     *             ALBUM：返回200*200歌曲图片，要求输入id
+     *             URL：返回播放音乐链接，要求输入id
      */
-    private void getInfoFromWeb(final String keyword, final String id, final int type){
+    public void init(final String keyword, final String id, final int type) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 HttpURLConnection connection = null;
                 BufferedReader reader = null;
-                try{
-                    URL url = new URL(backUrl(keyword,id,type));
-                    connection = (HttpURLConnection)url.openConnection();
+                StringBuilder sb;
+                String line;
+                try {
+                    URL url = new URL(backUrl(keyword, id, type));
+                    connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(8000);
                     connection.setReadTimeout(8000);
                     InputStream in = connection.getInputStream();
-                    reader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null){
-                        sb.append(line);
+                    switch (type) {
+                        case SEARCH:
+                        case SONG:
+                            reader = new BufferedReader(new InputStreamReader(in));
+                            sb = new StringBuilder();
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line).append("\n\r");
+                            }
+                            parseJsonSong(sb.toString());
+                            break;
+                        case LRC:
+                            reader = new BufferedReader(new InputStreamReader(in));
+                            sb = new StringBuilder();
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line).append("\n\r");
+                            }
+                            setLrc(sb.toString());
+                            usefulInfo = sb.toString();
+                            break;
+                        case PIC:
+                            picture = BitmapFactory.decodeStream(in);
+                            in.close();
+                            break;
+                        case URL:
+                            usefulInfo = backUrl(keyword, id, type);
+                        default:
+                            break;
                     }
-                    parseJsonSong(sb.toString());
-                }catch (Exception e){
+
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
-                    if (reader != null){
+                } finally {
+                    if (reader != null) {
                         try {
                             reader.close();
-                        }catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (connection != null){
+                    if (connection != null) {
+                        try {
+                            connection.getInputStream().close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         connection.disconnect();
                     }
                 }
             }
-        });
+        }).start();
+    }
+
+    /**
+     * 将歌词文件分为时间和内容
+     * @param lrc
+     */
+    private void setLrc(String lrc){
+        String[] allLrc = lrc.split("\n\r");
+        for (String s: allLrc){
+            String time = s.substring(0,s.indexOf("]") + 1);
+            String sentence = s.substring(s.indexOf("]") + 1, s.length());
+            lrcTime.add(time);
+            lrcSentence.add(sentence);
+        }
     }
 }

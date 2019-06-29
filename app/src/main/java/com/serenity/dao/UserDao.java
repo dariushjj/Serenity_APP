@@ -2,13 +2,14 @@ package com.serenity.dao;
 
 import android.content.ContentValues;
 
+import com.serenity.dao.impl.UserDaoImpl;
 import com.serenity.model.User;
 
 import org.litepal.LitePal;
 
 import java.util.List;
 
-public class UserDao {
+public class UserDao implements UserDaoImpl {
     public User getCurrentUser(){
         return LitePal.where("isSignIn = ?", "true").findFirst(User.class);
     }
@@ -55,4 +56,5 @@ public class UserDao {
         user.setPassword(password);
         user.save();
     }
+
 }
