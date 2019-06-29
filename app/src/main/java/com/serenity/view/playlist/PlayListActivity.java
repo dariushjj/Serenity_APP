@@ -31,21 +31,6 @@ public class PlayListActivity extends AppCompatActivity {
     private SongAdapter songAdapter;
     private List<Song> songList;
 
-    private MusicPlayerServer.MyBinder musicBinder;
-
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            musicBinder = (MusicPlayerServer.MyBinder)iBinder;
-            musicBinder.playMusic();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
-    };
-
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -60,8 +45,17 @@ public class PlayListActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        songAdapter = new SongAdapter(songList);
+        songAdapter = new SongAdapter(this, songList);
         recyclerView.setAdapter(songAdapter);
+        songAdapter.notifyDataSetChanged();
+
+        songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                songAdapter.setPosition(position);
+                songAdapter.notifyDataSetChanged();
+            }
+        });
 
         Intent intent = new Intent(this, MusicPlayerServer.class);
 
@@ -90,12 +84,12 @@ public class PlayListActivity extends AppCompatActivity {
                     case R.id.play_list_state_title_text:
                         break;
                     default:
-//                        Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
-//                        intent.putExtra("name", songAdapter.name);
-//                        intent.putExtra("singer", songAdapter.singer);
-//                        intent.putExtra("uri", songAdapter.uri);
-//                        intent.putExtra("isLocal", true);
-//                        startActivity(intent);
+                        Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
+                        intent.putExtra("name", songAdapter.name);
+                        intent.putExtra("singer", songAdapter.singer);
+                        intent.putExtra("uri", songAdapter.uri);
+                        intent.putExtra("isLocal", true);
+                        startActivity(intent);
 //                        Intent intentService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
 //                        startService(intentService);
                 }

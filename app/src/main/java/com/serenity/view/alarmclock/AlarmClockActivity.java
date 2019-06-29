@@ -56,7 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-
+//set the alarm you want
 public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square0 = false;
     private Boolean b_sub_square1 = false;
@@ -72,7 +72,7 @@ public class AlarmClockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setclock);
-        getpermission();
+        //getpermission();
         initWheel2();
 
         ActionBar actionBar = getSupportActionBar();
@@ -195,9 +195,11 @@ public class AlarmClockActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!b_sub_square6) {
                     b_sub_square6 = true;
+                    //write to the database
                     saturdayButton.setActivated(b_sub_square6);
                 } else {
                     b_sub_square6 = false;
+                    //write to the database
                     saturdayButton.setActivated(b_sub_square6);
                 }
             }

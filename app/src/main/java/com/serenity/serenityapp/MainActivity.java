@@ -49,8 +49,14 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-//        getPermission();
-//        scanSongs("/storage/emulated/0/");
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, 1);
+        }else {
+            scanSongs("/storage/emulated/0/");
+        }
 
         isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
         isGuided = false;
@@ -82,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 if (files[i].isDirectory()) {
                     scanSongs(files[i].getAbsolutePath());
                 }else {
-                    if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
-                        if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
+                    if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
+                        if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
                             SongDao songDao = new SongDao();
                             String[] songName = name.split("\\.");
                             String[] songInfo = songName[0].split("-");
@@ -97,13 +103,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void getPermission(){
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }, 1);
-        }
-    }
 }

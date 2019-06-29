@@ -2,31 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_song"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="vertical">
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/background_light"/>
-    <TextView
-        android:id="@+id/song_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="18sp"
-        android:maxLines="1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"/>
+        android:id="@+id/song_item_line"
+        android:layout_width="370dp"
+        android:layout_height="0.5dp"
+        android:layout_gravity="center"
+        android:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/song_item_info"
-        android:layout_width="wrap_content"
+        android:id="@+id/song_item_title"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:maxLines="1"
         android:text="@string/home"
-        android:textSize="14sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"/>
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp">
+        <!--
+        <ImageView
+            android:id="@+id/song_item_image"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/musical_note" />-->
+        <TextView
+            android:id="@+id/song_item_info"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:maxLines="1"
+            android:text="@string/home"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </LinearLayout>
