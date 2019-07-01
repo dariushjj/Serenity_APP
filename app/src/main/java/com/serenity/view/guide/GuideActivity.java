@@ -73,6 +73,7 @@ public class GuideActivity extends AppCompatActivity {
         this.viewList.add(inflater.inflate(R.layout.guide_introduction, null));
         this.viewList.add(inflater.inflate(R.layout.guide_music, null));
         this.viewList.add(inflater.inflate(R.layout.guide_timer, null));
+        this.viewList.add(inflater.inflate(R.layout.guide_sleep, null));
         this.viewList.add(inflater.inflate(R.layout.guide_others, null));
     }
 
