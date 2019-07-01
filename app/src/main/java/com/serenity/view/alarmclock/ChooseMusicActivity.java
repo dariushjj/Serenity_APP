@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.serenityapp.R;
@@ -23,6 +24,7 @@ public class ChooseMusicActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         MusicAdapter adapter = new MusicAdapter(musicList,this);
         recyclerView.setAdapter(adapter);
+
     }
 
     private void initMusics() {

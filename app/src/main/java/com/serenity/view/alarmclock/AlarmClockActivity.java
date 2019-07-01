@@ -29,9 +29,11 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.serenity.model.Alarm;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
@@ -74,12 +76,16 @@ public class AlarmClockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setclock);
         //getpermission();
         initWheel2();
-
+        Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
+        startService(intent_s);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
         }
-
+        TextView alarmmusic=(TextView)findViewById(R.id.alarmmusic);
+        Intent intent=getIntent();
+        String data=intent.getStringExtra("extra_data");
+        alarmmusic.setText(data);
         Button forwardButton = (Button)findViewById(R.id.forwardbutton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +118,8 @@ public class AlarmClockActivity extends AppCompatActivity {
 
                 Object second=wheelViewsecond.getSelectionItem().toString();
                 time = hour.toString() + ":"+minute.toString();
+                Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
+                //here we send Broadcase when time changes
                 sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
                 startActivity(intent);
@@ -213,8 +221,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        //here we set a receiver to get the message when time  changed
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("update_time_action");
         registerReceiver(new BroadcastReceiver()
@@ -231,11 +238,11 @@ public class AlarmClockActivity extends AppCompatActivity {
                     {
                         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                         @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");
-                        //wl.acquire();
+                        wl.acquire();
                         Toast.makeText(AlarmClockActivity.this,"time is up",Toast.LENGTH_SHORT).show();
-                        Intent intent_c = new Intent(getApplicationContext(),clock.class);
+                        Intent intent_c = new Intent(getApplicationContext(),BellRingingActivity.class);
                         startActivity(intent_c);
-                        //wl.release();
+                        wl.release();
                         //tv.setText(getText());
 
                     }
