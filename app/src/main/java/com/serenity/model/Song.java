@@ -1,5 +1,7 @@
 package com.serenity.model;
 
+import android.graphics.Bitmap;
+
 import org.litepal.crud.LitePalSupport;
 
 import java.util.ArrayList;
@@ -20,8 +22,26 @@ public class Song extends LitePalSupport {
     private String album;
     private String singer;
     private int length;
+    private String uri;
     private String lyric;
+    private Bitmap albumImage;
     private List<SongSheet> songSheets = new ArrayList<>();
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public List<SongSheet> getSongSheets() {
+        return songSheets;
+    }
+
+    public void setSongSheets(List<SongSheet> songSheets) {
+        this.songSheets = songSheets;
+    }
 
     public int getId() {
         return id;
@@ -69,5 +89,13 @@ public class Song extends LitePalSupport {
 
     public void setLyric(String lyric) {
         this.lyric = lyric;
+    }
+
+    public Bitmap getAlbumImage(){
+        return this.albumImage;
+    }
+
+    public void setAlbumImage(Bitmap image){
+        this.albumImage = image;
     }
 }

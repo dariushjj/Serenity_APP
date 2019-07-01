@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <TextView
+        android:id = "@+id/show_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id = "@+id/clock_after"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "5 minutes later"/>
+    <Button
+        android:id = "@+id/stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "shut up"/>
+</LinearLayout>
