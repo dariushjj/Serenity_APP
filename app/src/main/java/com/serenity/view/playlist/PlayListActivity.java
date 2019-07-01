@@ -4,29 +4,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.SongDao;
 import com.serenity.model.Song;
+import com.serenity.severconnect.MusicPlayerServer;
 import com.serenity.view.play.PlayActivity;
 import com.serenity.view.widget.BackTitleView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayListActivity extends AppCompatActivity {
-
+    private static final String TAG = "PlayListActivity";
     private BackTitleView backTitleView;
     private PlayListStateView playListStateView;
     private RecyclerView recyclerView;
     private SongAdapter songAdapter;
     private List<Song> songList;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_list);
+
+        readSongList();
 
         backTitleView = findViewById(R.id.play_list_back_title_view);
         playListStateView = findViewById(R.id.play_list_state_view);
@@ -36,6 +47,18 @@ public class PlayListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         songAdapter = new SongAdapter(songList);
         recyclerView.setAdapter(songAdapter);
+        songAdapter.notifyDataSetChanged();
+
+        songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                songAdapter.setPosition(position);
+                songAdapter.notifyDataSetChanged();
+            }
+        });
+
+        Intent intent = new Intent(this, MusicPlayerServer.class);
+
 
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +85,13 @@ public class PlayListActivity extends AppCompatActivity {
                         break;
                     default:
                         Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
-                        //translate data
-                        //intent.putExtra()
+                        intent.putExtra("name", songAdapter.name);
+                        intent.putExtra("singer", songAdapter.singer);
+                        intent.putExtra("uri", songAdapter.uri);
+                        intent.putExtra("isLocal", true);
                         startActivity(intent);
+//                        Intent intentService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
+//                        startService(intentService);
                 }
             }
         });
@@ -74,6 +101,8 @@ public class PlayListActivity extends AppCompatActivity {
      * read list of songs from database
      */
     public void readSongList(){
-
+        SongDao songDao = new SongDao();
+        songList = songDao.getSongs();
+        Log.d(TAG, "readSongList: " + songList);
     }
 }
