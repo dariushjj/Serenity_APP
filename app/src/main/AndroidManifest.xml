@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -16,6 +17,11 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
+
+        </activity>
+        <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
+        <activity android:name="com.serenity.view.home.HomeActivity" />
         <service
             android:name="com.serenity.severconnect.MusicPlayerServer"
             android:enabled="true"
@@ -32,16 +38,16 @@
             android:launchMode="singleTask">
 
         </activity>
-        <activity android:name="com.serenity.view.home.HomeActivity"></activity>
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" />
-        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" />
+        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
+
+        </activity>
         <activity android:name="com.serenity.view.guide.GuideActivity" />
         <activity android:name="com.serenity.view.sign.SignInActivity" />
         <activity android:name="com.serenity.view.sign.SignUpActivity" />
-        <activity android:name="com.serenity.serenityapp.MainActivity">
+        <activity android:name="com.serenity.serenityapp.MainActivity" />
 
 
-        </activity>
     </application>
 
 </manifest>

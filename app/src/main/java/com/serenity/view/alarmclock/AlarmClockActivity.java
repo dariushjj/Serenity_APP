@@ -80,6 +80,15 @@ public class AlarmClockActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
+        Button forwardButton = (Button)findViewById(R.id.forwardbutton);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AlarmClockActivity.this, ChooseMusicActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button backButton = (Button)findViewById(R.id.backbutton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
