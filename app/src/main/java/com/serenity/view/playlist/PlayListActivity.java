@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.serenityapp.R;
@@ -30,6 +31,7 @@ public class PlayListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SongAdapter songAdapter;
     private List<Song> songList;
+    private Button searchBtn;
 
 
     @Override
@@ -42,6 +44,20 @@ public class PlayListActivity extends AppCompatActivity {
         backTitleView = findViewById(R.id.play_list_back_title_view);
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
+        searchBtn = findViewById(R.id.play_list_search_button);
+        //make sure only search once
+        if(searchBtn.getVisibility() == View.VISIBLE){
+            searchBtn.setVisibility(View.GONE);
+        }
+        else {
+            searchBtn.setVisibility(View.VISIBLE);
+        }
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PlayListActivity.this, SearchActivity.class));
+            }
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

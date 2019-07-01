@@ -29,6 +29,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -79,7 +80,10 @@ public class AlarmClockActivity extends AppCompatActivity {
         if(actionBar != null){
             actionBar.hide();
         }
-
+        TextView alarmmusic=(TextView)findViewById(R.id.alarmmusic);
+        Intent intent=getIntent();
+        String data=intent.getStringExtra("extra_data");
+        alarmmusic.setText(data);
         Button forwardButton = (Button)findViewById(R.id.forwardbutton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
