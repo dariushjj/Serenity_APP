@@ -33,7 +33,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_gravity="bottom"
-            android:src="@drawable/musical_note_small_dark" />
+            android:src="@drawable/musical_note_grey_small" />
         <TextView
             android:id="@+id/song_item_info"
             android:layout_width="280dp"

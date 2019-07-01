@@ -55,11 +55,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         stateTitleText = parentView.findViewById(R.id.play_list_state_title_text);
         stateInfoText = parentView.findViewById(R.id.play_list_state_info_text);
         stateImageView = parentView.findViewById(R.id.play_list_state_image);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_play, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
         return new ViewHolder(view);
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Song song = songList.get(position);
@@ -67,8 +66,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         holder.infoText.setText(song.getSinger());
         if(onItemClickListener != null) {
             if(position == this.position){
-                holder.titleText.setTextColor(R.color.colorThemeOrange);
-                holder.infoText.setTextColor(R.color.colorThemeOrange);
+                holder.titleText.setTextColor(Color.parseColor("#FF9500"));
+                holder.infoText.setTextColor(Color.parseColor("#FF9500"));
                 name = song.getName();
                 singer = song.getSinger();
                 uri = song.getUri();
