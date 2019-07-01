@@ -5,7 +5,7 @@
     android:id="@+id/play_list_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@mipmap/woman"
     tools:context="com.serenity.view.playlist.PlayListActivity">
 
     <com.serenity.view.widget.BackTitleView
@@ -15,7 +15,7 @@
         android:background="@color/colorThemeGrey"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/play_list_search_button"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
         android:id="@+id/play_list_search_button"

@@ -18,25 +18,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
-
         </activity>
         <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
         <activity android:name="com.serenity.view.home.HomeActivity" />
+        <activity android:name="com.serenity.view.playlist.SearchActivity" />
         <service
             android:name="com.serenity.severconnect.MusicPlayerServer"
             android:enabled="true"
+            android:exported="true"></service>
+        <receiver android:name="com.serenity.severconnect.MusicBroadCastReceiver"
+            android:enabled="true"
             android:exported="true">
-        </service>
+            <intent-filter>
+                <action android:name="com.serenity.severconnect.MUSIC_PLAY"/>
+            </intent-filter>
+        </receiver>
+            android:exported="true">
 
-        <activity android:name="com.serenity.view.playlist.PlayListActivity"/>
-        <activity android:name="com.serenity.view.play.PlayActivity"
-            android:launchMode="singleTask">
-        </activity>
-        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" >
+        <activity android:name="com.serenity.view.playlist.PlayListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.serenity.view.play.PlayActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" >
         </activity>
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
 

@@ -1,7 +1,13 @@
 package com.serenity.view.playlist;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
 import com.serenity.model.Song;
+import com.serenity.severconnect.MusicPlayerServer;
 
 import java.util.List;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+import static android.content.Context.BIND_AUTO_CREATE;
 
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+    private static final String TAG = "SongAdapter";
     private List<Song> songList;
     private TextView stateTitleText;
     private TextView stateInfoText;
@@ -26,7 +35,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public String singer;
     private ImageView stateImageView;
     private int position;
-
+    private Context context;
     private OnItemClickListener onItemClickListener;
     public interface OnItemClickListener{
         void onClick(View view, int position);
@@ -39,12 +48,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         public ViewHolder(View view){
             super(view);
             songView = view;
-            titleText = view.findViewById(R.id.song_item_title);
-            infoText = view.findViewById(R.id.song_item_info);
+            titleText = (TextView)view.findViewById(R.id.song_item_title);
+            infoText = (TextView)view.findViewById(R.id.song_item_info);
         }
     }
 
-    public SongAdapter(List<Song> songList){
+    public SongAdapter(Context context, List<Song> songList){
+        this.context = context;
         this.songList = songList;
         this.position = -1;
     }
@@ -55,7 +65,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         stateTitleText = parentView.findViewById(R.id.play_list_state_title_text);
         stateInfoText = parentView.findViewById(R.id.play_list_state_info_text);
         stateImageView = parentView.findViewById(R.id.play_list_state_image);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_play, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -67,11 +77,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         holder.infoText.setText(song.getSinger());
         if(onItemClickListener != null) {
             if(position == this.position){
-                holder.titleText.setTextColor(R.color.colorThemeOrange);
-                holder.infoText.setTextColor(R.color.colorThemeOrange);
+                holder.titleText.setTextColor(Color.parseColor("#FF9500"));
+                holder.infoText.setTextColor(Color.parseColor("#FF9500"));
                 name = song.getName();
                 singer = song.getSinger();
                 uri = song.getUri();
+
                 stateTitleText.setText(name);
                 stateInfoText.setText(singer);
                 stateImageView.setImageBitmap(song.getAlbumImage());

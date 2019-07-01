@@ -28,6 +28,7 @@ public class MusicServerConnect {
     public static final int LRC = 3;
     public static final int PIC = 4;
     public static final int URL = 5;
+    public static final int SEARCH_RETURN_ID = 6;
     public String usefulInfo;
     public Bitmap picture;
     public List<String> lrcTime = new ArrayList<>();
@@ -53,6 +54,7 @@ public class MusicServerConnect {
             case LRC: url += "lrc?id=" + id;break;
             case PIC: url += "pic?id=" + id;break;
             case URL: url += "url?id=" + id;break;
+            case SEARCH_RETURN_ID: url += "search?keyword=" + keyword + "&type=song&format=1";break;
             default: break;
         }
         return url;
@@ -62,31 +64,37 @@ public class MusicServerConnect {
      * 解析查找的json字符串
      * @param jsonDataSong json串
      */
-    private void parseJsonSong(String jsonDataSong){
+    private void parseJsonSong(String jsonDataSong, boolean isId){
         try {
             JSONObject jsonObject = new JSONObject(jsonDataSong);
             JSONArray data = jsonObject.getJSONArray("data");
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < data.length(); i++){
-                JSONObject song = data.getJSONObject(i);
-                String singer = song.getString("singer");
-                String name = song.getString("name");
-                String id = song.getString("id");
-                String time = song.getString("time");
-                String pic = song.getString("pic");
-                String lrc = song.getString("lrc");
-                String url = song.getString("url");
-                sb.append("name:").append(name).append( "singer:").append(singer)
-                        .append(" id:").append(id).append("\r\n");
-                Log.d(TAG, "singer: " + singer);
-                Log.d(TAG, "id: " + id);
-                Log.d(TAG, "time: " + time);
-                Log.d(TAG, "name: " + name);
-                Log.d(TAG, "pic: " + pic);
-                Log.d(TAG, "lrc: " + lrc);
-                Log.d(TAG, "url: " + url);
+            if (!isId){
+                for (int i = 0; i < data.length(); i++){
+                    JSONObject song = data.getJSONObject(i);
+                    String singer = song.getString("singer");
+                    String name = song.getString("name");
+                    String id = song.getString("id");
+                    String time = song.getString("time");
+                    String pic = song.getString("pic");
+                    String lrc = song.getString("lrc");
+                    String url = song.getString("url");
+                    sb.append("name:").append(name).append( "singer:").append(singer)
+                            .append(" id:").append(id).append("\r\n");
+                    Log.d(TAG, "singer: " + singer);
+                    Log.d(TAG, "id: " + id);
+                    Log.d(TAG, "time: " + time);
+                    Log.d(TAG, "name: " + name);
+                    Log.d(TAG, "pic: " + pic);
+                    Log.d(TAG, "lrc: " + lrc);
+                    Log.d(TAG, "url: " + url);
+                }
+                usefulInfo = sb.toString();
+            }else {
+                JSONObject firstSong = data.getJSONObject(0);
+                usefulInfo = firstSong.getString("id");
             }
-            usefulInfo = sb.toString();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -126,7 +134,7 @@ public class MusicServerConnect {
                             while ((line = reader.readLine()) != null) {
                                 sb.append(line).append("\n\r");
                             }
-                            parseJsonSong(sb.toString());
+                            parseJsonSong(sb.toString(), false);
                             break;
                         case LRC:
                             reader = new BufferedReader(new InputStreamReader(in));
@@ -143,6 +151,14 @@ public class MusicServerConnect {
                             break;
                         case URL:
                             usefulInfo = backUrl(keyword, id, type);
+                        case SEARCH_RETURN_ID:
+                            reader = new BufferedReader(new InputStreamReader(in));
+                            sb = new StringBuilder();
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line).append("\n\r");
+                            }
+                            parseJsonSong(sb.toString(), true);
+                            break;
                         default:
                             break;
                     }
@@ -178,7 +194,7 @@ public class MusicServerConnect {
         String[] allLrc = lrc.split("\n\r");
         for (String s: allLrc){
             String time = s.substring(0,s.indexOf("]") + 1);
-            String sentence = s.substring(s.indexOf("]") + 1, s.length());
+            String sentence = s.substring(s.indexOf("]") + 1);
             lrcTime.add(time);
             lrcSentence.add(sentence);
         }
