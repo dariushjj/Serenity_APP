@@ -1,6 +1,6 @@
 package com.serenity.view.alarmclock;
 
-public class Fruit {
+public class Time {
     private String name;
     boolean state1;
     boolean state2;
@@ -9,9 +9,8 @@ public class Fruit {
     boolean state5;
     boolean state6;
     boolean state7;
-    boolean flag;
     //private int imageId;
-    public Fruit(String name,boolean state1,boolean state2,boolean state3,boolean state4,boolean state5,boolean state6,boolean state7,boolean flag) {
+    public Time(String name, boolean state1, boolean state2, boolean state3, boolean state4, boolean state5, boolean state6, boolean state7) {
         this.name = name;
         this.state1=state1;
         this.state2=state2;
@@ -20,7 +19,6 @@ public class Fruit {
         this.state5=state5;
         this.state6=state6;
         this.state7=state7;
-        this.flag=flag;
         //this.imageId = imageId;
     }
     public String getName() {
@@ -46,12 +44,6 @@ public class Fruit {
     }
     public boolean getState7() {
         return state7;
-    }
-    public boolean getFlag() {
-        return flag;
-    }
-    public void setFlag() {
-        this.flag=flag;
     }
 
     /*

@@ -1,18 +1,14 @@
 package com.serenity.view.alarmclock;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.android.serenityapp.R;
 
@@ -20,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 //main alarm show
 public class SetAlarmClockActivity extends AppCompatActivity {
-    private List<Fruit> fruitList = new ArrayList<>();
+    private List<Time> timeList = new ArrayList<>();
     private Boolean b_sub_square0 = false;
     private Boolean b_sub_square1 = false;
     private Boolean b_sub_square2 = false;
@@ -38,8 +34,18 @@ public class SetAlarmClockActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        FruitAdapter adapter = new FruitAdapter(fruitList,this);
+        final TimeAdapter adapter = new TimeAdapter(timeList,this);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        adapter.setOnItemClickListener(new TimeAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                adapter.setPosition(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
 
         if(actionBar != null){
             actionBar.hide();
@@ -57,27 +63,27 @@ public class SetAlarmClockActivity extends AppCompatActivity {
 
 
     private void initFruits() {
-            Fruit apple = new Fruit("Apple",true,false,true,true,false,true,false,false);
-            fruitList.add(apple);
-            Fruit banana = new Fruit("Banana",false,true,false,true,true,true,false,false);
-            fruitList.add(banana);
-            Fruit orange = new Fruit("Orange",true,true,true,true,true,true,false,true);
-            fruitList.add(orange);
-            Fruit watermelon = new Fruit("Watermelon",true,true,true,true,true,true,false,true);
-            fruitList.add(watermelon);
-            Fruit pear = new Fruit("Pear",true,true,true,true,true,true,false,true);
-            fruitList.add(pear);
-            Fruit grape = new Fruit("Grape",true,true,true,true,true,true,false,false);
-            fruitList.add(grape);
-            Fruit pineapple = new Fruit("Pineapple",true,true,true,true,true,true,false,true);
-            fruitList.add(pineapple);
-            Fruit strawberry = new Fruit("Strawberry",true,true,true,true,true,true,false,true);
-            fruitList.add(strawberry);
-            Fruit cherry = new Fruit("Cherry",true,true,true,true,true,true,false,false);
-            fruitList.add(cherry);
-            fruitList.remove(apple);
-            //Fruit mango = new Fruit("Mango", R.drawable.mango_pic);
-            //fruitList.add(mango);
+            Time apple = new Time("Apple",true,false,true,true,false,true,false);
+            timeList.add(apple);
+            Time banana = new Time("Banana",false,true,false,true,true,true,false);
+            timeList.add(banana);
+            Time orange = new Time("Orange",true,true,true,true,true,true,false);
+            timeList.add(orange);
+            Time watermelon = new Time("Watermelon",true,true,true,true,true,true,false);
+            timeList.add(watermelon);
+            Time pear = new Time("Pear",true,true,true,true,true,true,false);
+            timeList.add(pear);
+            Time grape = new Time("Grape",true,true,true,true,true,true,false);
+            timeList.add(grape);
+            Time pineapple = new Time("Pineapple",true,true,true,true,true,true,false);
+            timeList.add(pineapple);
+            Time strawberry = new Time("Strawberry",true,true,true,true,true,true,false);
+            timeList.add(strawberry);
+            Time cherry = new Time("Cherry",true,true,true,true,true,true,false);
+            timeList.add(cherry);
+            timeList.remove(apple);
+            //Time mango = new Time("Mango", R.drawable.mango_pic);
+            //timeList.add(mango);
 
     }
 
