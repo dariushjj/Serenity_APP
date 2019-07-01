@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.android.serenityapp.R;
 import com.google.android.material.navigation.NavigationView;
+import com.serenity.view.alarmclock.SetAlarmClockActivity;
+import com.serenity.view.playlist.PlayListActivity;
 
 import static com.example.util.ConstantUtil.HOME;
 
@@ -41,14 +43,15 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            Intent intent;
+            Intent intent=null;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_music:
-                        //intent = new Intent(HomeActivity.this, )
+                        intent=new Intent(HomeActivity.this, PlayListActivity.class);
                         break;
                     case R.id.menu_timer:
+                        intent=new Intent(HomeActivity.this, SetAlarmClockActivity.class);
                         break;
                     case R.id.menu_sleep:
                         break;
@@ -59,7 +62,10 @@ public class HomeActivity extends AppCompatActivity {
                     default:
 
                 }
-                //startActivity(intent);
+                if(intent!=null){
+                    startActivity(intent);
+                }
+
                 return true;
             }
         });

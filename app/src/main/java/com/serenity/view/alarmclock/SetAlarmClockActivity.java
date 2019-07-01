@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.serenityapp.R;
+import com.serenity.view.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,15 @@ public class SetAlarmClockActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button backtomainbutton = (Button)findViewById(R.id.backtomainbutton);
+        backtomainbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(SetAlarmClockActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
