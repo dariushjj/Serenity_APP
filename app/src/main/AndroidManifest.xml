@@ -27,7 +27,11 @@
             android:enabled="true"
             android:exported="true">
         </service>
-
+        <service
+            android:name="com.serenity.view.alarmclock.ServiceofClock"
+            android:enabled="true"
+            android:exported="true">
+        </service>
         <activity android:name="com.serenity.view.playlist.PlayListActivity"/>
         <activity android:name="com.serenity.view.play.PlayActivity"
             android:launchMode="singleTask">

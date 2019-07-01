@@ -16,6 +16,7 @@ import com.android.serenityapp.R;
 import com.serenity.dao.SongDao;
 import com.serenity.model.Song;
 import com.serenity.severconnect.MusicServerConnect;
+import com.serenity.view.alarmclock.ServiceofClock;
 import com.serenity.view.guide.GuideActivity;
 import com.example.util.PreferenceUtil;
 import com.serenity.view.play.PlayActivity;
@@ -42,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // add front service to mainactivity
+        //Intent intent_s = new Intent(MainActivity.this,ServiceofClock.class);
+        //startService(intent_s);
 //        LitePal.deleteAll(Song.class);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
