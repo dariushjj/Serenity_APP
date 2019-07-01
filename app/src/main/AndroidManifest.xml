@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
         <activity android:name="com.serenity.view.home.HomeActivity" />
@@ -28,11 +32,7 @@
             android:exported="true"></service>
 
         <activity android:name="com.serenity.view.playlist.PlayListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.serenity.view.play.PlayActivity"
             android:launchMode="singleTask">

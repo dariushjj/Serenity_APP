@@ -63,6 +63,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 Music music = mMusicList.get(position);
                 String data=music.getName();
+                Intent intent = new Intent(context, AlarmClockActivity.class);
+                intent.putExtra("extra_data",data);
+                context.startActivity(intent);
+
                 /*
                 Intent intent=new Intent(ChooseMusicActivity.this,SetAlarmClockActivity.class);
                 intent.putExtra("extra_data",data);
