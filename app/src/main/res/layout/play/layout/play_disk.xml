@@ -24,7 +24,7 @@
         app:dot_radius="10dp"
         app:use_center="false"
         app:progress_max="100"
-        app:progress="20"
+        app:progress="0"
         app:progress_color="@color/colorThemeOrange"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/play_cover"
