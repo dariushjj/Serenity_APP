@@ -45,13 +45,6 @@ public class PlayListActivity extends AppCompatActivity {
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
         searchBtn = findViewById(R.id.play_list_search_button);
-        //make sure only search once
-        if(searchBtn.getVisibility() == View.VISIBLE){
-            searchBtn.setVisibility(View.GONE);
-        }
-        else {
-            searchBtn.setVisibility(View.VISIBLE);
-        }
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -18,6 +18,7 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name="com.serenity.view.Sleep.SleepActivity"></activity>
         <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
 
         </activity>
