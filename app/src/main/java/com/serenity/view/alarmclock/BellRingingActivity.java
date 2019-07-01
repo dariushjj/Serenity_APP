@@ -45,7 +45,6 @@ public class BellRingingActivity extends AppCompatActivity
             public void onClick(View view)
             {
                finish();
-               //record that the user want to shut it down
             }
         });
         Button remindlaterButton = (Button)findViewById(R.id.remindlater);
@@ -69,6 +68,10 @@ public class BellRingingActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 }.start();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
                 finish();
             }
         });

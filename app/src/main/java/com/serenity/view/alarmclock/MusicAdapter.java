@@ -55,6 +55,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 Music music = mMusicList.get(position);
                 Toast.makeText(v.getContext(), "you clicked view " + music.getName(),
                         Toast.LENGTH_SHORT).show();
+                //have music
             }
         });
         holder.select_alarm_button.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 Music music = mMusicList.get(position);
                 String data=music.getName();
+                //write to the database
+                // music shut down
                 Intent intent = new Intent(context, AlarmClockActivity.class);
                 intent.putExtra("extra_data",data);
                 context.startActivity(intent);
@@ -79,7 +82,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 final int position = holder.getAdapterPosition();
-                final Fruit fruit = mFruitList.get(position);
+                final Time fruit = mFruitList.get(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("want to delete the alarm?");//设置标题
                 builder .setCancelable(false);//设置选项

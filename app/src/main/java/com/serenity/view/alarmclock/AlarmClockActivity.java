@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.serenity.model.Alarm;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
@@ -68,14 +69,17 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square6 = false;
     private String  time;
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
-
+    private PowerManager.WakeLock wakeLock = null;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setclock);
-        //getpermission();
+        getpermission();
         initWheel2();
-
+        requestWakeLock();
+        Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
+        startService(intent_s);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -111,11 +115,14 @@ public class AlarmClockActivity extends AppCompatActivity {
                 WheelView wheelViewminute=(WheelView)findViewById(R.id.minute_wheelview);
                 WheelView wheelViewsecond=(WheelView)findViewById(R.id.second_wheelview);
                 Object hour=wheelViewhour.getSelectionItem().toString();
-
                 Object minute=wheelViewminute.getSelectionItem().toString();
-
                 Object second=wheelViewsecond.getSelectionItem().toString();
                 time = hour.toString() + ":"+minute.toString();
+                hour = null;
+                minute = null;
+                Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
+
+                //here we send Broadcase when time changes
                 sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
                 startActivity(intent);
@@ -217,8 +224,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        //here we set a receiver to get the message when time  changed
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("update_time_action");
         registerReceiver(new BroadcastReceiver()
@@ -231,8 +237,10 @@ public class AlarmClockActivity extends AppCompatActivity {
 //                  接收到广播之后先设置tv，然后重新设置AlarmManager
                     Log.d("time",time);
                     Log.d("getText()",getText());
+                    Toast.makeText(AlarmClockActivity.this,"now time is "+getText()+" " + time,Toast.LENGTH_LONG).show();
                     if (time.equals(getText()))
                     {
+                        time = "";
                         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                         @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");
                         wl.acquire();
@@ -241,7 +249,6 @@ public class AlarmClockActivity extends AppCompatActivity {
                         startActivity(intent_c);
                         wl.release();
                         //tv.setText(getText());
-
                     }
                     else
                     {
@@ -395,17 +402,34 @@ public class AlarmClockActivity extends AppCompatActivity {
 
 
 
-    private ArrayList<String> createArrays() {
+    private ArrayList<String> createArrays()
+    {
 
         ArrayList<String> list = new ArrayList<String>();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++)
+        {
 
             list.add("item" + i);
 
         }
 
         return list;
+    }
 
+    @SuppressLint("InvalidWakeLockTag")
+    public  void requestWakeLock() {
+        if (wakeLock == null) {
+            PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+            wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TESTAPP");
+            wakeLock.setReferenceCounted(false);
+        }
+        wakeLock.acquire();
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
     }
 }

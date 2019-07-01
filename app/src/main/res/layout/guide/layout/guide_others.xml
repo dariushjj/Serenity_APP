@@ -31,6 +31,16 @@
         app:layout_constraintTop_toBottomOf="@id/guide_others_share_title_text"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
+    <ImageView
+        android:id="@+id/guide_others_image"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:src="@mipmap/share"
+        app:layout_constraintDimensionRatio="H,25:16"
+        app:layout_constraintBottom_toTopOf="@+id/guide_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guide_others_share_text"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_line"
@@ -62,6 +72,16 @@
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+    <ImageView
+        android:id="@+id/guide_others_invite_image"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:src="@mipmap/friends"
+        app:layout_constraintDimensionRatio="H,5:3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guide_others_invite_text"
+        app:layout_constraintBottom_toTopOf="@+id/get_started_button"/>
 
     <Button
         android:id="@+id/get_started_button"
