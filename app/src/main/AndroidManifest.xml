@@ -19,6 +19,11 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.serenity.view.playlist.SearchActivity"></activity>
 
+        <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
+
+        </activity>
+        <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
+        <activity android:name="com.serenity.view.home.HomeActivity" />
         <service
             android:name="com.serenity.severconnect.MusicPlayerServer"
             android:enabled="true"
@@ -34,13 +39,16 @@
         <activity
             android:name="com.serenity.view.play.PlayActivity"
             android:launchMode="singleTask"></activity>
-        <activity android:name="com.serenity.view.home.HomeActivity" />
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" />
-        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity" />
+        <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
+
+        </activity>
         <activity android:name="com.serenity.view.guide.GuideActivity" />
         <activity android:name="com.serenity.view.sign.SignInActivity" />
         <activity android:name="com.serenity.view.sign.SignUpActivity" />
         <activity android:name="com.serenity.serenityapp.MainActivity"></activity>
+
+
     </application>
 
 </manifest>

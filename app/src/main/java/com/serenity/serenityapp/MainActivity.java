@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
             scanSongs("/storage/emulated/0/");
         }
 
+
         isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
         isGuided = false;
         if(!isGuided){

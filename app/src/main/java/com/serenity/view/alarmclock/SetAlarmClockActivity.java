@@ -32,7 +32,6 @@ public class SetAlarmClockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmclock);
-        final String[] array3 = new String[]{"男","女"};
 
         ActionBar actionBar = getSupportActionBar();
         initFruits();
