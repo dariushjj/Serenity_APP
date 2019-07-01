@@ -6,4 +6,14 @@
         android:id = "@+id/show_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id = "@+id/clock_after"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "5 minutes later"/>
+    <Button
+        android:id = "@+id/stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "shut up"/>
 </LinearLayout>

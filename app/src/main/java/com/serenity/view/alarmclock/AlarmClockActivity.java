@@ -220,11 +220,11 @@ public class AlarmClockActivity extends AppCompatActivity {
                     {
                         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                         @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");
-                        //wl.acquire();
+                        wl.acquire();
                         Toast.makeText(AlarmClockActivity.this,"time is up",Toast.LENGTH_SHORT).show();
                         Intent intent_c = new Intent(getApplicationContext(),clock.class);
                         startActivity(intent_c);
-                        //wl.release();
+                        wl.release();
                         //tv.setText(getText());
 
                     }
