@@ -4,7 +4,7 @@ import com.serenity.model.Alarm;
 
 import java.util.List;
 
-public interface AlarmDaoImpl {
+public interface AlarmDaoImpl
+{
     List<Alarm> getAllAlarms();
-
 }
