@@ -42,13 +42,13 @@
 
         </activity>
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
-
-        </activity>
-        <activity android:name="com.serenity.view.guide.GuideActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.serenity.view.guide.GuideActivity" >
+
         </activity>
         <activity android:name="com.serenity.view.sign.SignInActivity" />
         <activity android:name="com.serenity.view.sign.SignUpActivity" />

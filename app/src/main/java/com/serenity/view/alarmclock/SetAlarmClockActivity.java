@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.AlarmDao;
+import com.serenity.model.Alarm;
 import com.serenity.view.home.HomeActivity;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class SetAlarmClockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarmclock);
 
         ActionBar actionBar = getSupportActionBar();
-        initFruits();
+        initTime();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -72,7 +74,11 @@ public class SetAlarmClockActivity extends AppCompatActivity {
 
 
 
-    private void initFruits() {
+    private void initTime() {
+       // this.timeList = null;
+        //init time list
+       //AlarmDao alarmDao = new AlarmDao();
+       //alarmDao.addAlarm(String time, String state, Song song);
             Time apple = new Time("Apple",true,false,true,true,false,true,false);
             timeList.add(apple);
             Time banana = new Time("Banana",false,true,false,true,true,true,false);
@@ -92,8 +98,8 @@ public class SetAlarmClockActivity extends AppCompatActivity {
             Time cherry = new Time("Cherry",true,true,true,true,true,true,false);
             timeList.add(cherry);
             timeList.remove(apple);
-            //Time mango = new Time("Mango", R.drawable.mango_pic);
-            //timeList.add(mango);
+//            //Time mango = new Time("Mango", R.drawable.mango_pic);
+//            //timeList.add(mango);
 
     }
 
