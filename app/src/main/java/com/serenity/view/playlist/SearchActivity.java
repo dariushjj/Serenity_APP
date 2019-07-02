@@ -14,6 +14,7 @@ import com.android.serenityapp.R;
 import com.serenity.model.Song;
 import com.serenity.view.play.PlayActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -21,8 +22,8 @@ public class SearchActivity extends AppCompatActivity {
     private Button backBtn;
     private SearchView searchView;
     private RecyclerView recyclerView;
-    private List<Song> songList;
-    private  SongAdapter songAdapter;
+    private ArrayList<Song> songList;
+    private SongAdapter songAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.search_recycler_view);
         initSongList();
-        songAdapter = new SongAdapter(songList);
+        songAdapter = new SongAdapter(SearchActivity.this, songList);
         recyclerView.setAdapter(songAdapter);
         songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
             @Override

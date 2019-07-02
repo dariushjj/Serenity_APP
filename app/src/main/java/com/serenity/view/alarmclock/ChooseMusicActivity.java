@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.SongDao;
+import com.serenity.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,12 @@ public class ChooseMusicActivity extends AppCompatActivity {
     }
 
     private void initMusics() {
+        //this.musicList = null;
+        //init music list
+        //SongDao songDao = new SongDao();
+        //ArrayList<Song> songs = songDao.getSongs();
+
+
         Music apple = new Music("loveyourself");
         musicList.add(apple);
         Music banana = new Music("baby");

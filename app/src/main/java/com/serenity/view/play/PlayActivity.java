@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.android.serenityapp.R;
 import com.serenity.severconnect.MusicPlayerServer;
 import com.serenity.severconnect.MusicServerConnect;
+import com.serenity.view.alarmclock.Music;
 import com.serenity.view.widget.BackTitleView;
 import com.wx.wheelview.widget.WheelView;
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
@@ -40,6 +41,8 @@ import com.wx.wheelview.widget.WheelView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.relex.circleindicator.CircleIndicator;
@@ -59,14 +62,33 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private View diskView;
     private View lyricView;
     private WheelView wheelView;
+    private TextView diskTitle;
+    private TextView diskInfo;
+    private CircleImageView diskImage;
+    private TextView currentProgress;
+    private TextView leftProgress;
+    private Timer timer = new Timer();
     private Button play;
+    private String name;
+    private String singer;
+    private String uri;
 
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
 
     private boolean isButtonStop = false;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MusicPlayerServer.MyBinder myBinder;
 
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            myBinder = (MusicPlayerServer.MyBinder) iBinder;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    };
 
 
     @Override
@@ -79,13 +101,21 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.hide();
         }
 
+
         Intent intent = getIntent();
         lyricList = intent.getStringArrayListExtra(LYRIC_LIST);
         timeList = intent.getStringArrayListExtra(TIME_LIST);
+        name = intent.getStringExtra("name");
+        singer = intent.getStringExtra("singer");
+        uri = intent.getStringExtra("uri");
+
+        getLrc();
 
         initVariables();
         initViewList();
-        initMediaPlayer(intent.getStringExtra("uri"), true);
+
+        diskTitle.setText(name);
+        diskInfo.setText(singer);
         pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {
@@ -128,6 +158,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         circleIndicator.setViewPager(viewPager);
         play.setOnClickListener(this);
 
+        Intent bindIntent = new Intent(this, MusicPlayerServer.class);
+        Log.d(TAG, "onCreate: " + uri);
+        bindService(bindIntent, connection, BIND_AUTO_CREATE);
+
+
     }
 
     /**
@@ -139,7 +174,9 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         backTitleTextView.setText(PLAY_TITLE_TEXT);
         circleIndicator = findViewById(R.id.play_indicator);
         play = (Button)findViewById(R.id.play_stop_start_button);
-//        diskImage = (CircleImageView) findViewById(R.id.play_cover);
+        diskTitle = findViewById(R.id.play_disk_music_title);
+        diskInfo = findViewById(R.id.play_disk_music_info);
+        diskImage = (CircleImageView) findViewById(R.id.play_cover);
         wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
     }
 
@@ -147,6 +184,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
         diskView = inflater.inflate(R.layout.play_disk, null);
+        currentProgress = diskView.findViewById(R.id.play_current_progress_text);
+        leftProgress = diskView.findViewById(R.id.play_left_progress_text);
         lyricView = inflater.inflate(R.layout.play_lyric, null);
         viewList.add(diskView);
         viewList.add(lyricView);
@@ -157,7 +196,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         WheelData item;
         if(lyricList == null || timeList == null || lyricList.size() != timeList.size()){
             item = new WheelData();
-            item.setName("No lyrics");
+            item.setName("pure music.");
             list.add(item);
             return list;
         }
@@ -184,11 +223,28 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                             play.setBackgroundResource(R.drawable.stop);
                             isButtonStop = !isButtonStop;
                         }
-
-                        if (!mediaPlayer.isPlaying()){
-                            mediaPlayer.start();
+                    }
+                }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (myBinder.isPlaying()){
+                            myBinder.pauseMusic();
                         }else {
-                            mediaPlayer.pause();
+                            myBinder.playMusic();
+                        }
+                    }
+                }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!myBinder.isPlaying()){
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    setUiByTime();
+                                }
+                            }, 0, 1000);
                         }
                     }
                 }).start();
@@ -198,25 +254,51 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void initMediaPlayer(String url, boolean isLocal) {
-        try {
-            if (!isLocal){
-                mediaPlayer.setDataSource(PlayActivity.this, Uri.parse(url));
-            }else {
-                mediaPlayer.setDataSource(url);
-            }
-            mediaPlayer.prepare();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null){
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
+        unbindService(connection);
+    }
+
+    private void setUiByTime(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                int currentTime = myBinder.getPlayPosition() / 1000;
+                int leftTime = (myBinder.getProgress() - myBinder.getPlayPosition()) / 1000;
+                currentProgress.setText(String.format("%02d:%02d",currentTime / 60, currentTime % 60));
+                leftProgress.setText(String.format("%02d:%02d",leftTime / 60, leftTime % 60));
+                // TODO: 2019/7/1 根据时间更改进度条
+
+                // TODO: 2019/7/1 放置歌词
+
+                // TODO: 2019/7/1 放置图片
+
+            }
+        });
+    }
+
+    private void getLrc(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MusicServerConnect musicServerConnect = new MusicServerConnect();
+                musicServerConnect.init(name,null, MusicServerConnect.SEARCH_RETURN_ID);
+                while (musicServerConnect.usefulInfo == null){}
+                String id = musicServerConnect.usefulInfo;
+                Log.d(TAG, "run: " + id);
+                MusicServerConnect musicServerConnect2 = new MusicServerConnect();
+                musicServerConnect2.init(null, id, MusicServerConnect.LRC);
+                while (musicServerConnect2.usefulInfo == null){}
+                lyricList = (ArrayList<String>)musicServerConnect2.lrcSentence;
+                timeList = (ArrayList<String>)musicServerConnect2.lrcTime;
+                Log.d(TAG, "run: " + lyricList);
+                Log.d(TAG, "run: " + timeList);
+                MusicServerConnect musicServerConnect3 = new MusicServerConnect();
+                musicServerConnect3.init(null, id, MusicServerConnect.PIC);
+                while (musicServerConnect3.usefulInfo == null){}
+                Log.d(TAG, "run: " + musicServerConnect3.picture);
+            }
+        }).start();
     }
 }
