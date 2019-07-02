@@ -73,6 +73,7 @@ public class SetAlarmClockActivity extends AppCompatActivity {
 
 
     private void initFruits() {
+        // TODO: 19-7-2  here a function should return all alarms and their starts
             Time apple = new Time("Apple",true,false,true,true,false,true,false);
             timeList.add(apple);
             Time banana = new Time("Banana",false,true,false,true,true,true,false);

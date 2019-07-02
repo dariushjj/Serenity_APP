@@ -56,8 +56,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 Toast.makeText(v.getContext(), "you clicked view " + music.getName(),
                         Toast.LENGTH_SHORT).show();
                 //have music
+                //// TODO: 19-7-2  Play music 
             }
         });
+        
+        // TODO: 19-7-2    write to databases
         holder.select_alarm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
