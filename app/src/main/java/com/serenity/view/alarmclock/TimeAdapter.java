@@ -64,7 +64,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder>{
         this.position = -1;
         isClicks = new ArrayList<>();
         for(int i = 0; i< mTimeList.size(); i++){
-            isClicks.add(false);
+            isClicks.add(true);
         }
 
     }

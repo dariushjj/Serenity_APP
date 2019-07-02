@@ -234,6 +234,7 @@ public class CircleProgressBar extends View {
     }
     public void setProgress(float progress){
         this.progress = progress;
+        invalidate();
     }
     public float getProgress(){
         return this.progress;

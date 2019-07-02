@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.serenity.model.Song;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,10 +31,12 @@ public class MusicServerConnect {
     public static final int PIC = 4;
     public static final int URL = 5;
     public static final int SEARCH_RETURN_ID = 6;
+    public static final int SEARCH_RETURN_SONG = 7;
     public String usefulInfo;
     public Bitmap picture;
     public List<String> lrcTime = new ArrayList<>();
     public List<String> lrcSentence = new ArrayList<>();
+    public ArrayList<Song> songList = new ArrayList<>();
 
     /**
      * 获得url
@@ -55,6 +59,7 @@ public class MusicServerConnect {
             case PIC: url += "pic?id=" + id;break;
             case URL: url += "url?id=" + id;break;
             case SEARCH_RETURN_ID: url += "search?keyword=" + keyword + "&type=song&format=1";break;
+            case SEARCH_RETURN_SONG: url += "search?keyword=" + keyword + "&type=song&format=1";break;
             default: break;
         }
         return url;
@@ -71,6 +76,7 @@ public class MusicServerConnect {
             StringBuilder sb = new StringBuilder();
             if (!isId){
                 for (int i = 0; i < data.length(); i++){
+                    Song songObject = new Song();
                     JSONObject song = data.getJSONObject(i);
                     String singer = song.getString("singer");
                     String name = song.getString("name");
@@ -79,6 +85,9 @@ public class MusicServerConnect {
                     String pic = song.getString("pic");
                     String lrc = song.getString("lrc");
                     String url = song.getString("url");
+                    songObject.setName(name);
+                    songObject.setSinger(singer);
+                    songObject.setUri(url);
                     sb.append("name:").append(name).append( "singer:").append(singer)
                             .append(" id:").append(id).append("\r\n");
                     Log.d(TAG, "singer: " + singer);
@@ -88,6 +97,7 @@ public class MusicServerConnect {
                     Log.d(TAG, "pic: " + pic);
                     Log.d(TAG, "lrc: " + lrc);
                     Log.d(TAG, "url: " + url);
+                    songList.add(songObject);
                 }
                 usefulInfo = sb.toString();
             }else {
@@ -147,6 +157,7 @@ public class MusicServerConnect {
                             break;
                         case PIC:
                             picture = BitmapFactory.decodeStream(in);
+                            usefulInfo = "finish";
                             in.close();
                             break;
                         case URL:
@@ -158,6 +169,14 @@ public class MusicServerConnect {
                                 sb.append(line).append("\n\r");
                             }
                             parseJsonSong(sb.toString(), true);
+                            break;
+                        case SEARCH_RETURN_SONG:
+                            reader = new BufferedReader(new InputStreamReader(in));
+                            sb = new StringBuilder();
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line).append("\n\r");
+                            }
+                            parseJsonSong(sb.toString(), false);
                             break;
                         default:
                             break;

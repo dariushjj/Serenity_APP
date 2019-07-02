@@ -67,11 +67,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView diskImage;
     private TextView currentProgress;
     private TextView leftProgress;
+    private CircleProgressBar circleProgressBar;
     private Timer timer = new Timer();
     private Button play;
     private String name;
     private String singer;
     private String uri;
+    private String id;
+    private Bitmap pic;
 
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
@@ -101,18 +104,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             actionBar.hide();
         }
 
+        initVariables();
+        initViewList();
+        getLrcImage();
 
         Intent intent = getIntent();
-        lyricList = intent.getStringArrayListExtra(LYRIC_LIST);
-        timeList = intent.getStringArrayListExtra(TIME_LIST);
         name = intent.getStringExtra("name");
         singer = intent.getStringExtra("singer");
         uri = intent.getStringExtra("uri");
-
-        getLrc();
-
-        initVariables();
-        initViewList();
 
         diskTitle.setText(name);
         diskInfo.setText(singer);
@@ -159,9 +158,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         play.setOnClickListener(this);
 
         Intent bindIntent = new Intent(this, MusicPlayerServer.class);
-        Log.d(TAG, "onCreate: " + uri);
         bindService(bindIntent, connection, BIND_AUTO_CREATE);
-
 
     }
 
@@ -176,7 +173,6 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         play = (Button)findViewById(R.id.play_stop_start_button);
         diskTitle = findViewById(R.id.play_disk_music_title);
         diskInfo = findViewById(R.id.play_disk_music_info);
-        diskImage = (CircleImageView) findViewById(R.id.play_cover);
         wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
     }
 
@@ -184,8 +180,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         viewList = new ArrayList<>();
         LayoutInflater inflater = getLayoutInflater();
         diskView = inflater.inflate(R.layout.play_disk, null);
+        circleProgressBar = diskView.findViewById(R.id.play_circle_progress_bar);
         currentProgress = diskView.findViewById(R.id.play_current_progress_text);
         leftProgress = diskView.findViewById(R.id.play_left_progress_text);
+        diskImage = diskView.findViewById(R.id.play_cover);
         lyricView = inflater.inflate(R.layout.play_lyric, null);
         viewList.add(diskView);
         viewList.add(lyricView);
@@ -194,6 +192,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<WheelData> initLyricData(){
         ArrayList<WheelData> list = new ArrayList<>();
         WheelData item;
+        while (lyricList == null || timeList == null){}
         if(lyricList == null || timeList == null || lyricList.size() != timeList.size()){
             item = new WheelData();
             item.setName("pure music.");
@@ -266,27 +265,36 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 int currentTime = myBinder.getPlayPosition() / 1000;
                 int leftTime = (myBinder.getProgress() - myBinder.getPlayPosition()) / 1000;
+                float ratio = (float) myBinder.getPlayPosition() / myBinder.getProgress();
                 currentProgress.setText(String.format("%02d:%02d",currentTime / 60, currentTime % 60));
                 leftProgress.setText(String.format("%02d:%02d",leftTime / 60, leftTime % 60));
-                // TODO: 2019/7/1 根据时间更改进度条
+                circleProgressBar.setProgress(ratio * 100);
+            }
+         });
+    }
 
-                // TODO: 2019/7/1 放置歌词
-
-                // TODO: 2019/7/1 放置图片
-
+    private void setImage(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                while (pic == null){}
+                Log.d(TAG, "run: in image: " + pic);
+                diskImage.setImageBitmap(pic);
             }
         });
     }
 
-    private void getLrc(){
+    private void getLrcImage(){
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //Id获取
                 MusicServerConnect musicServerConnect = new MusicServerConnect();
                 musicServerConnect.init(name,null, MusicServerConnect.SEARCH_RETURN_ID);
                 while (musicServerConnect.usefulInfo == null){}
-                String id = musicServerConnect.usefulInfo;
+                id = musicServerConnect.usefulInfo;
                 Log.d(TAG, "run: " + id);
+                //歌词获取
                 MusicServerConnect musicServerConnect2 = new MusicServerConnect();
                 musicServerConnect2.init(null, id, MusicServerConnect.LRC);
                 while (musicServerConnect2.usefulInfo == null){}
@@ -294,10 +302,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 timeList = (ArrayList<String>)musicServerConnect2.lrcTime;
                 Log.d(TAG, "run: " + lyricList);
                 Log.d(TAG, "run: " + timeList);
+                //图片获取
                 MusicServerConnect musicServerConnect3 = new MusicServerConnect();
-                musicServerConnect3.init(null, id, MusicServerConnect.PIC);
+                musicServerConnect3.init(null,id, MusicServerConnect.PIC);
                 while (musicServerConnect3.usefulInfo == null){}
+                pic = musicServerConnect3.picture;
                 Log.d(TAG, "run: " + musicServerConnect3.picture);
+                Log.d(TAG, "run: diskimage" + diskImage);
+                setImage();
             }
         }).start();
     }
