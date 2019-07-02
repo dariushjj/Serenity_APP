@@ -29,12 +29,13 @@ public class MusicPlayerServer extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        uri = intent.getStringExtra("uri");
+        initMediaPlayer(uri, true);
+
+        Log.d(TAG, "onStartCommand " + uri);
         if (!(intent.getStringExtra("uri") == null ||
                 intent.getStringExtra("uri").equals(""))){
-            uri = intent.getStringExtra("uri");
-            initMediaPlayer(uri, true);
 
-            Log.d(TAG, "onStartCommand " + uri);
         }
         return super.onStartCommand(intent, flags, startId);
     }

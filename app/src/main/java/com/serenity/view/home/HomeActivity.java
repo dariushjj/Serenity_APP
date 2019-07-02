@@ -7,11 +7,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.serenityapp.R;
 import com.google.android.material.navigation.NavigationView;
@@ -20,7 +22,8 @@ import com.serenity.view.playlist.PlayListActivity;
 
 import static com.example.util.ConstantUtil.HOME;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity{
+    private static final String TAG = "HomeActivity";
 
     private DrawerLayout drawerLayout;
 
@@ -43,15 +46,15 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            Intent intent=null;
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_music:
-                        intent=new Intent(HomeActivity.this, PlayListActivity.class);
+                        Log.d(TAG, "onNavigationItemSelected: ");
+                        startActivity(new Intent(HomeActivity.this, PlayListActivity.class));
                         break;
                     case R.id.menu_timer:
-                        intent=new Intent(HomeActivity.this, SetAlarmClockActivity.class);
+                        startActivity(new Intent(HomeActivity.this, SetAlarmClockActivity.class));
                         break;
                     case R.id.menu_sleep:
                         break;
@@ -62,12 +65,22 @@ public class HomeActivity extends AppCompatActivity {
                     default:
 
                 }
-                if(intent!=null){
-                    startActivity(intent);
-                }
-
                 return true;
             }
         });
+
+        findViewById(R.id.music_card).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, PlayListActivity.class));
+            }
+        });
+        findViewById(R.id.timer_card).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SetAlarmClockActivity.class));
+            }
+        });
     }
+
 }
