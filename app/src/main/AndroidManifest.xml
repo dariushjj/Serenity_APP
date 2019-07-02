@@ -18,7 +18,12 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name="com.serenity.view.Sleep.SleepActivity"></activity>
+        <activity android:name="com.serenity.view.Sleep.SleepActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
 
         </activity>
@@ -39,10 +44,6 @@
             android:launchMode="singleTask">
         </activity>
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
 
