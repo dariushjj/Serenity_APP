@@ -34,21 +34,33 @@
             android:enabled="true"
             android:exported="true">
         </service>
-        <activity android:name="com.serenity.view.playlist.PlayListActivity"/>
+        <activity android:name="com.serenity.view.playlist.SearchActivity" />
+
+        <receiver android:name="com.serenity.severconnect.MusicBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.serenity.severconnect.MUSIC_PLAY"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.serenity.view.playlist.PlayListActivity">
+        </activity>
+
         <activity android:name="com.serenity.view.play.PlayActivity"
             android:launchMode="singleTask">
         </activity>
         <activity android:name="com.serenity.view.alarmclock.AlarmClockActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name="com.serenity.view.alarmclock.SetAlarmClockActivity">
 
         </activity>
         <activity android:name="com.serenity.view.guide.GuideActivity" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.serenity.view.sign.SignInActivity" />
         <activity android:name="com.serenity.view.sign.SignUpActivity" />

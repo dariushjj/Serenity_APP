@@ -64,7 +64,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder>{
         this.position = -1;
         isClicks = new ArrayList<>();
         for(int i = 0; i< mTimeList.size(); i++){
-            isClicks.add(false);
+            isClicks.add(true);
         }
 
     }
@@ -206,6 +206,6 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder>{
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
-
+// TODO: 19-7-2 here needs some databases operation : write setting to databases 
 
 }

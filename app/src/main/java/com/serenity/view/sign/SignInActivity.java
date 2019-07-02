@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.serenityapp.R;
 import com.serenity.dao.UserDao;
+import com.serenity.view.home.HomeActivity;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
@@ -49,8 +50,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (!((account.equals("") && password.equals(""))
                         || (account == null && password == null))){
                     if (userDao.signIn(account,password)) {
-                        // TODO: 2019/6/24  登录成功，跳转下个界面
-
+                        // TODO: 2019/6/24  登录成功，跳转
+                        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                     }else {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
                         builder.setTitle("Error");

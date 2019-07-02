@@ -52,7 +52,8 @@ public class BellRingingActivity extends AppCompatActivity
         {
             @Override
             public void onClick(View view)
-            {
+            {      //here we set a timeCounter to remind me later
+                // TODO: 19-7-2  here need a function to get time to set time  internvel
                 CountDownTimer timer = new CountDownTimer(10*1000,1000)
                 {
                     @Override
@@ -81,7 +82,7 @@ public class BellRingingActivity extends AppCompatActivity
     }
 
 
-
+    // TODO: 19-7-2 here i need a function to retrun the song's path of the alarm  
     private void stop()
     {
         finish();

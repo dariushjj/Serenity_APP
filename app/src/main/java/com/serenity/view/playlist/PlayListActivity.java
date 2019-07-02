@@ -68,6 +68,7 @@ public class PlayListActivity extends AppCompatActivity {
             }
         });
 
+
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,9 +100,9 @@ public class PlayListActivity extends AppCompatActivity {
                         startService(musicService);
                         Log.d(TAG, "onClick: " + songAdapter.uri);
 
-
                         Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
                         intent.putExtra("name", songAdapter.name);
+                        Log.d(TAG, "onClick: " + songAdapter.name);
                         intent.putExtra("singer", songAdapter.singer);
                         intent.putExtra("uri", songAdapter.uri);
                         intent.putExtra("isLocal", true);
