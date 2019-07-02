@@ -9,11 +9,11 @@
     <string name="guide_music_title_text">High Quality Music</string>
     <string name="guide_music_text">More than 30 million songs</string>
     <string name="guide_timer_title_text">Intelligent Timer</string>
-    <string name="guide_timer_text">some description here\nfor timer</string>
+    <string name="guide_timer_text">With serenity, it\'s easy to arrange \nyour time</string>
     <string name="guide_others_share_title_text">Share Serenity</string>
-    <string name="guide_others_share_text">some description here\nfor share</string>
-    <string name="guide_others_invite_title_text">Invite Friends???</string>
-    <string name="guide_others_invite_text">some description here\nfor invitation</string>
+    <string name="guide_others_share_text">Easily share serenity with your friends</string>
+    <string name="guide_others_invite_title_text">Invite Friends</string>
+    <string name="guide_others_invite_text">Invite your friends to join serenity</string>
     <string name="get_started_button">Get Started</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
@@ -32,4 +32,6 @@
     <string name="others">Others</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="guide_sleep_title_text">Sweet Sleep</string>
+    <string name="guide_sleep_text">Serenity can help you improve \nthe quality of sleep</string>
 </resources>

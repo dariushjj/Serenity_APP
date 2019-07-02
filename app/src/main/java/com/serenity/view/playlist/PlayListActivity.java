@@ -33,18 +33,20 @@ public class PlayListActivity extends AppCompatActivity {
     private List<Song> songList;
     private Button searchBtn;
 
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_list);
 
+        //读取数据库
         readSongList();
-
+        //初始化界面
         backTitleView = findViewById(R.id.play_list_back_title_view);
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
         searchBtn = findViewById(R.id.play_list_search_button);
+
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +56,7 @@ public class PlayListActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        songAdapter = new SongAdapter(songList);
+        songAdapter = new SongAdapter(this, songList);
         recyclerView.setAdapter(songAdapter);
         songAdapter.notifyDataSetChanged();
 
@@ -65,9 +67,6 @@ public class PlayListActivity extends AppCompatActivity {
                 songAdapter.notifyDataSetChanged();
             }
         });
-
-        Intent intent = new Intent(this, MusicPlayerServer.class);
-
 
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +92,20 @@ public class PlayListActivity extends AppCompatActivity {
                     case R.id.play_list_state_title_text:
                         break;
                     default:
+                        //启动音乐服务
+                        Intent musicService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
+                        musicService.putExtra("uri", songAdapter.uri);
+                        musicService.putExtra("isLocal", true);
+                        startService(musicService);
+                        Log.d(TAG, "onClick: " + songAdapter.uri);
+
+
                         Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
                         intent.putExtra("name", songAdapter.name);
                         intent.putExtra("singer", songAdapter.singer);
                         intent.putExtra("uri", songAdapter.uri);
                         intent.putExtra("isLocal", true);
                         startActivity(intent);
-//                        Intent intentService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
-//                        startService(intentService);
                 }
             }
         });
