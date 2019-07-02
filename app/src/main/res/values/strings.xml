@@ -34,4 +34,5 @@
     <string name="logout">Logout</string>
     <string name="guide_sleep_title_text">Sweet Sleep</string>
     <string name="guide_sleep_text">Serenity can help you improve \nthe quality of sleep</string>
+    <string name="scan">Scan</string>
 </resources>

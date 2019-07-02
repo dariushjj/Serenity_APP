@@ -75,6 +75,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private String uri;
     private String id;
     private Bitmap pic;
+    private boolean isLocal;
 
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
@@ -112,6 +113,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         name = intent.getStringExtra("name");
         singer = intent.getStringExtra("singer");
         uri = intent.getStringExtra("uri");
+        isLocal = intent.getBooleanExtra("isLocal", true);
 
         diskTitle.setText(name);
         diskInfo.setText(singer);
@@ -158,6 +160,11 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         play.setOnClickListener(this);
 
         Intent bindIntent = new Intent(this, MusicPlayerServer.class);
+        if (!isLocal){
+            bindIntent.putExtra("isLocal", isLocal);
+            bindIntent.putExtra("uri", uri);
+        }
+
         bindService(bindIntent, connection, BIND_AUTO_CREATE);
 
     }
