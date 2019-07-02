@@ -20,6 +20,7 @@ import com.serenity.view.alarmclock.ServiceofClock;
 import com.serenity.view.guide.GuideActivity;
 import com.example.util.PreferenceUtil;
 import com.serenity.view.play.PlayActivity;
+import com.serenity.view.sign.SignInActivity;
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
@@ -52,59 +53,20 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }, 1);
-        }else {
-            scanSongs("/storage/emulated/0/");
-        }
-
-
         isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
-        isGuided = false;
+        //第一次登录
+//        isGuided = false;
         if(!isGuided){
-            Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-            ArrayList<String> l = new ArrayList<>();
-            MusicServerConnect lrcConnect = new MusicServerConnect();
-            lrcConnect.init(null,"573747359", MusicServerConnect.LRC);
-            while (lrcConnect.usefulInfo == null || lrcConnect.usefulInfo.equals("")){ }
-            l = (ArrayList<String>)lrcConnect.lrcSentence;
-
-            Log.d(TAG, "run: " + l);
-            intent.putStringArrayListExtra(LYRIC_LIST, l);
-            intent.putStringArrayListExtra(TIME_LIST, l);
-            startActivity(intent);
 
 //            欢迎界面
             PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
+            Intent intent = new Intent(MainActivity.this, GuideActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
         }
-    }
 
-    private void scanSongs(String path){
-        Connector.getDatabase();
-        File dir = new File(path);
-        File[] files = dir.listFiles();
-        if (files != null){
-            for (int i = 0; i < files.length; i++){
-                String name = files[i].getName();
-                if (files[i].isDirectory()) {
-                    scanSongs(files[i].getAbsolutePath());
-                }else {
-                    if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
-                        if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
-                            SongDao songDao = new SongDao();
-                            String[] songName = name.split("\\.");
-                            String[] songInfo = songName[0].split("-");
-                            songDao.addSong(songInfo[1], songInfo[0], files[i].getAbsolutePath());
-                            Log.d(TAG, "scanSongs: " + name);
-                        }
-                    }
-
-                }
-            }
-        }
     }
 
 }
