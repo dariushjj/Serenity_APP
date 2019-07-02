@@ -28,7 +28,7 @@ public class ServiceofClock extends Service
     @Override
     public int onStartCommand(Intent intent ,int flags,int startId)
     {
-        /*String CHANNEL_ONE_ID = "com.primedu.cn";
+        String CHANNEL_ONE_ID = "com.primedu.cn";
         String CHANNEL_ONE_NAME = "Channel One";
         NotificationChannel notificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -40,14 +40,14 @@ public class ServiceofClock extends Service
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             manager.createNotificationChannel(notificationChannel);
-        }*/
+        }
         Notification.Builder builder = new Notification.Builder(this.getApplicationContext());
         Intent nfIntent = new Intent(this, AlarmClockActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this,0,nfIntent,0))
                 .setContentTitle("sentitry")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText("running background");
-                //.setChannelId(CHANNEL_ONE_ID);
+                .setContentText("running background")
+                .setChannelId(CHANNEL_ONE_ID);
         Notification notification = builder.build();
         startForeground(110, notification);
         return START_STICKY;

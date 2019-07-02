@@ -18,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.SongDao;
+import com.serenity.model.Song;
 
 import java.util.List;
 
