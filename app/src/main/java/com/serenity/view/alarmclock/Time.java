@@ -45,7 +45,67 @@ public class Time {
     public boolean getState7() {
         return state7;
     }
-
+    public String get_states()
+    {
+        String state = "";
+        if(getState1())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState2())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState3())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState4())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState5())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState6())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        if(getState7())
+        {
+            state=state+"1";
+        }
+        else
+        {
+            state = state+"0";
+        }
+        return state;
+    }
     /*
     public int getImageId() {
         return imageId;

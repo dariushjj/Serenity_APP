@@ -36,6 +36,15 @@ public class ChooseMusicActivity extends AppCompatActivity {
         //ArrayList<Song> songs = songDao.getSongs();
 
 
+        //// TODO: 19-7-2 here show songs
+        /*
+            Integer i = 0;
+            list<Song> songs = new list<Song>
+            for(song : songs)
+            {
+                music i.toString() = new Music(song.getname());
+            }
+         */
         Music apple = new Music("loveyourself");
         musicList.add(apple);
         Music banana = new Music("baby");
