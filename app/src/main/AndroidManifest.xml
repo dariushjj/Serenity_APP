@@ -18,6 +18,12 @@
         android:roundIcon="@mipmap/serenity_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name="com.serenity.view.Sleep.SleepActivity"></activity>
+        <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
+
+        </activity>
+        <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
+        <activity android:name="com.serenity.view.home.HomeActivity" />
         <service
             android:name="com.serenity.severconnect.MusicPlayerServer"
             android:enabled="true"
@@ -28,12 +34,6 @@
             android:enabled="true"
             android:exported="true">
         </service>
-        <activity android:name="com.serenity.view.Sleep.SleepActivity"></activity>
-        <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
-
-        </activity>
-        <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
-        <activity android:name="com.serenity.view.home.HomeActivity" />
         <activity android:name="com.serenity.view.playlist.SearchActivity" />
 
         <receiver android:name="com.serenity.severconnect.MusicBroadCastReceiver"
@@ -45,7 +45,6 @@
         </receiver>
 
         <activity android:name="com.serenity.view.playlist.PlayListActivity">
-
         </activity>
 
         <activity android:name="com.serenity.view.play.PlayActivity"

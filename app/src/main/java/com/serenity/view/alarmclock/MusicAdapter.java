@@ -18,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.SongDao;
+import com.serenity.model.Song;
 
 import java.util.List;
 
@@ -56,8 +58,11 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 Toast.makeText(v.getContext(), "you clicked view " + music.getName(),
                         Toast.LENGTH_SHORT).show();
                 //have music
+                //// TODO: 19-7-2  Play music 
             }
         });
+        
+        // TODO: 19-7-2    write to databases
         holder.select_alarm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

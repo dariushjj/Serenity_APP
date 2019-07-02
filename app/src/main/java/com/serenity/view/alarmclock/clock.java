@@ -1,3 +1,4 @@
+// TODO: 19-7-2  this file is for test,just delete it after testing 
 package com.serenity.view.alarmclock;
 
 import android.app.Activity;

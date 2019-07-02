@@ -234,6 +234,7 @@ public class AlarmClockActivity extends AppCompatActivity {
             {
                 if (intent.getAction().equals("update_time_action"))
                 {
+                    // TODO: 19-7-2  here the DAY_OF_WEEK should be considered and there may many alarms so need a function to return alarms ans Dayofwweks
 //                  接收到广播之后先设置tv，然后重新设置AlarmManager
                     Log.d("time",time);
                     Log.d("getText()",getText());
