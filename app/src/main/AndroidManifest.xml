@@ -43,7 +43,6 @@
                 <action android:name="com.serenity.severconnect.MUSIC_PLAY"/>
             </intent-filter>
         </receiver>
-            android:exported="true">
 
         <activity android:name="com.serenity.view.playlist.PlayListActivity">
             <intent-filter>
