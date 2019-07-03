@@ -53,5 +53,28 @@ public class AlarmDao implements AlarmDaoImpl {
         alarm.save();
     }
 
+    @Override
+    public int get_alarm_jiange() {
+        return 0;
+    }
 
+    @Override
+    public String get_local_songs() {
+        return null;
+    }
+
+    @Override
+    public String get_absolutePath(String song) {
+        return null;
+    }
+
+    @Override
+    public void setSong(String song, Alarm alarm) {
+
+    }
+
+    @Override
+    public String get_alarm_times() {
+        return null;
+    }
 }

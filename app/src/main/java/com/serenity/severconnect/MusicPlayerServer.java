@@ -29,12 +29,13 @@ public class MusicPlayerServer extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        uri = intent.getStringExtra("uri");
+        initMediaPlayer(uri, true);
+
+        Log.d(TAG, "onStartCommand " + uri);
         if (!(intent.getStringExtra("uri") == null ||
                 intent.getStringExtra("uri").equals(""))){
-            uri = intent.getStringExtra("uri");
-            initMediaPlayer(uri, true);
 
-            Log.d(TAG, "onStartCommand " + uri);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -54,8 +55,8 @@ public class MusicPlayerServer extends Service {
         if (!(intent.getStringExtra("uri") == null ||
                 intent.getStringExtra("uri").equals(""))){
             uri = intent.getStringExtra("uri");
-            // TODO: 2019/7/1 islocal逻辑判断
-            initMediaPlayer(uri, true);
+            isLocal = intent.getBooleanExtra("isLocal",false);
+            initMediaPlayer(uri, isLocal);
             Log.d(TAG, "onBind: " + uri);
         }
         return myBinder;

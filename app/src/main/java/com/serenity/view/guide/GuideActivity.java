@@ -1,38 +1,51 @@
 package com.serenity.view.guide;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.SongDao;
+import com.serenity.serenityapp.MainActivity;
 import com.serenity.view.sign.SignInActivity;
 
+import org.litepal.tablemanager.Connector;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 
 public class GuideActivity extends AppCompatActivity {
-
+    private static final String TAG = "GuideActivity";
     private ViewPager viewPager;
     private List<View> viewList;
     private PagerAdapter pagerAdapter;
     private CircleIndicator circleIndicator;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -81,4 +94,5 @@ public class GuideActivity extends AppCompatActivity {
         startActivity(new Intent(GuideActivity.this, SignInActivity.class));
         finish();
     }
+
 }

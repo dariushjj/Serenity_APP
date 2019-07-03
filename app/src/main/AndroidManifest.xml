@@ -34,7 +34,19 @@
             android:enabled="true"
             android:exported="true">
         </service>
-        <activity android:name="com.serenity.view.playlist.PlayListActivity"/>
+        <activity android:name="com.serenity.view.playlist.SearchActivity" />
+
+        <receiver android:name="com.serenity.severconnect.MusicBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.serenity.severconnect.MUSIC_PLAY"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="com.serenity.view.playlist.PlayListActivity">
+        </activity>
+
         <activity android:name="com.serenity.view.play.PlayActivity"
             android:launchMode="singleTask">
         </activity>

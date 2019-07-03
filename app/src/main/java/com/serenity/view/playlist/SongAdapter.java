@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.util.Log;
@@ -20,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.serenityapp.R;
 import com.serenity.model.Song;
 import com.serenity.severconnect.MusicPlayerServer;
+import com.serenity.severconnect.MusicServerConnect;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.BIND_AUTO_CREATE;
@@ -33,6 +36,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public String uri;
     public String name;
     public String singer;
+    public String id;
+    public Bitmap pic;
     private ImageView stateImageView;
     private int position;
     private Context context;
@@ -84,7 +89,19 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 stateTitleText.setText(name);
                 stateInfoText.setText(singer);
-                stateImageView.setImageBitmap(song.getAlbumImage());
+/*                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MusicServerConnect musicServerConnect = new MusicServerConnect();
+                        musicServerConnect.init(name, null, MusicServerConnect.SEARCH_RETURN_ID);
+                        while (musicServerConnect.usefulInfo == null){}
+                        id = musicServerConnect.usefulInfo;
+                        MusicServerConnect musicServerConnect2 = new MusicServerConnect();
+                        musicServerConnect2.init(null, id, MusicServerConnect.PIC);
+                        while (musicServerConnect2.usefulInfo == null){}
+//                        pic = musicServerConnect2.picture;
+                    }
+                }).start();*/
             }
             else{
                 holder.titleText.setTextColor(Color.WHITE);
@@ -114,4 +131,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
+
+    public void setSongList(ArrayList<Song> songList){
+        this.songList = songList;
+        notifyDataSetChanged();
+    }
+
 }
