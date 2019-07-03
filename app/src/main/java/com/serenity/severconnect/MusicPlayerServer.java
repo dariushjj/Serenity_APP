@@ -55,8 +55,8 @@ public class MusicPlayerServer extends Service {
         if (!(intent.getStringExtra("uri") == null ||
                 intent.getStringExtra("uri").equals(""))){
             uri = intent.getStringExtra("uri");
-            // TODO: 2019/7/1 islocal逻辑判断
-            initMediaPlayer(uri, true);
+            isLocal = intent.getBooleanExtra("isLocal",false);
+            initMediaPlayer(uri, isLocal);
             Log.d(TAG, "onBind: " + uri);
         }
         return myBinder;

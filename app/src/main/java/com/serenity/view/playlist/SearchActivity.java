@@ -48,7 +48,9 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 //        initSongList();
+        songList = new ArrayList<>();
         songAdapter = new SongAdapter(SearchActivity.this, songList);
+
 
         recyclerView.setAdapter(songAdapter);
 
@@ -57,6 +59,13 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 songAdapter.setPosition(position);
                 Intent intent  = new Intent(SearchActivity.this, PlayActivity.class);
+                intent.putExtra("name",songAdapter.name);
+                intent.putExtra("singer", songAdapter.singer);
+                intent.putExtra("uri", songAdapter.uri);
+                Log.d(TAG, "onClick: songadp: " + songAdapter);
+                Log.d(TAG, "onClick: name" + songAdapter.name);
+                Log.d(TAG, "onClick: " + songAdapter.uri);
+                intent.putExtra("isLocal",false);
                 //send some data to PlayActivity by using intent
                 startActivity(intent);
             }
@@ -74,6 +83,7 @@ public class SearchActivity extends AppCompatActivity {
                 Log.d(TAG, "onQueryTextSubmit: " + songList.get(1).getName());
                 songAdapter.setSongList(songList);
                 songAdapter.notifyDataSetChanged();
+                Log.d(TAG, "onCreate: " + songList);
                 return true;
             }
 

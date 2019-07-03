@@ -61,4 +61,9 @@ public class SongDao implements SongDaoImpl {
     public ArrayList<String> getTime(Song song) {
         return null;
     }
+
+    @Override
+    public void deleteSongs() {
+        LitePal.deleteAll(Song.class);
+    }
 }
