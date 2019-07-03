@@ -49,8 +49,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 if (!((account.equals("") && password.equals(""))
                         || (account == null && password == null))){
-                    if (userDao.signIn(account,password)) {
-                        // TODO: 2019/6/24  登录成功，跳转
+                    if (userDao.signIn(account,password))
+                    {
                         startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                     }else {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);

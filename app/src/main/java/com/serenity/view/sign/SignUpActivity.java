@@ -46,7 +46,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 Toast.LENGTH_SHORT).show();
                     }else{
                         userDao.register(account, password);
-                        //      TODO: 2019/6/24 注册后直接登录
+                        Toast.makeText(this, "Sign up successfully!",Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 }
 

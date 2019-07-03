@@ -26,6 +26,7 @@ import com.android.serenityapp.R;
 import com.google.android.material.navigation.NavigationView;
 import com.serenity.dao.SongDao;
 import com.serenity.model.Song;
+import com.serenity.view.Sleep.SleepActivity;
 import com.serenity.view.alarmclock.SetAlarmClockActivity;
 import com.serenity.view.guide.GuideActivity;
 import com.serenity.view.playlist.PlayListActivity;
@@ -74,6 +75,8 @@ public class HomeActivity extends AppCompatActivity{
                         startActivity(new Intent(HomeActivity.this, SetAlarmClockActivity.class));
                         break;
                     case R.id.menu_sleep:
+                        Log.d(TAG, "shut up! ");
+                        startActivity(new Intent(HomeActivity.this, SleepActivity.class));
                         break;
                     case R.id.menu_others:
                         break;
@@ -92,6 +95,7 @@ public class HomeActivity extends AppCompatActivity{
                                 Toast.makeText(HomeActivity.this, "Scaning....Please wait.", Toast.LENGTH_SHORT).show();
                                 scanSongs("/storage/emulated/0/");
                             }
+                            Toast.makeText(HomeActivity.this,"scan finished",Toast.LENGTH_LONG).show();
                         }else {
                             new AlertDialog.Builder(HomeActivity.this)
                                     .setTitle("Watch!")
@@ -109,6 +113,7 @@ public class HomeActivity extends AppCompatActivity{
                     default:
 
                 }
+                drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -127,28 +132,37 @@ public class HomeActivity extends AppCompatActivity{
         });
     }
 
-    private void scanSongs(String path){
-        Connector.getDatabase();
-        File dir = new File(path);
-        File[] files = dir.listFiles();
-        if (files != null){
-            for (int i = 0; i < files.length; i++){
-                String name = files[i].getName();
-                if (files[i].isDirectory()) {
-                    scanSongs(files[i].getAbsolutePath());
-                }else {
-                    if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
-                        if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
-                            SongDao songDao = new SongDao();
-                            String[] songName = name.split("\\.");
-                            String[] songInfo = songName[0].split("-");
-                            songDao.addSong(songInfo[1], songInfo[0], files[i].getAbsolutePath());
-                            Log.d(TAG, "scanSongs: " + name);
+    private void scanSongs(final String path)
+    {
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Connector.getDatabase();
+                File dir = new File(path);
+                File[] files = dir.listFiles();
+                if (files != null){
+                    for (int i = 0; i < files.length; i++){
+                        String name = files[i].getName();
+                        if (files[i].isDirectory()) {
+                            scanSongs(files[i].getAbsolutePath());
+                        }else {
+                            if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
+                                if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
+                                    SongDao songDao = new SongDao();
+                                    String[] songName = name.split("\\.");
+                                    String[] songInfo = songName[0].split("-");
+                                    songDao.addSong(songInfo[1], songInfo[0], files[i].getAbsolutePath());
+                                    Log.d(TAG, "scanSongs: " + name);
+                                }
+                            }
                         }
                     }
                 }
             }
-        }
+        });
+        thread.start();
     }
 
 }

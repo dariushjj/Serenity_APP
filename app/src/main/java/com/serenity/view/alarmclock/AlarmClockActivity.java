@@ -241,6 +241,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                     Toast.makeText(AlarmClockActivity.this,"now time is "+getText()+" " + time,Toast.LENGTH_LONG).show();
                     if (time.equals(getText()))
                     {
+                        // TODO: 19-7-3  here should be Week_day 
                         time = "";
                         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                         @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");

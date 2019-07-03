@@ -65,7 +65,6 @@
         <activity android:name="com.serenity.view.sign.SignInActivity" />
         <activity android:name="com.serenity.view.sign.SignUpActivity" />
         <activity android:name="com.serenity.serenityapp.MainActivity" />
-        <activity android:name="com.serenity.view.alarmclock.clock"/>
     </application>
 
 </manifest>

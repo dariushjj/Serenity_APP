@@ -79,7 +79,7 @@ public class SetAlarmClockActivity extends AppCompatActivity {
         //init time list
        //AlarmDao alarmDao = new AlarmDao();
        //alarmDao.addAlarm(String time, String state, Song song);
-        // TODO: 19-7-2  here a function should return all alarms and their starts
+        // TODO: 19-7-2  here a function should return all alarms and their states
             Time apple = new Time("Apple",true,false,true,true,false,true,false);
             timeList.add(apple);
             Time banana = new Time("Banana",false,true,false,true,true,true,false);

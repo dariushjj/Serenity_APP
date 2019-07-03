@@ -49,9 +49,6 @@ import me.relex.circleindicator.CircleIndicator;
 import static com.example.util.ConstantUtil.LYRIC_LIST;
 import static com.example.util.ConstantUtil.PLAY_TITLE_TEXT;
 import static com.example.util.ConstantUtil.TIME_LIST;
-
-
-
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "PlayActivity";
     private PagerAdapter pagerAdapter;

@@ -10,9 +10,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-/*
-从数据库中获取音乐播放uri
- */
 public class MusicPlayerServer extends Service {
     private static final String TAG = "MusicPlayerServer";
     private MyBinder myBinder = new MyBinder();

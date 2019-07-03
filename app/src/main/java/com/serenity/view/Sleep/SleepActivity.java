@@ -53,8 +53,6 @@ public class SleepActivity extends AppCompatActivity {
         final Button record2 = (Button) findViewById(R.id.play2);
         final Button record3 = (Button) findViewById(R.id.play3);
         final Button record4 = (Button) findViewById(R.id.play4);
-
-
         zhankai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
