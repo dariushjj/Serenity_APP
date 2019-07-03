@@ -422,12 +422,14 @@
 
 
             </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/record_name2"
                         android:layout_width="70dp"
@@ -435,22 +437,21 @@
                         android:layout_marginLeft="10dp"
                         android:text="梦话2："
                         android:textColor="@android:color/background_light"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <Button
                         android:id="@+id/play2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@mipmap/play"
-                        />
+                        android:background="@mipmap/play" />
 
                     <Button
                         android:id="@+id/delete2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@mipmap/shanchu"
-                        />
+                        android:background="@mipmap/shanchu" />
 
 
                 </LinearLayout>
@@ -571,10 +572,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="left"
+                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:text="鼾声次数：70次"
                         android:textColor="@android:color/background_light"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         />
                     <ImageView
                         android:layout_width="20dp"
@@ -590,10 +592,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="left"
+                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:text="最大分贝：33分贝"
                         android:textColor="@android:color/background_light"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -617,10 +620,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="left"
+                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:text="鼾声时长：4分钟"
                         android:textColor="@android:color/background_light"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         />
                     <ImageView
                         android:layout_width="20dp"
@@ -636,10 +640,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="left"
+                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:text="频        次：14分钟"
                         android:textColor="@android:color/background_light"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         />
                 </LinearLayout>
 
@@ -688,12 +693,13 @@
                     android:id="@+id/noisenum"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight='1'
                     android:layout_gravity="center_horizontal"
                     android:gravity="left"
                     android:layout_marginLeft="10dp"
                     android:text="1段噪音"
                     android:textColor="@android:color/background_light"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
                 <ImageView
                     android:layout_width="20dp"
@@ -707,11 +713,12 @@
                     android:id="@+id/maxnoise"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight='1'
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="最大分贝： 13分贝"
+                    android:text="最大分贝：13分贝"
                     android:textColor="@android:color/background_light"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
             </LinearLayout>
 
@@ -741,7 +748,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="睡眠建议"
                     android:textColor="@android:color/background_light"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
                 <TextView
                     android:layout_width="fill_parent"
@@ -750,7 +757,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     android:textColor="@android:color/background_light"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -772,7 +779,7 @@
             android:text="选择睡前状态"
             android:layout_marginTop="10dp"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp"
+            android:textSize="15sp"
             />
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
