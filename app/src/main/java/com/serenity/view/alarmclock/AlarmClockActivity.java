@@ -33,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.serenity.dao.AlarmDao;
+import com.serenity.dao.SongDao;
 import com.serenity.model.Alarm;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 
@@ -81,8 +83,9 @@ public class AlarmClockActivity extends AppCompatActivity {
         initWheel2();
         requestWakeLock();
         Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
+        // TODO: 2019/7/4 服务会报错
         startService(intent_s);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
         }
@@ -124,6 +127,12 @@ public class AlarmClockActivity extends AppCompatActivity {
                 minute = null;
                 Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
 
+
+// TODO: 2019/7/4 将闹钟写入数据库 
+//                AlarmDao alarmDao = new AlarmDao();
+//                SongDao songDao = new SongDao();
+////                String songPath = songDao.getPath("歌曲名");
+//                alarmDao.addAlarm("测试闹钟1100111", "响铃时间A：B", "1100111", "是否开启1或0", "歌曲路径songPath");
                 //here we send Broadcase when time changes
                 sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);

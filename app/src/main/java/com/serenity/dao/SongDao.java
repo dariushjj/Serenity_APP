@@ -69,7 +69,7 @@ public class SongDao implements SongDaoImpl {
 
     @Override
     public String getPath(String songName) {
-        ArrayList<Song> songs = (ArrayList<Song>)LitePal.where("where name = ?", songName).find(Song.class);
+        ArrayList<Song> songs = (ArrayList<Song>)LitePal.where("name = ?", songName).find(Song.class);
         return songs.get(0).getUri();
     }
 }
