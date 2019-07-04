@@ -30,10 +30,6 @@ public class MusicPlayerServer extends Service {
         initMediaPlayer(uri, true);
 
         Log.d(TAG, "onStartCommand " + uri);
-        if (!(intent.getStringExtra("uri") == null ||
-                intent.getStringExtra("uri").equals(""))){
-
-        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -52,7 +48,7 @@ public class MusicPlayerServer extends Service {
         if (!(intent.getStringExtra("uri") == null ||
                 intent.getStringExtra("uri").equals(""))){
             uri = intent.getStringExtra("uri");
-            isLocal = intent.getBooleanExtra("isLocal",false);
+            isLocal = intent.getBooleanExtra("isLocal",true);
             initMediaPlayer(uri, isLocal);
             Log.d(TAG, "onBind: " + uri);
         }

@@ -157,10 +157,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         play.setOnClickListener(this);
 
         Intent bindIntent = new Intent(this, MusicPlayerServer.class);
-        if (!isLocal){
-            bindIntent.putExtra("isLocal", isLocal);
-            bindIntent.putExtra("uri", uri);
-        }
+//        if (!isLocal){
+//            bindIntent.putExtra("isLocal", isLocal);
+//            bindIntent.putExtra("uri", uri);
+//        }
 
         bindService(bindIntent, connection, BIND_AUTO_CREATE);
 
@@ -196,7 +196,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<WheelData> initLyricData(){
         ArrayList<WheelData> list = new ArrayList<>();
         WheelData item;
-        while (lyricList == null || timeList == null){}
+//        while (lyricList == null || timeList == null){}
         if(lyricList == null || timeList == null || lyricList.size() != timeList.size()){
             item = new WheelData();
             item.setName("pure music.");
@@ -259,8 +259,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         unbindService(connection);
+        super.onDestroy();
     }
 
     private void setUiByTime(){
@@ -295,6 +295,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 //Id获取
                 MusicServerConnect musicServerConnect = new MusicServerConnect();
                 musicServerConnect.init(name,null, MusicServerConnect.SEARCH_RETURN_ID);
+                Log.d(TAG, "run: name" + name);
                 while (musicServerConnect.usefulInfo == null){}
                 id = musicServerConnect.usefulInfo;
                 Log.d(TAG, "run: " + id);
