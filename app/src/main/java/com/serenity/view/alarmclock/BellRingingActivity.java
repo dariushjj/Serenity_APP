@@ -53,8 +53,7 @@ public class BellRingingActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {      //here we set a timeCounter to remind me later
-                // TODO: 19-7-2  here need a function to get time to set time  internvel
-                CountDownTimer timer = new CountDownTimer(10*1000,1000)
+                CountDownTimer timer = new CountDownTimer(60*1000,1000)
                 {
                     @Override
                     public void onTick(long l)
