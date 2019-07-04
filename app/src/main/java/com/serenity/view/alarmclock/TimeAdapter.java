@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.AlarmDao;
 
 
 import java.util.ArrayList;
@@ -99,7 +100,8 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder>{
 
                     Log.d("asdasd", time.getName());
                     mTimeList.remove(time.getName());
-                    //remove from the database
+                        AlarmDao alarmDao = new AlarmDao();
+                        alarmDao.deleteAlarmByName(time.getName());
                     mTimeList.remove(position);//集合移除该条
                     notifyItemRemoved(position);//通知移除该条
                         notifyItemRangeChanged(position, mTimeList.size()-position);

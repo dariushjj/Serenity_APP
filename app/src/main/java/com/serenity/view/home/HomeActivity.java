@@ -53,6 +53,7 @@ public class HomeActivity extends AppCompatActivity{
         final NavigationView navigationView = findViewById(R.id.home_navigation_view);
         Button menuBtn = findViewById(R.id.title_menu_button);
         TextView textView = findViewById(R.id.title_menu_text);
+
         textView.setText(HOME);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +128,14 @@ public class HomeActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, SetAlarmClockActivity.class));
+            }
+        });
+        findViewById(R.id.sleep_card).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                startActivity(new Intent(HomeActivity.this, SleepActivity.class));
             }
         });
     }

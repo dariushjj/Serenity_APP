@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.AlarmDao;
 import com.serenity.dao.SongDao;
 import com.serenity.model.Alarm;
 import com.serenity.model.Song;
@@ -27,6 +30,8 @@ import java.util.List;
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
     private List<Music> mMusicList;
     private Context context;
+    private Thread thread;
+    private MediaPlayer player;
     static class ViewHolder extends RecyclerView.ViewHolder {
         View musicView;
         //ImageView fruitImage;
@@ -58,7 +63,10 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 Music music = mMusicList.get(position);
                 Toast.makeText(v.getContext(), "you clicked view " + music.getName(),
                         Toast.LENGTH_SHORT).show();
-                //have music
+               AlarmDao amarmdao = new AlarmDao();
+                String path = amarmdao.get_absolutePath(music.getName());
+                Log.d("path",path);
+                play(path);
                 //// TODO: 19-7-2  Play music 
             }
         });
@@ -69,10 +77,15 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 Music music = mMusicList.get(position);
                 String data=music.getName();
-
-                // music shut down
+                AlarmDao amarmdao = new AlarmDao();
+                String path = amarmdao.get_absolutePath(music.getName());
+                if(player.isPlaying())
+                {
+                    player.stop();
+                }
                 Intent intent = new Intent(context, AlarmClockActivity.class);
                 intent.putExtra("extra_data",data);
+                intent.putExtra("path",path);
                 context.startActivity(intent);
 
                 /*
@@ -132,6 +145,26 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
     public int getItemCount() {
         return mMusicList.size();
     }
-
+    private void play(final String song)
+    {
+        thread =  new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                player = new MediaPlayer();
+                try
+                {
+                    player.setDataSource(song);
+                    player.prepare();
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+                player.start();
+            }
+        });
+        thread.start();
+    }
 
 }

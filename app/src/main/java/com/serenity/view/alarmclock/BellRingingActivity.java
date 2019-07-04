@@ -17,9 +17,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.android.serenityapp.R;
+import com.serenity.dao.AlarmDao;
+import com.serenity.model.Alarm;
 
 public class BellRingingActivity extends AppCompatActivity
 {
+    String time;
+    String path;
     private Thread thread;
     private MediaPlayer player;
     private Vibrator vib;
@@ -38,6 +42,10 @@ public class BellRingingActivity extends AppCompatActivity
         {
             actionBar.hide();
         }
+        Intent intent_c=getIntent();
+        time=intent_c.getStringExtra("time_");
+        AlarmDao alarmDao = new AlarmDao();
+        alarmDao.getSongUriByAlarmTime(time);
         Button stopButton = (Button)findViewById(R.id.stopringbell);
         stopButton.setOnClickListener(new View.OnClickListener()
         {
@@ -68,11 +76,11 @@ public class BellRingingActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 }.start();
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
+                Intent intent = new Intent(BellRingingActivity.this,AlarmClockActivity.class);
+                //intent.setAction(Intent.ACTION_MAIN);
+                //intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
-                finish();
+               // finish();
             }
         });
         vib = (Vibrator)this.getSystemService(Service.VIBRATOR_SERVICE);
@@ -96,7 +104,7 @@ public class BellRingingActivity extends AppCompatActivity
                 player = new MediaPlayer();
                 try
                 {
-                    player.setDataSource(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/test.flac");
+                    player.setDataSource(path);
                     player.prepare();
                 }catch(Exception e)
                 {

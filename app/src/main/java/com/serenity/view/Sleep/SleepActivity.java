@@ -2,6 +2,7 @@ package com.serenity.view.Sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,7 @@ public class SleepActivity extends AppCompatActivity {
         final Button record2 = (Button) findViewById(id.play2);
         final Button record3 = (Button) findViewById(id.play3);
         final Button record4 = (Button) findViewById(id.play4);
+        final Button back = (Button) findViewById(id.sleepback);
         zhankai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -449,6 +451,12 @@ public class SleepActivity extends AppCompatActivity {
                     recordclick4=true;
                     record4.setBackgroundResource(R.mipmap.play);
                 }
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

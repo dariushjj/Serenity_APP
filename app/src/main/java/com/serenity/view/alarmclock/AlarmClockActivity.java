@@ -16,6 +16,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
@@ -72,6 +73,7 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square6 = false;
     private String time = "";
     private String day = "01011111";
+    private String song ;
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
     private PowerManager.WakeLock wakeLock = null;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -92,6 +94,7 @@ public class AlarmClockActivity extends AppCompatActivity {
         TextView alarmmusic=(TextView)findViewById(R.id.alarmmusic);
         Intent intent=getIntent();
         String data=intent.getStringExtra("extra_data");
+        song = intent.getStringExtra("path");
         alarmmusic.setText(data);
         Button forwardButton = (Button)findViewById(R.id.forwardbutton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
@@ -123,16 +126,11 @@ public class AlarmClockActivity extends AppCompatActivity {
                 Object minute=wheelViewminute.getSelectionItem().toString();
                 Object second=wheelViewsecond.getSelectionItem().toString();
                 time = hour.toString() + ":"+minute.toString();
+                AlarmDao dao = new AlarmDao();
+                dao.addAlarm(time ,time,get_states(),"1", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/test.flac");
                 hour = null;
                 minute = null;
                 Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
-
-
-// TODO: 2019/7/4 将闹钟写入数据库 
-//                AlarmDao alarmDao = new AlarmDao();
-//                SongDao songDao = new SongDao();
-////                String songPath = songDao.getPath("歌曲名");
-//                alarmDao.addAlarm("测试闹钟1100111", "响铃时间A：B", "1100111", "是否开启1或0", "歌曲路径songPath");
                 //here we send Broadcase when time changes
                 sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
@@ -259,6 +257,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                         wl.acquire();
                         Toast.makeText(AlarmClockActivity.this,"time is up",Toast.LENGTH_SHORT).show();
                         Intent intent_c = new Intent(getApplicationContext(),BellRingingActivity.class);
+                        intent.putExtra("time_",time);
                         startActivity(intent_c);
                         wl.release();
                         //tv.setText(getText());
@@ -280,6 +279,68 @@ public class AlarmClockActivity extends AppCompatActivity {
                 }
             }
         }, intentFilter);
+    }
+
+    private String get_states()
+    {
+        String states = "";
+        if(b_sub_square0)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square1)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square2)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square3)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square4)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square5)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        if(b_sub_square6)
+        {
+            states = states+"1";
+        }
+        else
+        {
+            states=states+"0";
+        }
+        return  states;
     }
 
 
@@ -445,7 +506,6 @@ public class AlarmClockActivity extends AppCompatActivity {
         return  calendar.get(Calendar.DAY_OF_WEEK);
 
     }
-
     @Override
     public void onDestroy()
     {
