@@ -24,11 +24,13 @@ import com.serenity.view.home.HomeActivity;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
 
     private boolean isLogin = false;
+    public static SignInActivity instance =  null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.signin);
+        instance = this;
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -47,6 +49,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }else {
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

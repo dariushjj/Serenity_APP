@@ -84,8 +84,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         Song song = songList.get(position);
         holder.titleText.setText(song.getName());
         holder.infoText.setText(song.getSinger());
-        if(onItemClickListener != null) {
-            if(position == this.position){
+        if(onItemClickListener != null)
+        {
+            if (position == this.position)
+            {
                 holder.titleText.setTextColor(Color.parseColor("#FF9500"));
                 holder.infoText.setTextColor(Color.parseColor("#FF9500"));
                 name = song.getName();
@@ -95,43 +97,22 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 stateTitleText.setText(name);
                 stateInfoText.setText(singer);
                 stateStopStartBtn.setBackgroundResource(R.drawable.stop);
-                if(player.isPlaying())
-                {
-                    player.stop();
-                    //stopStartBtn.setBackgroundResource(R.drawable.stop);
-                }
-                player = new MediaPlayer();
-                Thread thread = new Thread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        try
-                        {
-                            player.setDataSource(uri);
-                            player.prepare();
-                        }catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                        player.start();
-                    }
-                });
-                thread.start();
-            }
-            }
-            else{
+
+            } else
+            {
                 holder.titleText.setTextColor(Color.WHITE);
                 holder.infoText.setTextColor(Color.WHITE);
             }
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
                     onItemClickListener.onClick(view, holder.getLayoutPosition());
                 }
             });
-
+        }
     }
 
     @Override
@@ -144,6 +125,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
     public void setPosition(int position){
         this.position = position;
+        notifyDataSetChanged();
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
@@ -154,8 +136,4 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public static MediaPlayer getPlayer()
-    {
-        return player;
-    }
 }

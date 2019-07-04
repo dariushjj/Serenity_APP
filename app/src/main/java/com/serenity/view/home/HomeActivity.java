@@ -30,6 +30,7 @@ import com.serenity.view.Sleep.SleepActivity;
 import com.serenity.view.alarmclock.SetAlarmClockActivity;
 import com.serenity.view.guide.GuideActivity;
 import com.serenity.view.playlist.PlayListActivity;
+import com.serenity.view.sign.SignInActivity;
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
@@ -46,8 +47,16 @@ public class HomeActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        if(GuideActivity.instance!= null){
+            GuideActivity.instance.finish();
+        }
+        if(SignInActivity.instance!= null){
+            SignInActivity.instance.finish();
+        }
 
         drawerLayout = findViewById(R.id.home_drawer_layout);
         final NavigationView navigationView = findViewById(R.id.home_navigation_view);
@@ -172,5 +181,14 @@ public class HomeActivity extends AppCompatActivity{
         });
         thread.start();
     }
-
+    @Override
+    protected void onDestroy()
+    {
+        if(PlayListActivity.getplayer().isPlaying())
+        {
+            PlayListActivity.getplayer().stop();
+        }
+        super.onDestroy();
+        finish();
+    }
 }

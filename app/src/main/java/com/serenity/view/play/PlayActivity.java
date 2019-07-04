@@ -32,6 +32,7 @@ import com.android.serenityapp.R;
 import com.serenity.severconnect.MusicPlayerServer;
 import com.serenity.severconnect.MusicServerConnect;
 import com.serenity.view.alarmclock.Music;
+import com.serenity.view.playlist.PlayListActivity;
 import com.serenity.view.widget.BackTitleView;
 import com.wx.wheelview.widget.WheelView;
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
@@ -169,15 +170,25 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 初始化变量
      */
-    private void initVariables(){
+    private void initVariables()
+    {
         viewPager = findViewById(R.id.play_view_pager);
         backTitleTextView = findViewById(R.id.title_back_text);
         backTitleTextView.setText(PLAY_TITLE_TEXT);
         circleIndicator = findViewById(R.id.play_indicator);
-        play = (Button)findViewById(R.id.play_stop_start_button);
+        play = (Button) findViewById(R.id.play_stop_start_button);
         diskTitle = findViewById(R.id.play_disk_music_title);
         diskInfo = findViewById(R.id.play_disk_music_info);
-        wheelView = (WheelView)findViewById(R.id.play_lyric_wheel_view);
+        wheelView = (WheelView) findViewById(R.id.play_lyric_wheel_view);
+
+        if (PlayListActivity.getplayer().isPlaying())
+        {
+            play.setBackgroundResource(R.drawable.stop);
+        }
+        else
+        {
+            play.setBackgroundResource(R.drawable.start);
+        }
     }
 
     private void initViewList(){
@@ -216,18 +227,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.play_stop_start_button:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (isButtonStop){
-                            play.setBackgroundResource(R.drawable.start);
-                            isButtonStop = !isButtonStop;
-                        }else {
-                            play.setBackgroundResource(R.drawable.stop);
-                            isButtonStop = !isButtonStop;
-                        }
-                    }
-                }).start();
+                if (PlayListActivity.getplayer().isPlaying())
+                {
+                    play.setBackgroundResource(R.drawable.stop);
+                }
+                else
+                {
+                    play.setBackgroundResource(R.drawable.start);
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

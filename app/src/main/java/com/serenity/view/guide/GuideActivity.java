@@ -41,6 +41,7 @@ public class GuideActivity extends AppCompatActivity {
     private PagerAdapter pagerAdapter;
     private CircleIndicator circleIndicator;
     private boolean isGuided = false;
+    public static GuideActivity instance = null;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -50,6 +51,7 @@ public class GuideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
+        instance = this;
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -67,6 +69,7 @@ public class GuideActivity extends AppCompatActivity {
 
             Intent intent = new Intent(GuideActivity.this, SignInActivity.class);
             startActivity(intent);
+            finish();
         }
 
 
