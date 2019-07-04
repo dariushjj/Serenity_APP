@@ -53,8 +53,8 @@ public class AlarmDao implements AlarmDaoImpl {
     }
 
     @Override
-    public String getSongByAlarmTime(String alarmTime) {
+    public String getSongUriByAlarmTime(String alarmTime) {
         ArrayList<Alarm> alarms = (ArrayList<Alarm>)LitePal.where("alarmtime = ?", alarmTime).find(Alarm.class);
-        return alarms.get(0).getName();
+        return alarms.get(0).getSongUri();
     }
 }
