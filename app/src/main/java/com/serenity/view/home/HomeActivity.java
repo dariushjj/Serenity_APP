@@ -75,7 +75,6 @@ public class HomeActivity extends AppCompatActivity{
                         startActivity(new Intent(HomeActivity.this, SetAlarmClockActivity.class));
                         break;
                     case R.id.menu_sleep:
-                        Log.d(TAG, "shut up! ");
                         startActivity(new Intent(HomeActivity.this, SleepActivity.class));
                         break;
                     case R.id.menu_others:
@@ -92,6 +91,7 @@ public class HomeActivity extends AppCompatActivity{
                                 }, 1);
                             }else {
                                 scanSongs("/storage/emulated/0/");
+                                Toast.makeText(HomeActivity.this,"Scan finished",Toast.LENGTH_LONG).show();
                             }
                             Toast.makeText(HomeActivity.this, "Scaning....Please wait.", Toast.LENGTH_SHORT).show();
 //                            Toast.makeText(HomeActivity.this,"scan finished",Toast.LENGTH_LONG).show();
