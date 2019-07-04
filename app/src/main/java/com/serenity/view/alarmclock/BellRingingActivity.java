@@ -22,7 +22,6 @@ import com.serenity.model.Alarm;
 
 public class BellRingingActivity extends AppCompatActivity
 {
-    String time;
     String path;
     private Thread thread;
     private MediaPlayer player;
@@ -42,10 +41,7 @@ public class BellRingingActivity extends AppCompatActivity
         {
             actionBar.hide();
         }
-        Intent intent_c=getIntent();
-        time=intent_c.getStringExtra("time_");
-        AlarmDao alarmDao = new AlarmDao();
-        alarmDao.getSongUriByAlarmTime(time);
+
         Button stopButton = (Button)findViewById(R.id.stopringbell);
         stopButton.setOnClickListener(new View.OnClickListener()
         {

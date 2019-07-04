@@ -7,17 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.serenityapp.R;
 import com.serenity.dao.SongDao;
 import com.serenity.model.Song;
 import com.serenity.severconnect.MusicPlayerServer;
+import com.serenity.view.Sleep.SleepActivity;
 import com.serenity.view.play.PlayActivity;
 import com.serenity.view.widget.BackTitleView;
 
@@ -35,6 +38,8 @@ public class PlayListActivity extends AppCompatActivity {
     private List<Song> songList;
     private Button searchBtn;
     private TextView textView;
+    private MediaPlayer player = new MediaPlayer();
+    private Button stopStartBtn;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class PlayListActivity extends AppCompatActivity {
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
         searchBtn = findViewById(R.id.play_list_search_button);
+        stopStartBtn = playListStateView.findViewById(R.id.play_stop_start_button);
 
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,13 +71,19 @@ public class PlayListActivity extends AppCompatActivity {
         recyclerView.setAdapter(songAdapter);
         songAdapter.notifyDataSetChanged();
 
-        songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                songAdapter.setPosition(position);
-                songAdapter.notifyDataSetChanged();
-            }
-        });
+        songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener()
+                                           {
+                                               @Override
+                                               public void onClick(View view, int position)
+                                               {
+                                                   songAdapter.setPosition(position);
+                                                   songAdapter.notifyDataSetChanged();
+
+
+                                               }
+
+                                               ;
+                                           });
 
 
         playListStateView.setOnClickListener(new View.OnClickListener() {

@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private List<Song> songList;
     private TextView stateTitleText;
     private TextView stateInfoText;
+    private Button stateStopStartBtn;
     public String uri;
     public String name;
     public String singer;
@@ -42,6 +45,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private int position;
     private Context context;
     private OnItemClickListener onItemClickListener;
+    private MediaPlayer player = new MediaPlayer();
     public interface OnItemClickListener{
         void onClick(View view, int position);
     }
@@ -70,6 +74,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         stateTitleText = parentView.findViewById(R.id.play_list_state_title_text);
         stateInfoText = parentView.findViewById(R.id.play_list_state_info_text);
         stateImageView = parentView.findViewById(R.id.play_list_state_image);
+        stateStopStartBtn = parentView.findViewById(R.id.play_stop_start_button);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
         return new ViewHolder(view);
     }
@@ -89,19 +94,32 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 stateTitleText.setText(name);
                 stateInfoText.setText(singer);
-/*                new Thread(new Runnable() {
+//                stateStopStartBtn.setBackgroundResource(R.drawable.stop);
+//                stateImageView.setBackground();
+                if(player.isPlaying())
+                {
+                    player.stop();
+                    //stopStartBtn.setBackgroundResource(R.drawable.stop);
+                }
+                player = new MediaPlayer();
+                Thread thread = new Thread(new Runnable()
+                {
                     @Override
-                    public void run() {
-                        MusicServerConnect musicServerConnect = new MusicServerConnect();
-                        musicServerConnect.init(name, null, MusicServerConnect.SEARCH_RETURN_ID);
-                        while (musicServerConnect.usefulInfo == null){}
-                        id = musicServerConnect.usefulInfo;
-                        MusicServerConnect musicServerConnect2 = new MusicServerConnect();
-                        musicServerConnect2.init(null, id, MusicServerConnect.PIC);
-                        while (musicServerConnect2.usefulInfo == null){}
-//                        pic = musicServerConnect2.picture;
+                    public void run()
+                    {
+                        try
+                        {
+                            player.setDataSource(uri);
+                            player.prepare();
+                        }catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        player.start();
                     }
-                }).start();*/
+                });
+                thread.start();
+            }
             }
             else{
                 holder.titleText.setTextColor(Color.WHITE);
@@ -114,7 +132,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     onItemClickListener.onClick(view, holder.getLayoutPosition());
                 }
             });
-        }
+
     }
 
     @Override
