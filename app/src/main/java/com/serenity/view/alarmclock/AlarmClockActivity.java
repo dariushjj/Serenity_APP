@@ -52,6 +52,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -67,7 +68,8 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square4 = false;
     private Boolean b_sub_square5 = false;
     private Boolean b_sub_square6 = false;
-    private String time;
+    private String time = "";
+    private String day = "01011111";
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
     private PowerManager.WakeLock wakeLock = null;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -427,6 +429,12 @@ public class AlarmClockActivity extends AppCompatActivity {
             wakeLock.setReferenceCounted(false);
         }
         wakeLock.acquire();
+    }
+    public int get_DAYOFWEEK()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return  calendar.get(Calendar.DAY_OF_WEEK);
+
     }
 
     @Override
