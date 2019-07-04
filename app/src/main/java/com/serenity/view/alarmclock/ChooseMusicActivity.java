@@ -30,22 +30,15 @@ public class ChooseMusicActivity extends AppCompatActivity {
     }
 
     private void initMusics() {
-        //this.musicList = null;
-        //init music list
-        //SongDao songDao = new SongDao();
-        //ArrayList<Song> songs = songDao.getSongs();
 
+//        从数据库读取数据（从数据库扫描之后）
+        SongDao songDao = new SongDao();
+        ArrayList<Song> songs = songDao.getSongs();
+        for (Song s : songs){
+            musicList.add(new Music(s.getName()));
+        }
 
-        //// TODO: 19-7-2 here show songs
-        /*
-            Integer i = 0;
-            list<Song> songs = new list<Song>
-            for(song : songs)
-            {
-                music i.toString() = new Music(song.getname());
-            }
-         */
-        Music apple = new Music("loveyourself");
+/*        Music apple = new Music("loveyourself");
         musicList.add(apple);
         Music banana = new Music("baby");
         musicList.add(banana);
@@ -56,6 +49,6 @@ public class ChooseMusicActivity extends AppCompatActivity {
         Music pear = new Music("sugar");
         musicList.add(pear);
         Music grape = new Music("all of me");
-        musicList.add(grape);
+        musicList.add(grape);*/
     }
 }
