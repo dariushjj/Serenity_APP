@@ -38,7 +38,6 @@ public class PlayListActivity extends AppCompatActivity {
     private List<Song> songList;
     private Button searchBtn;
     private TextView textView;
-    private MediaPlayer player = new MediaPlayer();
     private Button stopStartBtn;
 
     @Override
@@ -55,7 +54,7 @@ public class PlayListActivity extends AppCompatActivity {
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
         searchBtn = findViewById(R.id.play_list_search_button);
-        stopStartBtn = playListStateView.findViewById(R.id.play_stop_start_button);
+        stopStartBtn = findViewById(R.id.play_list_state_stop_start_button);
 
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,19 +71,35 @@ public class PlayListActivity extends AppCompatActivity {
         songAdapter.notifyDataSetChanged();
 
         songAdapter.setOnItemClickListener(new SongAdapter.OnItemClickListener()
-                                           {
-                                               @Override
-                                               public void onClick(View view, int position)
-                                               {
-                                                   songAdapter.setPosition(position);
-                                                   songAdapter.notifyDataSetChanged();
+       {
+           @Override
+           public void onClick(View view, int position)
+           {
+               songAdapter.setPosition(position);
+               songAdapter.notifyDataSetChanged();
 
+           }
+       });
 
-                                               }
-
-                                               ;
-                                           });
-
+        stopStartBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(SongAdapter.getPlayer().isPlaying())
+                {
+                    Log.d("china", "button");
+                    System.out.println("fsdfsfdfdfs");
+                    SongAdapter.getPlayer().pause();
+                }
+                else
+                {
+                    System.out.println("sdfsfwfwefsrfsrfsdfesfsdfsfsdfsd");
+                    Log.d("china_2", "button");
+                    SongAdapter.getPlayer().start();
+                }
+            }
+        });
 
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +116,7 @@ public class PlayListActivity extends AppCompatActivity {
                         //infoText.setText()
                         break;
                     case R.id.play_list_state_stop_start_button:
+
                         //get information about the state of the song
                         //if singing then stop
                         //if stopped  the singing
@@ -111,19 +127,19 @@ public class PlayListActivity extends AppCompatActivity {
                         break;
                     default:
                         //启动音乐服务
-                        Intent musicService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
-                        musicService.putExtra("uri", songAdapter.uri);
-                        musicService.putExtra("isLocal", true);
-                        startService(musicService);
-                        Log.d(TAG, "onClick: " + songAdapter.uri);
-
-                        Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
-                        intent.putExtra("name", songAdapter.name);
-                        Log.d(TAG, "onClick: " + songAdapter.name);
-                        intent.putExtra("singer", songAdapter.singer);
-                        intent.putExtra("uri", songAdapter.uri);
-                        intent.putExtra("isLocal", true);
-                        startActivity(intent);
+//                        Intent musicService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
+//                        musicService.putExtra("uri", songAdapter.uri);
+//                        musicService.putExtra("isLocal", true);
+//                        startService(musicService);
+//                        Log.d(TAG, "onClick: " + songAdapter.uri);
+//
+//                        Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
+//                        intent.putExtra("name", songAdapter.name);
+//                        Log.d(TAG, "onClick: " + songAdapter.name);
+//                        intent.putExtra("singer", songAdapter.singer);
+//                        intent.putExtra("uri", songAdapter.uri);
+//                        intent.putExtra("isLocal", true);
+//                        startActivity(intent);
                 }
             }
         });

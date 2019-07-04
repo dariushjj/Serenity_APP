@@ -45,7 +45,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private int position;
     private Context context;
     private OnItemClickListener onItemClickListener;
-    private MediaPlayer player = new MediaPlayer();
+    private static MediaPlayer player = new MediaPlayer();
     public interface OnItemClickListener{
         void onClick(View view, int position);
     }
@@ -74,7 +74,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         stateTitleText = parentView.findViewById(R.id.play_list_state_title_text);
         stateInfoText = parentView.findViewById(R.id.play_list_state_info_text);
         stateImageView = parentView.findViewById(R.id.play_list_state_image);
-        stateStopStartBtn = parentView.findViewById(R.id.play_stop_start_button);
+        stateStopStartBtn = parentView.findViewById(R.id.play_list_state_stop_start_button);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
         return new ViewHolder(view);
     }
@@ -94,8 +94,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 stateTitleText.setText(name);
                 stateInfoText.setText(singer);
-//                stateStopStartBtn.setBackgroundResource(R.drawable.stop);
-//                stateImageView.setBackground();
+                stateStopStartBtn.setBackgroundResource(R.drawable.stop);
                 if(player.isPlaying())
                 {
                     player.stop();
@@ -155,4 +154,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public static MediaPlayer getPlayer()
+    {
+        return player;
+    }
 }

@@ -22,7 +22,7 @@ import com.serenity.model.Alarm;
 
 public class BellRingingActivity extends AppCompatActivity
 {
-    String path;
+    String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/test.flac";
     private Thread thread;
     private MediaPlayer player;
     private Vibrator vib;
@@ -76,7 +76,7 @@ public class BellRingingActivity extends AppCompatActivity
                 //intent.setAction(Intent.ACTION_MAIN);
                 //intent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(intent);
-               // finish();
+                finish();
             }
         });
         vib = (Vibrator)this.getSystemService(Service.VIBRATOR_SERVICE);
