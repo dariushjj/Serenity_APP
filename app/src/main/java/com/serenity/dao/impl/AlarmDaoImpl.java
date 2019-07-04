@@ -13,4 +13,5 @@ public interface AlarmDaoImpl
     String get_absolutePath(String song);
     String getAllAlarmTime();
     String getWeekByAlarmTime(String alarmTime);
+    String getSongByAlarmTime(String alarmTime);
 }
