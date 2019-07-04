@@ -52,6 +52,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -67,7 +68,8 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square4 = false;
     private Boolean b_sub_square5 = false;
     private Boolean b_sub_square6 = false;
-    private String  time;
+    private String  time = "";
+    private String day = "01011111";
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
     private PowerManager.WakeLock wakeLock = null;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -117,7 +119,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                 Object hour=wheelViewhour.getSelectionItem().toString();
                 Object minute=wheelViewminute.getSelectionItem().toString();
                 Object second=wheelViewsecond.getSelectionItem().toString();
-                time = hour.toString() + ":"+minute.toString();
+                time =time +" "+ hour.toString() + ":"+minute.toString();
                 hour = null;
                 minute = null;
                 Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
@@ -239,7 +241,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                     Log.d("time",time);
                     Log.d("getText()",getText());
                     Toast.makeText(AlarmClockActivity.this,"now time is "+getText()+" " + time,Toast.LENGTH_LONG).show();
-                    if (time.equals(getText()))
+                    if (time.contains(getText()) && (day.charAt(get_DAYOFWEEK()-1) == '1'))
                     {
                         // TODO: 19-7-3  here should be Week_day 
                         time = "";
@@ -427,6 +429,12 @@ public class AlarmClockActivity extends AppCompatActivity {
             wakeLock.setReferenceCounted(false);
         }
         wakeLock.acquire();
+    }
+    public int get_DAYOFWEEK()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return  calendar.get(Calendar.DAY_OF_WEEK);
+
     }
 
     @Override
