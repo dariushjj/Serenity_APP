@@ -1,57 +1,60 @@
 package com.serenity.dao;
 
-import android.content.ContentValues;
-
 import com.serenity.dao.impl.AlarmDaoImpl;
 import com.serenity.model.Alarm;
 import com.serenity.model.Song;
 
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmDao implements AlarmDaoImpl {
     public List<Alarm> getAllAlarms(){
-        return new UserDao().getCurrentUser().getAlarms();
+        return LitePal.findAll(Alarm.class);
     }
 
-    public void updateSong(Alarm alarm,String newsong)
+    public void deleteAlarmByName(String name)
     {
-        ContentValues values = new ContentValues();
-        values.put("song",newsong);
-        LitePal.update(Alarm.class,values,alarm.getId());
+        LitePal.deleteAll(Alarm.class, "name = ?", name);
     }
-    public void updateDate(Alarm alarm, String newDate)
-    {
-        ContentValues values  = new ContentValues();
-        values.put("date",newDate);
-        LitePal.update(Alarm.class,values,alarm.getId());
-    }
-    public void updateIsRepeat(Alarm alarm,boolean newIsRepeat)
-    {
-        ContentValues values = new ContentValues();
-        values.put("isRepeat",newIsRepeat);
-        LitePal.update(Alarm.class,values,alarm.getId());
-    }
-    public void updateRepeatTime(Alarm alarm, String newRepeatTime)
-    {
-        ContentValues values = new ContentValues();
-        values.put("repeatTime",newRepeatTime);
-        LitePal.update(Alarm.class,values,alarm.getId());
-    }
-    public void deleteAlarm(Alarm alarm)
-    {
-        LitePal.delete(Alarm.class,alarm.getId());
-    }
-    public void addAlarm(String date, Song song, boolean isRepeat, String repeatTime){
+
+    public void addAlarm(String songName, String alarmTime, String week, String isTurnOn, String songUri){
         Alarm alarm = new Alarm();
-        alarm.setDate(date);
-        alarm.setSong(song);
-        alarm.setRepeat(isRepeat);
-        alarm.setRepeatTime(repeatTime);
-        alarm.setUser(new UserDao().getCurrentUser());
+        alarm.setName(songName);
+        alarm.setAlarmTime(alarmTime);
+        alarm.setWeek(week);
+        alarm.setIsTurnOn(isTurnOn);
+        alarm.setSongUri(songUri);
         alarm.save();
     }
 
 
+    @Override
+    public String get_absolutePath(String song) {
+        ArrayList<Song> songs = (ArrayList<Song>)LitePal.where("name = ?", song).find(Song.class);
+        return songs.get(0).getUri();
+    }
+
+    @Override
+    public String getAllAlarmTime() {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Alarm> alarms = (ArrayList<Alarm>)getAllAlarms();
+        for (Alarm a : alarms){
+            sb.append(a.getAlarmTime()).append(" ");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String getWeekByAlarmTime(String alarmTime) {
+        ArrayList<Alarm> alarms = (ArrayList<Alarm>)LitePal.where("alarmtime = ?", alarmTime).find(Alarm.class);
+        return alarms.get(0).getWeek();
+    }
+
+    @Override
+    public String getSongUriByAlarmTime(String alarmTime) {
+        ArrayList<Alarm> alarms = (ArrayList<Alarm>)LitePal.where("alarmtime = ?", alarmTime).find(Alarm.class);
+        return alarms.get(0).getSongUri();
+    }
 }

@@ -45,14 +45,6 @@ public class GuideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(GuideActivity.this,new String[] {
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }, 1);
-        }else {
-            scanSongs("/storage/emulated/0/");
-        }
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -103,27 +95,4 @@ public class GuideActivity extends AppCompatActivity {
         finish();
     }
 
-    private void scanSongs(String path){
-        Connector.getDatabase();
-        File dir = new File(path);
-        File[] files = dir.listFiles();
-        if (files != null){
-            for (int i = 0; i < files.length; i++){
-                String name = files[i].getName();
-                if (files[i].isDirectory()) {
-                    scanSongs(files[i].getAbsolutePath());
-                }else {
-                    if (name.endsWith("flac") || name.endsWith("mp3") || name.endsWith("ape")){
-                        if (name.matches("(\\w|\\s)+-(\\w|\\s)+.(\\w)+")){
-                            SongDao songDao = new SongDao();
-                            String[] songName = name.split("\\.");
-                            String[] songInfo = songName[0].split("-");
-                            songDao.addSong(songInfo[1], songInfo[0], files[i].getAbsolutePath());
-                            Log.d(TAG, "scanSongs: " + name);
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

@@ -12,19 +12,11 @@ import org.litepal.crud.LitePalSupport;
  */
 public class Alarm extends LitePalSupport {
     private int id;
-    private String date;
-    private Song song;
-    private boolean isRepeat;
-    private String repeatTime;
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private String name;
+    private String alarmTime;
+    private String week;
+    private String isTurnOn;
+    private String songUri;
 
     public int getId() {
         return id;
@@ -34,35 +26,43 @@ public class Alarm extends LitePalSupport {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getName() {
+        return name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Song getSong() {
-        return song;
+    public String getAlarmTime() {
+        return alarmTime;
     }
 
-    public void setSong(Song song) {
-        this.song = song;
+    public void setAlarmTime(String alarmTime) {
+        this.alarmTime = alarmTime;
     }
 
-    public boolean isRepeat() {
-        return isRepeat;
+    public String getWeek() {
+        return week;
     }
 
-    public void setRepeat(boolean repeat) {
-        isRepeat = repeat;
+    public void setWeek(String week) {
+        this.week = week;
     }
 
-    public String getRepeatTime() {
-        return repeatTime;
+    public String getIsTurnOn() {
+        return isTurnOn;
     }
 
-    public void setRepeatTime(String repeatTime) {
-        this.repeatTime = repeatTime;
+    public void setIsTurnOn(String isTurnOn) {
+        this.isTurnOn = isTurnOn;
+    }
+
+    public String getSongUri() {
+        return songUri;
+    }
+
+    public void setSongUri(String songUri) {
+        this.songUri = songUri;
     }
 }

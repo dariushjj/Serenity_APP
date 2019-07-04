@@ -24,6 +24,8 @@ import com.serenity.view.widget.BackTitleView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.util.ConstantUtil.PLAY_LIST;
+
 public class PlayListActivity extends AppCompatActivity {
     private static final String TAG = "PlayListActivity";
     private BackTitleView backTitleView;
@@ -32,6 +34,7 @@ public class PlayListActivity extends AppCompatActivity {
     private SongAdapter songAdapter;
     private List<Song> songList;
     private Button searchBtn;
+    private TextView textView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class PlayListActivity extends AppCompatActivity {
         readSongList();
         //初始化界面
         backTitleView = findViewById(R.id.play_list_back_title_view);
+        textView = backTitleView.findViewById(R.id.title_back_text);
+        textView.setText(PLAY_LIST);
         playListStateView = findViewById(R.id.play_list_state_view);
         recyclerView = findViewById(R.id.play_list_recycler_view);
         searchBtn = findViewById(R.id.play_list_search_button);

@@ -33,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.serenity.dao.AlarmDao;
+import com.serenity.dao.SongDao;
 import com.serenity.model.Alarm;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 
@@ -52,6 +54,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -67,7 +70,8 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square4 = false;
     private Boolean b_sub_square5 = false;
     private Boolean b_sub_square6 = false;
-    private String  time;
+    private String time = "";
+    private String day = "01011111";
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
     private PowerManager.WakeLock wakeLock = null;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,8 +83,9 @@ public class AlarmClockActivity extends AppCompatActivity {
         initWheel2();
         requestWakeLock();
         Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
+        // TODO: 2019/7/4 服务会报错
         startService(intent_s);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
         }
@@ -122,6 +127,12 @@ public class AlarmClockActivity extends AppCompatActivity {
                 minute = null;
                 Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();
 
+
+// TODO: 2019/7/4 将闹钟写入数据库 
+//                AlarmDao alarmDao = new AlarmDao();
+//                SongDao songDao = new SongDao();
+////                String songPath = songDao.getPath("歌曲名");
+//                alarmDao.addAlarm("测试闹钟1100111", "响铃时间A：B", "1100111", "是否开启1或0", "歌曲路径songPath");
                 //here we send Broadcase when time changes
                 sendBroadcast(new Intent("update_time_action"));
                 Intent intent=new Intent(AlarmClockActivity.this,SetAlarmClockActivity.class);
@@ -241,6 +252,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                     Toast.makeText(AlarmClockActivity.this,"now time is "+getText()+" " + time,Toast.LENGTH_LONG).show();
                     if (time.equals(getText()))
                     {
+                        // TODO: 19-7-3  here should be Week_day 
                         time = "";
                         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
                         @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl =pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK , "StartupReceiver");
@@ -426,6 +438,12 @@ public class AlarmClockActivity extends AppCompatActivity {
             wakeLock.setReferenceCounted(false);
         }
         wakeLock.acquire();
+    }
+    public int get_DAYOFWEEK()
+    {
+        Calendar calendar = Calendar.getInstance();
+        return  calendar.get(Calendar.DAY_OF_WEEK);
+
     }
 
     @Override

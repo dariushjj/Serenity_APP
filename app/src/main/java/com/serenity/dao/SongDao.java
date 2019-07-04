@@ -61,4 +61,15 @@ public class SongDao implements SongDaoImpl {
     public ArrayList<String> getTime(Song song) {
         return null;
     }
+
+    @Override
+    public void deleteSongs() {
+        LitePal.deleteAll(Song.class);
+    }
+
+    @Override
+    public String getPath(String songName) {
+        ArrayList<Song> songs = (ArrayList<Song>)LitePal.where("name = ?", songName).find(Song.class);
+        return songs.get(0).getUri();
+    }
 }
