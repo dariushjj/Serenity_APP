@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.serenityapp.R;
+import com.serenity.model.Song;
 import com.serenity.severconnect.MusicPlayerServer;
 import com.serenity.severconnect.MusicServerConnect;
 import com.serenity.view.alarmclock.Music;
@@ -50,6 +51,8 @@ import me.relex.circleindicator.CircleIndicator;
 import static com.example.util.ConstantUtil.LYRIC_LIST;
 import static com.example.util.ConstantUtil.PLAY_TITLE_TEXT;
 import static com.example.util.ConstantUtil.TIME_LIST;
+import static com.serenity.view.playlist.PlayListActivity.songList;
+
 public class PlayActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "PlayActivity";
     private PagerAdapter pagerAdapter;
@@ -74,23 +77,23 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private String id;
     private Bitmap pic;
     private boolean isLocal;
-
+    private int position_;
     private ArrayList<String> lyricList = null;
     private ArrayList<String> timeList = null;
-
+    private MediaPlayer plaayer;
     private boolean isButtonStop = false;
-    private MusicPlayerServer.MyBinder myBinder;
+//    private MusicPlayerServer.MyBinder myBinder;
 
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            myBinder = (MusicPlayerServer.MyBinder) iBinder;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-        }
-    };
+//    private ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+//            myBinder = (MusicPlayerServer.MyBinder) iBinder;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//        }
+//    };
 
 
     @Override
@@ -102,16 +105,15 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         if(actionBar != null){
             actionBar.hide();
         }
-
         initVariables();
         initViewList();
         getLrcImage();
-
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         singer = intent.getStringExtra("singer");
         uri = intent.getStringExtra("uri");
         isLocal = intent.getBooleanExtra("isLocal", true);
+        position_ = intent.getIntExtra("position",1);
 
         diskTitle.setText(name);
         diskInfo.setText(singer);
@@ -163,7 +165,27 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 //            bindIntent.putExtra("uri", uri);
 //        }
 
-        bindService(bindIntent, connection, BIND_AUTO_CREATE);
+//        bindService(bindIntent, connection, BIND_AUTO_CREATE);
+
+        play.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (PlayListActivity.getplayer().isPlaying())
+                {
+                    PlayListActivity.getplayer().pause();
+                    play.setBackgroundResource(R.drawable.start);
+                }
+                else
+                {
+                    PlayListActivity.getplayer().start();
+                    play.setBackgroundResource(R.drawable.stop);
+                }
+            }
+        });
+
+        setUiBytime();
 
     }
 
@@ -189,6 +211,78 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         {
             play.setBackgroundResource(R.drawable.start);
         }
+
+        findViewById(R.id.play_previous_button).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                position_ = (--position_) % PlayListActivity.getSongList().size();
+                Song song_ = PlayListActivity.getSongList().get(position_);
+                setView(song_);
+                final String uri_ = song_.getUri();
+                if(PlayListActivity.getplayer().isPlaying())
+                {
+                    PlayListActivity.getplayer().stop();
+                    //stopStartBtn.setBackgroundResource(R.drawable.stop);
+                }
+                PlayListActivity.setplayer(new MediaPlayer());
+                Thread thread_ = new Thread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            Thread.sleep(200);
+                            PlayListActivity.getplayer().setDataSource(uri_);
+                            PlayListActivity.getplayer().prepare();
+                        }catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        PlayListActivity.getplayer().start();
+                    }
+                });
+                thread_.start();
+            }
+        });
+
+        findViewById(R.id.play_next_button).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                position_ = (++position_) % PlayListActivity.getSongList().size();
+                Song song_ = PlayListActivity.getSongList().get(position_);
+                setView(song_);
+                final String uri_ = song_.getUri();
+                    if(PlayListActivity.getplayer().isPlaying())
+                {
+                    PlayListActivity.getplayer().stop();
+                    //stopStartBtn.setBackgroundResource(R.drawable.stop);
+                }
+                    PlayListActivity.setplayer(new MediaPlayer());
+                Thread thread_ = new Thread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            Thread.sleep(200);
+                            PlayListActivity.getplayer().setDataSource(uri_);
+                            PlayListActivity.getplayer().prepare();
+                        }catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        PlayListActivity.getplayer().start();
+                    }
+                });
+                thread_.start();
+        }
+        });
     }
 
     private void initViewList(){
@@ -229,60 +323,68 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.play_stop_start_button:
                 if (PlayListActivity.getplayer().isPlaying())
                 {
-                    play.setBackgroundResource(R.drawable.stop);
+                    PlayListActivity.getplayer().pause();
+                    play.setBackgroundResource(R.drawable.start);
                 }
                 else
                 {
-                    play.setBackgroundResource(R.drawable.start);
+                    PlayListActivity.getplayer().start();
+                    play.setBackgroundResource(R.drawable.stop);
                 }
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (myBinder.isPlaying()){
-                            myBinder.pauseMusic();
-                        }else {
-                            myBinder.playMusic();
-                        }
-                    }
-                }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!myBinder.isPlaying()){
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    setUiByTime();
-                                }
-                            }, 0, 1000);
-                        }
-                    }
-                }).start();
+                break;
+            case R.id.play_next_button:
+                break;
+            case R.id.play_previous_button:
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        unbindService(connection);
-        super.onDestroy();
-    }
-
-    private void setUiByTime(){
-        runOnUiThread(new Runnable() {
+    private void setUiBytime()
+    {
+        plaayer = PlayListActivity.getplayer();
+        Thread thread = new Thread(new Runnable()
+        {
+            // TODO: 19-7-4  
             @Override
-            public void run() {
-                int currentTime = myBinder.getPlayPosition() / 1000;
-                int leftTime = (myBinder.getProgress() - myBinder.getPlayPosition()) / 1000;
-                float ratio = (float) myBinder.getPlayPosition() / myBinder.getProgress();
-                currentProgress.setText(String.format("%02d:%02d",currentTime / 60, currentTime % 60));
-                leftProgress.setText(String.format("%02d:%02d",leftTime / 60, leftTime % 60));
-                circleProgressBar.setProgress(ratio * 100);
+            public void run()
+            {
+                while (true)
+                {
+                    try
+                    {
+                        Thread.sleep(1000);
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    Log.d("come in","comein");
+                    if (plaayer.isPlaying())
+                    {
+                        float ratio = (float) plaayer.getCurrentPosition() / plaayer.getDuration();
+                        circleProgressBar.setProgress(ratio * 100);
+                    }
+                }
+
             }
-         });
+        });
+        thread.start();
     }
+//    @Override
+//    protected void onDestroy() {
+//        unbindService(connection);
+//        super.onDestroy();
+//    }
+
+//    private void setUiByTime(){
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+
+//            }
+//         });
+//    }
 
     private void setImage(){
         runOnUiThread(new Runnable() {
@@ -324,5 +426,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 setImage();
             }
         }).start();
+    }
+
+    private void setView(Song song)
+    {
+        diskTitle.setText(song.getName());
+        diskInfo.setText(song.getSinger());
+        name = song.getName();
+        getLrcImage();
+//        diskImage
     }
 }

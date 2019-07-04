@@ -35,14 +35,14 @@ public class PlayListActivity extends AppCompatActivity {
     private PlayListStateView playListStateView;
     private RecyclerView recyclerView;
     private SongAdapter songAdapter;
-    private List<Song> songList;
+    public static List<Song> songList;
     private Button searchBtn;
     private TextView textView;
     private Button stopStartBtn;
     private Button previousBtn;
     private Button nextBtn;
     private static MediaPlayer player = new MediaPlayer();
-    private int position;
+    public static int position;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -205,27 +205,14 @@ public class PlayListActivity extends AppCompatActivity {
         playListStateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.play_list_state_image:
-                    case R.id.play_list_state_info_text:
-                    case R.id.play_list_state_title_text:
-                        break;
-                    default:
-                        //启动音乐服务
-                        Intent musicService = new Intent(PlayListActivity.this, MusicPlayerServer.class);
-                        musicService.putExtra("uri", songAdapter.uri);
-                        musicService.putExtra("isLocal", true);
-                        startService(musicService);
-                        Log.d(TAG, "onClick: " + songAdapter.uri);
-//
-                        Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
-                        intent.putExtra("name", songAdapter.name);
-                        Log.d(TAG, "onClick: " + songAdapter.name);
-                        intent.putExtra("singer", songAdapter.singer);
-                        intent.putExtra("uri", songAdapter.uri);
-                        intent.putExtra("isLocal", true);
-                        startActivity(intent);
-                }
+                Intent intent = new Intent(PlayListActivity.this, PlayActivity.class);
+                intent.putExtra("name", songAdapter.name);
+                Log.d(TAG, "onClick: " + songAdapter.name);
+                intent.putExtra("singer", songAdapter.singer);
+                intent.putExtra("uri", songAdapter.uri);
+                intent.putExtra("isLocal", true);
+                intent.putExtra("position",position);
+                startActivity(intent);
             }
         });
     }
@@ -241,5 +228,14 @@ public class PlayListActivity extends AppCompatActivity {
     public static MediaPlayer getplayer()
     {
         return player;
+    }
+    public static void setplayer(MediaPlayer mediaPlayer){
+        player = mediaPlayer;
+    }
+    public static List<Song> getSongList(){
+        return songList;
+    }
+    public static void setPosition(int pos){
+        position = pos;
     }
 }
