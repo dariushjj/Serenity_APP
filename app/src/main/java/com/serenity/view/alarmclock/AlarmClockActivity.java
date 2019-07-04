@@ -84,9 +84,9 @@ public class AlarmClockActivity extends AppCompatActivity {
         getpermission();
         initWheel2();
         requestWakeLock();
-        Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
+        //``fvc Intent intent_s = new Intent(AlarmClockActivity.this,ServiceofClock.class);
         // TODO: 2019/7/4 服务会报错
-        startService(intent_s);
+        //startService(intent_s);
         final ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -127,7 +127,7 @@ public class AlarmClockActivity extends AppCompatActivity {
                 Object second=wheelViewsecond.getSelectionItem().toString();
                 time = hour.toString() + ":"+minute.toString();
                 AlarmDao dao = new AlarmDao();
-                dao.addAlarm(time ,time,get_states(),"1", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/test.flac");
+                dao.addAlarm(time ,time,get_states(),"1", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/sheSay.mp3");
                 hour = null;
                 minute = null;
                 Toast.makeText(AlarmClockActivity.this,"the colok will ring at "+time,Toast.LENGTH_LONG).show();

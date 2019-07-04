@@ -82,6 +82,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> timeList = null;
     private MediaPlayer plaayer;
     private boolean isButtonStop = false;
+    String current ;
+    String left;
 //    private MusicPlayerServer.MyBinder myBinder;
 
 //    private ServiceConnection connection = new ServiceConnection() {
@@ -344,32 +346,76 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void setUiBytime()
     {
         plaayer = PlayListActivity.getplayer();
-        Thread thread = new Thread(new Runnable()
-        {
-            // TODO: 19-7-4  
+        new Thread(new Runnable() {
             @Override
             public void run()
             {
-                while (true)
+                while(true)
                 {
+                    int currentTime = plaayer.getCurrentPosition() / 1000;
+                    int leftTime = plaayer.getDuration() / 1000;
+                    current = String.format("%02d:%02d", currentTime / 60, currentTime % 60);
+                    left = String.format("%02d:%02d", leftTime / 60, leftTime % 60);
+                    //Log.d("current ",String.format("%02d:%02d", currentTime / 60, currentTime % 60));
+                    //Log.d("left",String.format("%02d:%02d", leftTime / 60, leftTime % 60));
+                    float ratio = (float) plaayer.getCurrentPosition() / plaayer.getDuration();
+                    circleProgressBar.setProgress(ratio * 100);
+
                     try
                     {
                         Thread.sleep(1000);
-                    }catch (Exception e)
+                    }
+                    catch (InterruptedException e)
                     {
                         e.printStackTrace();
                     }
-                    Log.d("come in","comein");
-                    if (plaayer.isPlaying())
+                    PlayActivity.this.runOnUiThread(new Runnable()
                     {
-                        float ratio = (float) plaayer.getCurrentPosition() / plaayer.getDuration();
-                        circleProgressBar.setProgress(ratio * 100);
-                    }
+                        @Override
+                        public void run()
+                        {
+
+                            currentProgress.setText(current);
+                            leftProgress.setText(left);
+                        }
+                    });
                 }
 
             }
-        });
-        thread.start();
+        }).start();
+
+//        Thread  thread = new Thread(new Runnable()
+//        {
+//            // TODO: 19-7-4
+//            @Override
+//            public void run()
+//            {
+//                while (true)
+//                {
+//                    try
+//                    {
+//                        Thread.sleep(1000);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                    if (plaayer.isPlaying())
+//                    {
+//                        int currentTime = plaayer.getCurrentPosition() / 1000;
+//                        int leftTime = plaayer.getDuration() / 1000;
+//                        //Log.d("current ",String.format("%02d:%02d", currentTime / 60, currentTime % 60));
+//                        //Log.d("left",String.format("%02d:%02d", leftTime / 60, leftTime % 60));
+//                        float ratio = (float) plaayer.getCurrentPosition() / plaayer.getDuration();
+//                        circleProgressBar.setProgress(ratio * 100);
+//                        currentProgress.setText(String.format("%02d:%02d", currentTime / 60, currentTime % 60));
+//                        leftProgress.setText(String.format("%02d:%02d", leftTime / 60, leftTime % 60));
+//                    }
+//                }
+//
+//            }
+//        });
+//        thread.start();
     }
 //    @Override
 //    protected void onDestroy() {

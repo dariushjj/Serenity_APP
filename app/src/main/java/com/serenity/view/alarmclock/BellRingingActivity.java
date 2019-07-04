@@ -22,7 +22,7 @@ import com.serenity.model.Alarm;
 
 public class BellRingingActivity extends AppCompatActivity
 {
-    String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/test.flac";
+    String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/sheSay.mp3";
     private Thread thread;
     private MediaPlayer player;
     private Vibrator vib;
