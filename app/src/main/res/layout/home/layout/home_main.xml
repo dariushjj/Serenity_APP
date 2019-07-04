@@ -89,7 +89,6 @@
             android:layout_marginStart="40dp"/>
     </androidx.cardview.widget.CardView>
 
-    <!--
     <androidx.cardview.widget.CardView
         android:id="@+id/others_card"
         android:layout_width="wrap_content"
@@ -108,14 +107,15 @@
             android:layout_width="330dp"
             android:layout_height="110dp"
             android:background="@drawable/background4"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/others"
-            android:textSize="20sp"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginStart="40dp"/>
-    </androidx.cardview.widget.CardView>-->
+            android:text="to be continued"
+            android:textSize="20sp" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.serenityapp.R;
+import com.example.util.PreferenceUtil;
 import com.serenity.dao.SongDao;
 import com.serenity.serenityapp.MainActivity;
+import com.serenity.view.home.HomeActivity;
 import com.serenity.view.sign.SignInActivity;
 
 import org.litepal.tablemanager.Connector;
@@ -38,6 +40,8 @@ public class GuideActivity extends AppCompatActivity {
     private List<View> viewList;
     private PagerAdapter pagerAdapter;
     private CircleIndicator circleIndicator;
+    private boolean isGuided = false;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("ResourceType")
@@ -50,6 +54,22 @@ public class GuideActivity extends AppCompatActivity {
         if(actionBar != null){
             actionBar.hide();
         }
+        isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
+
+        //第一次登录
+//        isGuided = false;
+        if(!isGuided){
+
+//            欢迎界面
+            PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
+
+        }else {
+
+            Intent intent = new Intent(GuideActivity.this, SignInActivity.class);
+            startActivity(intent);
+        }
+
+
         viewPager = findViewById(R.id.guide_viewpager);
         circleIndicator = findViewById(R.id.indicator);
         this.initViewList();
@@ -94,5 +114,7 @@ public class GuideActivity extends AppCompatActivity {
         startActivity(new Intent(GuideActivity.this, SignInActivity.class));
         finish();
     }
+
+
 
 }

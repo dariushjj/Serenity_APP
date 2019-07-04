@@ -16,13 +16,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.serenityapp.R;
+import com.example.util.PreferenceUtil;
 import com.serenity.dao.UserDao;
+import com.serenity.view.guide.GuideActivity;
 import com.serenity.view.home.HomeActivity;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private boolean isLogin = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.signin);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -32,6 +37,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         Button accountButton = (Button)findViewById(R.id.sign_in_button);
         needRegister.setOnClickListener(this);
         accountButton.setOnClickListener(this);
+        isLogin = PreferenceUtil.getBooleanValue(this, PreferenceUtil.LOGIN, "login");
+        if(!isLogin){
+
+//            欢迎界面
+            PreferenceUtil.setBooleanPair(this, PreferenceUtil.LOGIN, true, "login");
+
+
+        }else {
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

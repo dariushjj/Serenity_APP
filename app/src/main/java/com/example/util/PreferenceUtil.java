@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class PreferenceUtil {
 
     public static final String GUIDE = "guide";
-
+    public static final String LOGIN = "login";
     public static boolean setBooleanPair(Context context, String key, boolean value, String fileType){
         SharedPreferences preferences = context.getSharedPreferences(fileType, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

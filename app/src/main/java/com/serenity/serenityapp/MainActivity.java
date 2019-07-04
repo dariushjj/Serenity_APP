@@ -19,6 +19,7 @@ import com.serenity.severconnect.MusicServerConnect;
 import com.serenity.view.alarmclock.ServiceofClock;
 import com.serenity.view.guide.GuideActivity;
 import com.example.util.PreferenceUtil;
+import com.serenity.view.home.HomeActivity;
 import com.serenity.view.play.PlayActivity;
 import com.serenity.view.sign.SignInActivity;
 
@@ -37,7 +38,7 @@ import static com.example.util.ConstantUtil.TIME_LIST;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private boolean isGuided = false;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -53,19 +54,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        isGuided = PreferenceUtil.getBooleanValue(this, PreferenceUtil.GUIDE, "guide");
-        //第一次登录
-//        isGuided = false;
-        if(!isGuided){
 
-//            欢迎界面
-            PreferenceUtil.setBooleanPair(this, PreferenceUtil.GUIDE, true, "guide");
-            Intent intent = new Intent(MainActivity.this, GuideActivity.class);
-            startActivity(intent);
-        }else {
-            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-            startActivity(intent);
-        }
 
     }
 
