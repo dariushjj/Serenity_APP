@@ -19,16 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name="com.serenity.view.Sleep.SleepActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name="com.serenity.view.alarmclock.ChooseMusicActivity">
 
         </activity>
         <activity android:name="com.serenity.view.alarmclock.BellRingingActivity"></activity>
-        <activity android:name="com.serenity.view.home.HomeActivity" />
+        <activity android:name="com.serenity.view.home.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <service
             android:name="com.serenity.severconnect.MusicPlayerServer"
             android:enabled="true"

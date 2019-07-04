@@ -90,12 +90,11 @@ public class HomeActivity extends AppCompatActivity{
                                 ActivityCompat.requestPermissions(HomeActivity.this,new String[] {
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                                 }, 1);
-                                scanSongs("/storage/emulated/0/");
                             }else {
-                                Toast.makeText(HomeActivity.this, "Scaning....Please wait.", Toast.LENGTH_SHORT).show();
                                 scanSongs("/storage/emulated/0/");
                             }
-                            Toast.makeText(HomeActivity.this,"scan finished",Toast.LENGTH_LONG).show();
+                            Toast.makeText(HomeActivity.this, "Scaning....Please wait.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(HomeActivity.this,"scan finished",Toast.LENGTH_LONG).show();
                         }else {
                             new AlertDialog.Builder(HomeActivity.this)
                                     .setTitle("Watch!")
