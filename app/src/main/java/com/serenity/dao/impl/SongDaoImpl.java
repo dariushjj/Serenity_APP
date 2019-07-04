@@ -18,6 +18,7 @@ public interface SongDaoImpl {
     ArrayList<String> getLyric(Song song);
     ArrayList<String> getTime(Song song);
     void deleteSongs();
+    String getPath(String songName);
 
 
 }

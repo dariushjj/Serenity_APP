@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="litepal" />
-    <version value="4" />
+    <version value="5" />
 
     <list>
         <!--待添加的类列表-->

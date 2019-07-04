@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.serenityapp.R;
 import com.serenity.dao.SongDao;
+import com.serenity.model.Alarm;
 import com.serenity.model.Song;
 
 import java.util.List;
@@ -61,15 +62,14 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder>{
                 //// TODO: 19-7-2  Play music 
             }
         });
-        
-        // TODO: 19-7-2    write to databases
+
         holder.select_alarm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 Music music = mMusicList.get(position);
                 String data=music.getName();
-                //write to the database
+
                 // music shut down
                 Intent intent = new Intent(context, AlarmClockActivity.class);
                 intent.putExtra("extra_data",data);

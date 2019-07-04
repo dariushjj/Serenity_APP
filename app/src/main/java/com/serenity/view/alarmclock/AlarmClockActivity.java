@@ -67,7 +67,7 @@ public class AlarmClockActivity extends AppCompatActivity {
     private Boolean b_sub_square4 = false;
     private Boolean b_sub_square5 = false;
     private Boolean b_sub_square6 = false;
-    private String  time;
+    private String time;
     private WheelView hourWheelView, minuteWheelView, secondWheelView;
     private PowerManager.WakeLock wakeLock = null;
     @RequiresApi(api = Build.VERSION_CODES.M)

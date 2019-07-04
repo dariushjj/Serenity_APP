@@ -8,11 +8,12 @@ import com.serenity.model.Song;
 
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmDao implements AlarmDaoImpl {
     public List<Alarm> getAllAlarms(){
-        return new UserDao().getCurrentUser().getAlarms();
+        return LitePal.findAll(Alarm.class);
     }
 
     public void updateSong(Alarm alarm,String newsong)
@@ -43,13 +44,13 @@ public class AlarmDao implements AlarmDaoImpl {
     {
         LitePal.delete(Alarm.class,alarm.getId());
     }
-    public void addAlarm(String date, Song song, boolean isRepeat, String repeatTime){
+    public void addAlarm(String songName, String alarmTime, String week, String isTurnOn, String songUri){
         Alarm alarm = new Alarm();
-        alarm.setDate(date);
-        alarm.setSong(song);
-        alarm.setRepeat(isRepeat);
-        alarm.setRepeatTime(repeatTime);
-        alarm.setUser(new UserDao().getCurrentUser());
+        alarm.setName(songName);
+        alarm.setAlarmTime(alarmTime);
+        alarm.setWeek(week);
+        alarm.setIsTurnOn(isTurnOn);
+        alarm.setSongUri(songUri);
         alarm.save();
     }
 
@@ -65,7 +66,8 @@ public class AlarmDao implements AlarmDaoImpl {
 
     @Override
     public String get_absolutePath(String song) {
-        return null;
+        ArrayList<Song> songs = (ArrayList<Song>)LitePal.where("where name = ?", song).find(Song.class);
+        return songs.get(0).getUri();
     }
 
     @Override
